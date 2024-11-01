@@ -1,0 +1,88 @@
+body {
+    font-family: "Roboto Condensed", sans-serif;
+    color: black;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+#main {
+    background: url("../images/blog-img.jpg") no-repeat center center;
+    padding: 40px 0;
+    background-size: cover;
+    position: relative;
+}
+
+#main .content {
+    border-radius: 9px;
+    background: white;
+    width: 620px;
+    margin: auto;
+    padding: 50px;
+}
+
+#main .content h3 {
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    font-weight: 700;
+    font-size: 1.25em;
+}
+
+#main label {
+    font-weight: bold;
+    display: block;
+    font-size: .9em;
+    margin-bottom: 0.4em;
+}
+
+textarea, form input[type='email'], input[type='text'], input[type='password'], input[type='tel']{
+    box-sizing: border-box;
+    border: 2px solid #ddd;
+    padding: 0 .75em;
+    height: 2.507em;
+    font-size: .97em;
+    border-radius: 0;
+    max-width: 100%;
+    width: 100%;
+    vertical-align: middle;
+    background-color: #fff;
+    color: #333;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: color .3s, border .3s, background .3s, opacity .3s;
+}
+
+input[type='checkbox'] {
+    border: 2px solid #ddd;
+}
+
+.form-check-input:checked {
+    background-color: #669933;
+    border-color: #669933;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #669933;
+    --bs-btn-border-color: #669933;
+
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #2f5900;
+    --bs-btn-hover-border-color: #2f5900;
+}
+
+.option {
+    margin-top: 9px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+form button {
+    text-transform: uppercase;
+}
+
+.option a {
+    color: #2f5900;
+    text-decoration: none;
+}
