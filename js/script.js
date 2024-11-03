@@ -25,7 +25,11 @@ function calculateTotalPrice() {
 updateCartButton.addEventListener('click', () => {
     const totalPrice = calculateTotalPrice();
     document.querySelector('.tamtinhsanpham .price').innerText = `${totalPrice.toLocaleString()}đ`;
-    document.querySelector('.rowright .p1').innerText = `${totalPrice.toLocaleString()}đ`;
+    document.querySelector('.rowright .p').innerText = `${totalPrice.toLocaleString()}đ`;
      document.getElementById("tongtienthanhtoan").innerText = `${totalPrice.toLocaleString()}đ`;
 });
 
+var displaygiaohang = document.getElementById("giaohang");
+function giaohang(){
+    displaygiaohang.style.display = "block";
+}
