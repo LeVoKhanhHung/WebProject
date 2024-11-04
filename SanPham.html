@@ -72,9 +72,7 @@
             </div>
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <div class="main_name fw-bold text-warning text-center fs-1 ">
-                        Sản Phẩm
-                    </div>
+                    <div class="main_name fw-bold text-warning text-center fs-1 ">Sản Phẩm</div>
                 </div>
             </div>
             <div class="row">
@@ -140,18 +138,13 @@
             </div>
             <div class="col-3 mt-5">
                 <div class="d-flex justify-content-center">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <div class="">
-                                <a class="nav-link text-secondary" href="#">Trang Chủ /</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="">
-                                <a class="nav-link text-secondary" href="#">Sản Phẩm</a>
-                            </div>
-                        </li>
-                    </ul>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-secondary" href="#">Trang Chủ</a></li>
+                            <li class="breadcrumb-item"><a class="text-secondary" href="#">Sản Phẩm</a></li>
+                            <li class="breadcrumb-item" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
             <div class="col-3 mt-5">
@@ -196,7 +189,8 @@
             <div class="col-3">
                 <div class="d-flex ps-1">
                     <div class="vstack gap-3">
-                        <div class="p-2 pb-0 text-secondary fw-medium" style="--bs-text-opacity: 1;">Bột Nấm Ăn</div>
+                        <div class="p-2 pb-0 text-secondary fw-medium" style="--bs-text-opacity: 1;">Bột Nấm Ăn
+                            <span class="badge text-bg-secondary">4</span></div>
                         <div class="p-2 pt-0 text-secondary fw-medium" style="--bs-text-opacity: 1;">Chà Bông Nấm</div>
                         <div class="p-2 pt-0 text-secondary fw-medium" style="--bs-text-opacity: 1;">Nấm Dược Liệu</div>
                         <div class="p-2 pt-0 text-secondary fw-medium" style="--bs-text-opacity: 1;">Nấm Khô</div>
@@ -205,56 +199,85 @@
                         <div class="p-2 pt-0 text-secondary fw-medium" style="--bs-text-opacity: 1;">Phôi Nấm</div>
                     </div>
                 </div>
+                <div class="pt-2">
+                    <label for="customRange3" class="form-label text-danger fw-bold fs-5">Khoảng Giá</label>
+                    <input type="range" class="form-range" min="0" max="10.000" step="20.000.000" id="customRange3">
+                    <div class="row ps-3">
+                        <ul class="nav">
+                            <li class="nav_item col-10 d-flex justify-content-left">Giá</li>
+                            <li class="nav_item">
+                                <button type="button" class="btn pt-0">Lọc</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="pt-3">
+                        <div class="d-flex ps-1 text-danger fw-bold fs-5">Bán Chạy Nhất</div>
+                    </div>
+                </div>
             </div>
             <div class="col-9">
                 <div class="d-flex ps-5">
                     <ul class="nav">
                         <li class="nav-item">
-                            <div class="object-fit-contain border rounded">
-                                <div class="img_product">
-                                    <img src="img/img1.png" style="width: 200px" class="object-fit-contain border rounded" alt="...">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product" >
+                                        <img src="img/img1.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
-                                <div class="product_infor_bottom">
-                                    <span class="text">200gr</span>
-                                    <span class="text">500gr</span>
-                                    <span class="text">1kg</span>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
                                 </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Hương Tươi</div>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <div class="object-fit-contain border rounded">
-                                <div class="img_product">
-                                    <img src="img/img2.png" style="width: 200px" class="object-fit-contain border rounded" alt="...">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="img/img2.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
-                                <div class="product_infor_bottom">
-                                    <span class="text">200gr</span>
-                                    <span class="text">500gr</span>
-                                    <span class="text">1kg</span>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
                                 </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Mộc Nhĩ Tươi</div>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <div class="object-fit-contain border rounded">
-                                <div class="img_product">
-                                    <img src="img/img3.png" style="width: 200px" class="object-fit-contain border rounded" alt="...">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product" >
+                                        <img src="img/img3.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
-                                <div class="product_infor_bottom">
-                                    <span class="text">200gr</span>
-                                    <span class="text">500gr</span>
-                                    <span class="text">1kg</span>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
                                 </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Mỡ Tươi</div>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <div class="object-fit-contain border rounded">
-                                <div class="img_product">
-                                    <img src="img/img4.png" style="width: 200px" class="object-fit-contain border rounded" alt="...">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="img/img4.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
-                                <div class="product_infor_bottom">
-                                    <span class="text">200gr</span>
-                                    <span class="text">500gr</span>
-                                    <span class="text">1kg</span>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
                                 </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Rôm Tươi</div>
                             </div>
                         </li>
                     </ul>
@@ -266,5 +289,6 @@
 </section>
 <section class="footer"></section>
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/updateProductPrice.js"></script>
 </body>
 </html>
