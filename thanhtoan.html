@@ -84,7 +84,7 @@
                                     <option value="">Tp.Đà Lạt</option>
 
                                 </select>
-                                <label for="" class="namelabel"></label>
+                                <label for="" class="namelabel"> Quận huyện<i class="fa-solid fa-circle-exclamation"></i></label>
 
                                 <select name="" id="" class="inputname">
                                     <option value="">Quận 1</option>
@@ -98,8 +98,8 @@
                                 <section class="formright">
                                     <label for="" class="namelabel">Địa chỉ email(Tuỳ chọn)</label>
                                     <input type="email" class="inputname" required placeholder="Nhập địa chỉ email" >
-                                    <label for="" class="namelabel">Quận huyện<i class="fa-solid fa-circle-exclamation"></i></label>
-                                    <input type="text" class="inputname" required placeholder="Chọn quận/huyện" >
+                                    <label for="" class="namelabel">Xã phường/thị trấn<i class="fa-solid fa-circle-exclamation"></i></label>
+                                    <input type="text" class="inputname" required placeholder="Xã phườn/thị trấn" >
                                     <label for="" class="namelabel">Địa chỉ<i class="fa-solid fa-circle-exclamation"></i></label>
                                     <input type="text" class="inputname" required placeholder="Toà nhà, số nhà, tên đường" >
                                 </section>
@@ -139,7 +139,7 @@
                                         <article class="sub" id="subspthanhtoan">-
 
                                         </article>
-                                        <article class="count" id="countspthanhtoan">2
+                                        <article class="count" id="countspthanhtoan">1
 
                                         </article>
                                         <article class="add" id="addspthanhtoan">+
@@ -187,6 +187,66 @@
 
 
                         </section>
+                        <!--CARD-->
+                        <section class="inforpay"> 
+                            <form action="" class="formpay">
+                                <section class="inputCOD">
+                                    <input type="radio" name="" id="radio" onclick="toggleGuide()">
+                                    <label for="radio" class="p">COD - Trả Tiền Mặt</label>
+                                  <article class="imgCOD"></article>
+                                  <article id="guide" class="hidden">
+                                    Khi hoàn tất đặt hàng, Quý khách chỉ cần đợi Nấm Xanh xác nhận và giao hàng. 
+                                    Quý khách sẽ thanh toán cho shipper và nhận hàng khi NẤM được giao đến địa chỉ nhận hàng.
+                                  </article>
+
+
+                                </section>
+                                <section class="inputBank">
+                                    <input type="radio" name="" id="radio" onclick="toggleGuide()">
+                                    <label for="radio" class="p">Bank-Chuyển Khoản</label>
+                                    <article class="imgBank"></article>
+                                    <article id="guide" class="hidden" style="height:85px ;">
+                                        Quý khách sẽ chuyển khoản trước theo tổng giá trị đơn hàng cho Nấm Xanh (thông tin thanh toán ở trang hoàn tất). 
+                                        Sau khi xác nhận thanh toán thành công, kiện hàng sẽ được chuyển đến Quý khách mà không phát sinh thêm khoản phí nào.
+
+                                </section>
+                                <section class="inputMomo">
+                                    <input type="radio" name="" id="radio" onclick="toggleGuide()">
+                                    <label for="radio" class="p">Ví MoMo</label>
+                                    <article class="imgMomo"></article>
+                                    <article id="guide" class="hidden" style="height:120px ;">
+                                        Nếu dùng Laptop/PC, trang sau sẽ hiện QR-Code để Quý khách dùng ứng dụng ví MoMo trên di động quét và thanh toán. 
+                                        Nếu dùng Mobile, sau bước này hệ thống sẽ tự chuyển đến ứng dụng Ví MoMo trên Mobile (các thông tin tự động cập nhật sẵn), 
+                                        Quý khách chỉ cần áp mã (nếu có) và xác nhận thanh toán là xong. Thanh toán sẽ được tự động hoàn thành.
+                                         Nấm Xanh sẽ gửi hàng đến Quý khách mà không có thêm phí phát sinh.
+
+                                </section>
+
+
+
+
+
+                            </form>
+                        </section>
+                        <section class="chinhsach">
+                            Thông tin thanh toán của Quý khách được bảo mật an toàn theo <span style="color: rgb(157, 56, 27); font-size: 15px;">chính sách riêng tư của Nấm Xanh.</span>  <br>
+                             Thông tin này chỉ được sử dụng để liên hệ và hỗ trợ cho Quý khách trong các trường hợp cần thiết.
+
+                        </section>
+                        <form action="" class="formsubmit">
+                            <input type="checkbox" name="" id="radio" onclick="toggleGuide()">
+                            <label for="radio" class="p">Tôi đã đọc và đồng ý với <span style="color: rgb(157, 56, 27); font-size: 15px;">điều khoản và điều kiện</span>  của Nấm Xanh. *</label>
+                            <button class="buttonsubmit">
+                                <p class="active">ĐẶT HÀNG
+
+                                </p>
+
+                            </button>
+                           
+
+                        </form>
+
+
 
                     </section>
 
@@ -201,6 +261,10 @@
 
        
     </section>
+    <footer class="footer">
+        <a href="SanPham.html" class="img"></a>
+
+     </footer>
 
 </body>
 <script src="js/scripthanhtoan.js"></script>
