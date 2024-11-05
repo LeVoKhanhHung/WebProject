@@ -67,9 +67,9 @@ body, html, head{
 .content{
     width: 90%;
     margin: 0;
-    border: 1px solid red;
+    
     padding: auto;
-    height: 1500px;
+    height: 1600px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -162,7 +162,7 @@ body, html, head{
      margin-top: 20px;
     height: 1000px;
     padding: auto;
-    border: 1px solid blue;
+    
 } 
 .inforkhuyenmai{
     width: 70%;
@@ -223,7 +223,7 @@ body, html, head{
     height :1000px;
     margin: 0;
     padding: auto;
-    border: 1px solid red;
+    
 }
 .information .informationleft{
     width: 48.5%;
@@ -235,7 +235,7 @@ body, html, head{
 }
 .information .informationright{
     width: 48.5%;
-    height: 1000px;
+    height: 1350px;
     margin: 0;
     float: right;
     padding: auto;
@@ -525,4 +525,203 @@ padding: auto;
     
     border: 1px dashed red;
     border-radius: 4px;
+}
+.informationright .inforpay{
+    width: 90%;
+    height: 500px;
+    margin: 0;
+    margin-right: auto;
+    margin-left: auto;
+   
+    border-radius: 4px;
+    padding: 0;
+}
+.inforpay .formpay{
+    
+    width: 100%;
+    height: 500px;
+    border: 2px solid rgb(208, 208, 208);
+    padding-left: 10px;
+}
+.formpay .inputCOD{
+    width: 100%;
+    margin: 0;
+    height: 150px;
+   
+    padding: auto;
+  padding-top: 35px;
+  
+}
+.inputCOD input[type = "radio"]{
+    float: left;
+}
+.inputCOD .p{
+    float: left;
+    width: 25%;
+    margin: 0;
+    padding: auto;
+    font-size: 15px;
+}
+.inputCOD .imgCOD{
+    width: 30px;
+    height: 30px;
+    background-image: url(/img/cod-tien-mat.png);
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    margin: 0;
+   display: inline-block;
+   margin-top: -5px;
+   margin-left: 5px;
+    
+}
+
+  #guide {
+    width: 90%;
+    height: 70px;
+    font-size: 15px;
+    border: 2px dashed red;
+    color: red;
+    padding: 10px;
+    
+  }
+  .formpay .inputBank{
+    width: 100%;
+    margin: 0;
+    height: 150px;
+
+    padding: auto;
+  padding-top: 35px;
+  
+}
+.inputBank input[type = "radio"]{
+    float: left;
+}
+.inputBank .p{
+    float: left;
+    width: 25%;
+    margin: 0;
+    padding: auto;
+    font-size: 15px;
+   
+}
+.inputBank .imgBank{
+    width: 30px;
+    height: 30px;
+    background-image: url(/img/bank-chuyen-khoan.png);
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    margin: 0;
+   display: inline-block;
+   margin-top: -5px;
+   margin-left: 5px;
+    
+}
+.formpay .inputMomo{
+    width: 100%;
+    margin: 0;
+    height: 200px;
+    padding: auto;
+  padding-top: 35px;
+  
+}
+.inputMomo input[type = "radio"]{
+    float: left;
+}
+.inputMomo .p{
+    float: left;
+    width: 11%;
+    margin: 0;
+    padding: auto;
+    font-size: 15px;
+    
+}
+.inputMomo .imgMomo{
+    width: 30px;
+    height: 30px;
+    background-image: url(/img/logo-momo.svg);
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    margin: 0;
+   display: inline-block;
+   margin-top: -5px;
+   margin-left: 5px;
+    
+}
+.informationright .chinhsach{
+    width: 90%;
+    margin: 0;
+    height: 100px;
+    border-bottom: 2px solid rgb(208, 208, 208);
+    padding: auto;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+    padding-top: 25px;
+    padding-left: 10px;
+    color: rgb(123, 123, 123);
+}
+.informationright .formsubmit{
+    width: 90%;
+    height: 150px;
+    
+    padding: auto;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+}
+.formsubmit .p{
+    float: left;
+    width: 50%;
+    margin: 0;
+    padding: auto;
+    font-size: 15px;
+    
+}
+.formsubmit input[type= "checkbox"]{
+    float: left;
+}
+.formsubmit .buttonsubmit{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(157, 56, 27);
+    margin: 0;
+    padding: auto;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: 2px solid rgb(157, 56, 27);
+}
+.buttonsubmit .active{
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    color: white;
+    color: 20px;
+    text-align: center;
+    font-size: 30px;
+    padding-top: 5px;
+   
+}
+.footer{
+    width: 100%;
+    height: 100px;
+    margin: 0;
+   padding: 0;
+    background-color: rgb(247,247,247);
+}
+.footer .img{
+   display: inline-block;
+    width: 30%;
+    height: 80px;
+    margin: 0;
+    padding: 30px;
+    margin-left: 200px;
+    background-image: url(/img/logo.png);
+    background-size: 200px 60px;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+    
+}
+.footer .img:hover{
+   filter: url(/img/logo.png);
 }
