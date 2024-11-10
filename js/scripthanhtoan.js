@@ -10,18 +10,6 @@ countSPthanhtoan.innerHTML = countProduct;
 }
 subButtonthanhtoan.addEventListener('click', () => updateCount(-1));
 addButtonthanhtoan.addEventListener('click', () => updateCount(1));
-function calculateTotalPrice() {
-    const unitPrice = 45000;
-    const count = parseInt(countElement.innerText);
-    return unitPrice * count;
-}
-updateCartButton.addEventListener('click', () => {
-    const totalPrice = calculateTotalPrice();
-    document.querySelector('.tamtinhsanpham .price').innerText = `${totalPrice.toLocaleString()}đ`;
-    document.querySelector('.rowright .p').innerText = `${totalPrice.toLocaleString()}đ`;
-     document.getElementById("tongtienthanhtoan").innerText = `${totalPrice.toLocaleString()}đ`;
-});
-
 var displaygiaohang = document.getElementById("giaohang");
 function giaohang(){
     displaygiaohang.style.display = "block";
@@ -40,3 +28,7 @@ function toggleBox() {
         setTimeout(() => (box.style.height = 'auto'), 300); 
     }
 }
+function toggleGuide() {
+    var guide = document.getElementById("guide");
+    guide.classList.toggle("hidden");
+  }
