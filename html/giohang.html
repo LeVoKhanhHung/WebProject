@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giohang</title>
+    <link rel="stylesheet" href="../css/styleGiohang.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <header class="menuSelect">
+        <nav class="menu">
+            <ul class="ulmenu">
+                <li class="limenu">
+                    <a class="amenu activemenu" href="" > <strong>GIỎ HÀNG-> </strong> </a>
+                </li>
+                <li class="limenu">
+                    <a class="amenu" href="thanhtoan.html"> <strong>THANH TOÁN   -></strong></a>
+                </li>
+                <li class="limenu">
+                    <a class="amenu" href="http://"> <strong>HOÀN TẤT</strong></a>
+                </li>
+
+            </ul>
+        </nav>
+    </header>
+    <section class="content">
+        <article class="inforkhuyenmai">
+           <article class="icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+           </article>
+           <article class="inforchitiet">
+            <p>Nhập thông tin khuyễn mãi vào đây</p>
+           </article>
+        </article>
+    </section>
+    <!-- Infor san pham va gia tien-->
+     <section class="productcontainer">
+        <section class="product">
+            <section class="productleft">
+                <article class="producttitle">
+                    <article class="sanpham">
+                        <p><b>SẢN PHẨM</b></p>
+
+                    </article>
+                    <article class="masanpham">
+                        <p><b> MÃ SẢN PHẨM</b></p>
+                    </article>
+                    <article class="giasanpham">
+                        <p><b> GIÁ</b></p>
+                    </article>
+                    <article class="soluongsanpham">
+                        <p><b> SỐ LƯỢNG</b></p>
+                    </article>
+                    <article class="tamtinhsanpham">
+                        <p><b> TẠM TÍNH</b></p>
+                    </article>
+
+
+                </article>
+                <article class="productdetails">
+                    <article class="sanpham">
+                        <article class="buttonX">
+                            <a href="">X</a>
+                        </article>
+                        <article class="imgsanpham">
+
+                        </article>
+                        <article class="thongtinsanpham">
+                            <p>Nấm bào ngư sáng tươi - 500gr</p>
+
+                        </article>
+
+                        
+
+                    </article>
+                    <article class="masanpham">
+                        <p class="psanpham">NX007-500</p>
+                       
+                    </article>
+                    <article class="giasanpham">
+                        <p class="psanpham">45.000đ</p>
+                        
+                    </article>
+                    <article class="soluongsanpham">
+                        <article class="countsanpham">
+                            <article class="subtract">
+                                <p id="substract" class="icon"  > -
+
+                                </p>
+
+                            </article>
+                            <article class="count">
+                                <p id="count" class="sum">1
+
+                                </p>
+                                
+                            </article>
+                            <article class="add">
+                                <p class="icon" style="margin-top: 4px;" > +
+
+                                </p>
+
+                            </article>
+
+                        </article>
+                        
+                      
+                    </article>
+                    <article class="tamtinhsanpham">
+                        <p class="price">
+                            45.000đ
+
+                        </p>
+                        
+                    </article>
+                </article>
+                <section class="update">
+                  <section class="updatedetails">
+                    <textarea name="" id="" class="textarea" placeholder="Mã ưu đãi" style="font-size: 20px; padding-top: 10px; "></textarea>
+                    <button class="buttontextarea"> 
+                        <a >ÁP DỤNG</a>
+                    </button>
+                    <article id="updateCart" class="update">
+                        <p>CẬP NHẬT GIỎ HÀNG</p>
+
+                    </article>
+
+
+
+                  </section>
+                </section>
+
+            </section> 
+            <section class="productright">
+                <article class="rowproduct">
+                    <article class="row">
+                        <p class="p"> <b>CỘNG GIỎ HÀNG</b> </p>
+
+                    </article>
+                    <article class="row">
+                        <article class="rowleft">
+                            <p class="p">Tạm tính  </p>
+                            <p class="p">Giao hàng  </p>
+
+                        </article>
+                        <article class="rowright"> 
+                            <p class="p">45.000đ  </p>
+                            <article class="p1" onclick="giaohang()">Tính phí giao hàng
+                                <article id="giaohang" class="detailsp1" >
+                                    <article class="detailsp1left">
+                                        <p class="pgiaohang">
+                                            Giao hàng
+
+                                        </p>
+
+                                    </article>
+                                    <article class="inforgiaohang">
+                                        <form action="" class="form">
+                                            <select name="Khu vực" id="" class="select" aria-placeholder="Khu vực" > 
+                                                <option value="">Việt Nam</option>
+
+                                            </select>
+                                            <select name="" id="" class="select">
+                                                <option value="">Hà Nội</option>
+                                                <option value="">Tp.Hồ Chí Minh</option>
+                                                <option value="">Tp.Cần Thơ</option>
+                                                <option value="">Tp.Hải Phòng</option>
+                                                <option value="">Tp.Vĩnh Long</option>
+                                                <option value="">Bình Định</option>
+
+                                            </select>
+                                            <select name="" id="" class="select">
+                                                <option value="">Quận Ba Đình</option>
+                                                <option value="">Quận Long Biên</option>
+                                                <option value="">Quận Hoàn Kiếm</option>
+                                                
+
+                                            </select>
+                                            <textarea name="" id="" class="select" placeholder="Địa chỉ chi tiết"></textarea>
+                                            <button type="submit" style="background-color: rgb(157, 56, 27) ; color: white; border: none; border-radius: 3px;">Xác nhận
+
+                                            </button>
+
+                                        </form>
+
+                                    </article>
+                                    
+                                </article>
+
+                             </article>
+                             
+                        </article>
+                        
+
+                    </article>
+                        <article class="row" style="height: 50px;">
+                            <article class="rowleft" >
+                                <p class="p" style="font-size: 25px; border: none; height: 50px;">Tổng  </p>
+                            </article>
+                            <article class="rowright" >
+                                <p id="tongtienthanhtoan" class="p1" style="font-size: 25px; border: none;height: 50px;">45.000đ </p>
+
+                            </article>
+
+                        </article>
+                        <article class="row">
+                            <button  class="button" >
+                                <a href="thanhtoan.html" class="a">TIẾN HÀNH THANH TOÁN</a>
+
+                            </button>
+                            
+    
+                        </article>
+
+                        
+                </article>
+                
+
+            </section>
+
+
+        </section>
+
+
+     </section>  
+     <footer class="footer">
+        <a href="SanPham.html" class="img"></a>
+
+     </footer>
+
+    
+</body>
+<script src="../js/scriptgiohang.js"></script>
+</html>
