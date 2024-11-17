@@ -63,14 +63,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- Mẫu dữ liệu người dùng -->
                     <tr>
                         <td>1</td>
                         <td>Nguyễn Văn A</td>
                         <td>a@example.com</td>
                         <td>Đang hoạt động</td>
                         <td>
-                            <a href="edit-user.html" class="btn btn-warning btn-sm">Chỉnh sửa</a>
+                            <button class="btn btn-warning btn-sm" onclick="editUser(1)">Chỉnh sửa</button>
                             <button class="btn btn-danger btn-sm" onclick="toggleStatus(1)">Khóa</button>
                         </td>
                     </tr>
@@ -80,7 +79,7 @@
                         <td>b@example.com</td>
                         <td>Đang hoạt động</td>
                         <td>
-                            <a href="edit-user.html" class="btn btn-warning btn-sm">Chỉnh sửa</a>
+                            <button class="btn btn-warning btn-sm" onclick="editUser(2)">Chỉnh sửa</button>
                             <button class="btn btn-danger btn-sm" onclick="toggleStatus(2)">Khóa</button>
                         </td>
                     </tr>
@@ -91,20 +90,103 @@
     </div>
 </div>
 
+<!-- Modal chỉnh sửa thông tin -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Chỉnh sửa thông tin người dùng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <div class="mb-3">
+                        <label for="editUserName" class="form-label">Tên</label>
+                        <input type="text" class="form-control" id="editUserName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editUserEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserStatus" class="form-label">Trạng thái</label>
+                        <select class="form-select" id="editUserStatus">
+                            <option value="Đang hoạt động">Đang hoạt động</option>
+                            <option value="Bị khóa">Bị khóa</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="saveEditButton">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phần body giữ nguyên, chỉ bổ sung script ở cuối file -->
 <script>
-    function toggleStatus(userId) {
-        let statusButton = event.target;
-        if (statusButton.innerText === 'Khóa') {
-            statusButton.innerText = 'Mở khóa';
-            statusButton.classList.remove('btn-danger');
-            statusButton.classList.add('btn-success');
-        } else {
-            statusButton.innerText = 'Khóa';
-            statusButton.classList.remove('btn-success');
-            statusButton.classList.add('btn-danger');
+    let editingUserId = null;
+
+    function editUser(userId) {
+        // Lưu lại ID người dùng đang chỉnh sửa
+        editingUserId = userId;
+
+        // Lấy thông tin từ bảng
+        const row = document.querySelector(`tbody tr:nth-child(${userId})`);
+        const nameCell = row.querySelector('td:nth-child(2)').innerText;
+        const emailCell = row.querySelector('td:nth-child(3)').innerText;
+        const statusCell = row.querySelector('td:nth-child(4)').innerText;
+
+        // Đổ thông tin vào Modal
+        document.getElementById('editUserName').value = nameCell;
+        document.getElementById('editUserEmail').value = emailCell;
+        document.getElementById('editUserStatus').value = statusCell;
+
+        // Hiển thị Modal
+        const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        editUserModal.show();
+    }
+
+    document.getElementById('saveEditButton').addEventListener('click', () => {
+        if (!editingUserId) return;
+
+        // Lấy giá trị từ Modal
+        const newName = document.getElementById('editUserName').value.trim();
+        const newEmail = document.getElementById('editUserEmail').value.trim();
+        const newStatus = document.getElementById('editUserStatus').value;
+
+        // Kiểm tra dữ liệu đầu vào
+        if (!newName || !newEmail) {
+            alert('Vui lòng nhập đầy đủ thông tin.');
+            return;
         }
-        // Xử lý thay đổi trạng thái tài khoản ở đây (gửi yêu cầu đến server nếu cần)
+
+        // Cập nhật bảng
+        const row = document.querySelector(`tbody tr:nth-child(${editingUserId})`);
+        row.querySelector('td:nth-child(2)').innerText = newName;
+        row.querySelector('td:nth-child(3)').innerText = newEmail;
+        row.querySelector('td:nth-child(4)').innerText = newStatus;
+
+        // Đóng Modal
+        const editUserModal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
+        editUserModal.hide();
+
+        alert('Thông tin người dùng đã được cập nhật!');
+    });
+
+    function toggleStatus(userId) {
+        const row = document.querySelector(`tbody tr:nth-child(${userId})`);
+        const statusCell = row.querySelector('td:nth-child(4)');
+        const newStatus = statusCell.innerText === 'Đang hoạt động' ? 'Bị khóa' : 'Đang hoạt động';
+        statusCell.innerText = newStatus;
+
+        console.log(`Trạng thái người dùng #${userId} đã thay đổi thành: ${newStatus}`);
     }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
