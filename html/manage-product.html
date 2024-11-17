@@ -200,6 +200,36 @@
     </div>
 </div>
 
+<!-- Thêm sản phẩm-->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Thêm sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="product_Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Giá</label>
+                        <input type="text" class="form-control" id="product_Price">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productQuantity" class="form-label">Số lượng</label>
+                        <input type="number" class="form-control" id="product_Quantity">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Áp dụng</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Modal Xóa -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
