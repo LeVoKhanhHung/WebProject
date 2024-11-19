@@ -6,6 +6,7 @@
     <title>Admin Trang Chủ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/admin-index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -16,28 +17,28 @@
                 <h3 class="text-center my-3">Admin Panel</h3>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Trang chủ</a>
+                        <a class="nav-link active" href="/html/admin/index.html">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="manage-product.html">Quản lý sản phẩm</a>
+                        <a class="nav-link" href="/html/admin/manage-product.html">Quản lý sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="manage-promotion.html">Quản lý chương trình khuyến mãi</a>
+                        <a class="nav-link" href="/html/admin/manage-promotion.html">Quản lý chương trình khuyến mãi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="manage-review.html">Quản lý đánh giá sản phẩm</a>
+                        <a class="nav-link" href="/html/admin/manage-review.html">Quản lý đánh giá sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="manage-order.html">Quản lý đơn hàng</a>
+                        <a class="nav-link" href="/html/admin/manage-order.html">Quản lý đơn hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="statistics.html">Thống kê và báo cáo doanh thu</a>
+                        <a class="nav-link" href="#">Thống kê và báo cáo doanh thu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="manage-user.html">Quản lý người dùng</a>
+                        <a class="nav-link" href="/html/admin/manage-user.html">Quản lý người dùng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="feedback.html">Phản hồi khách hàng</a>
+                        <a class="nav-link" href="/html/admin/feedback.html">Phản hồi khách hàng</a>
                     </li>
                 </ul>
             </div>
@@ -46,14 +47,86 @@
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Xin chào, Admin</h1>
+                <h1 class="h2">Chào mừng, Admin</h1>
             </div>
-            <div class="overview">
-                <h2>Tổng quan</h2>
-                <p>Đây là trang chủ dành cho admin. Tại đây, bạn có thể truy cập nhanh vào các chức năng quản lý của hệ thống.</p>
+
+            <!-- Thẻ thông báo -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Tổng số sản phẩm</h5>
+                            <p class="card-text display-5">150</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Đơn hàng hôm nay</h5>
+                            <p class="card-text display-5">25</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-warning mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Phản hồi mới</h5>
+                            <p class="card-text display-5">8</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biểu đồ doanh thu -->
+            <div class="row">
+                <div class="col-md-8">
+                    <canvas id="salesChart"></canvas>
+                </div>
+                <div class="col-md-4">
+                    <h5>Công việc cần làm</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">Kiểm tra đơn hàng mới</li>
+                        <li class="list-group-item">Phê duyệt khuyến mãi</li>
+                        <li class="list-group-item">Phản hồi khách hàng</li>
+                        <li class="list-group-item">Cập nhật sản phẩm</li>
+                    </ul>
+                </div>
             </div>
         </main>
     </div>
 </div>
+
+<script>
+    // Biểu đồ doanh thu
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+            datasets: [{
+                label: 'Doanh thu',
+                data: [5000, 8000, 10000, 7500, 9500, 12000],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 </body>
 </html>
