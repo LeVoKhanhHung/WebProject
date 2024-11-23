@@ -66,3 +66,61 @@ function updateCart() {
 document.addEventListener('DOMContentLoaded', function () {
     updateCart();
 });
+
+function giaohang() {
+    const giaohangElement = document.getElementById('giaohang');
+  
+  
+    if (giaohangElement.style.display === 'none' || giaohangElement.style.display === '') {
+     
+      giaohangElement.style.display = 'block';
+    } else {
+    
+      giaohangElement.style.display = 'none';
+    }
+  }
+  
+  function calculateShipping() {
+   
+    const thanhPho = document.getElementById('thanhPho').value;
+    const quan = document.getElementById('quan').value;
+
+  
+    const shippingRates = {
+        "Hà Nội": {
+            "Quận Ba Đình": "30.000",   
+            "Quận Long Biên": "35.000",  
+            "Quận Hoàn Kiếm": "25.000",  
+        },
+        "Tp.Hồ Chí Minh": {
+            "Quận 1": "40.000",
+            "Quận 2": "45.000",
+        },
+        "Tp.Cần Thơ": {
+            "Quận Ninh Kiều": "50.000",
+        },
+        "Tp.Hải Phòng": {
+            "Quận Hồng Bàng": "60.000",
+        },
+        "Tp.Vĩnh Long": {
+            "Quận Vĩnh Long": "55.000",
+        },
+        "Bình Định": {
+            "Quận Quy Nhơn": "65.000",
+        }
+    };
+
+
+    if (thanhPho && quan) {     
+        const fee = shippingRates[thanhPho] && shippingRates[thanhPho][quan];
+        
+        if (fee !== undefined) {
+            document.getElementById('phigiaohang').innerHTML = `Phí giao hàng: ${fee} VND`;
+        } else {
+            document.getElementById('phigiaohang').innerHTML = 'Phí giao hàng không có sẵn cho khu vực này.';
+        }
+    } else {
+        document.getElementById('phigiaohang').innerHTML = 'Vui lòng chọn thành phố và quận để tính phí.';
+    }
+}
+
