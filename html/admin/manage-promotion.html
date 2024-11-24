@@ -141,6 +141,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal Sửa Chương Trình Khuyến Mãi -->
 <div class="modal fade" id="editPromotionModal" tabindex="-1" aria-labelledby="editPromotionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -180,6 +181,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal Xóa Chương Trình Khuyến Mãi -->
 <div class="modal fade" id="deletePromotionModal" tabindex="-1" aria-labelledby="deletePromotionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -199,6 +201,179 @@
     </div>
 </div>
 
+<script>
+    // Sự kiện cho nút Cập nhật chương trình
+    document.querySelector("#editPromotionModal .btn-primary").addEventListener("click", function () {
+        const name = document.getElementById("editPromotionName").value;
+        const description = document.getElementById("editPromotionDescription").value;
+        const discount = document.getElementById("editPromotionDiscount").value;
+        const startDate = document.getElementById("editStartDate").value;
+        const endDate = document.getElementById("editEndDate").value;
+
+        // Tìm dòng hiện tại được chỉnh sửa
+        const currentRow = document.querySelector(".editing-row");
+        if (currentRow) {
+            currentRow.children[1].textContent = name;
+            currentRow.children[2].textContent = description;
+            currentRow.children[3].textContent = `${discount}%`;
+            currentRow.children[4].textContent = startDate;
+            currentRow.children[5].textContent = endDate;
+
+            // Xóa trạng thái "editing-row"
+            currentRow.classList.remove("editing-row");
+        }
+
+        // Đóng modal
+        const editModal = bootstrap.Modal.getInstance(document.getElementById("editPromotionModal"));
+        editModal.hide();
+    });
+
+    // Gắn sự kiện cho nút Sửa
+    document.querySelectorAll(".edit-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            const row = btn.closest("tr");
+            row.classList.add("editing-row");
+
+            // Điền thông tin dòng vào modal
+            document.getElementById("editPromotionName").value = row.children[1].textContent;
+            document.getElementById("editPromotionDescription").value = row.children[2].textContent;
+            document.getElementById("editPromotionDiscount").value = row.children[3].textContent.replace("%", "");
+            document.getElementById("editStartDate").value = row.children[4].textContent;
+            document.getElementById("editEndDate").value = row.children[5].textContent;
+        });
+    });
+
+    document.getElementById("editPromotionModal").addEventListener("hidden.bs.modal", function () {
+        const editingRow = document.querySelector(".editing-row");
+        if (editingRow) {
+            editingRow.classList.remove("editing-row");
+        }
+    });
+
+    // Sự kiện cho nút Xóa
+    document.querySelector("#deletePromotionModal .btn-danger").addEventListener("click", function () {
+        // Tìm dòng hiện tại được chọn để xóa
+        const currentRow = document.querySelector(".deleting-row");
+        if (currentRow) {
+            currentRow.remove(); // Xóa dòng khỏi bảng
+        }
+
+        // Đóng modal
+        const deleteModal = bootstrap.Modal.getInstance(document.getElementById("deletePromotionModal"));
+        deleteModal.hide();
+    });
+
+    document.querySelectorAll(".delete-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            const row = btn.closest("tr");
+            row.classList.add("deleting-row");
+        });
+    });
+
+    document.getElementById("deletePromotionModal").addEventListener("hidden.bs.modal", function () {
+        const deletingRow = document.querySelector(".deleting-row");
+        if (deletingRow) {
+            deletingRow.classList.remove("deleting-row");
+        }
+    });
+
+    //Event Listener
+    document.addEventListener("DOMContentLoaded", function () {
+        const tableBody = document.querySelector("table tbody");
+        let editingRow, deletingRow;
+
+        // Thêm chương trình khuyến mãi
+        document.querySelector("#addPromotionModal .btn-primary").addEventListener("click", function () {
+            const promotionName = document.getElementById("promotionName").value;
+            const promotionDescription = document.getElementById("promotionDescription").value;
+            const promotionDiscount = document.getElementById("promotionDiscount").value;
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+
+            if (!promotionName || !promotionDiscount || !startDate || !endDate) {
+                alert("Vui lòng điền đầy đủ thông tin!");
+                return;
+            }
+
+            // Thêm dòng mới vào bảng
+            const rowCount = tableBody.rows.length;
+            const newRow = `
+                <tr>
+                    <td>${rowCount + 1}</td>
+                    <td>${promotionName}</td>
+                    <td>${promotionDescription}</td>
+                    <td>${promotionDiscount}%</td>
+                    <td>${startDate}</td>
+                    <td>${endDate}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit-btn" data-bs-toggle="modal" data-bs-target="#editPromotionModal">Sửa</button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-bs-toggle="modal" data-bs-target="#deletePromotionModal">Xóa</button>
+                    </td>
+                </tr>`;
+            tableBody.insertAdjacentHTML("beforeend", newRow);
+
+            alert("Thêm chương trình khuyến mãi thành công!");
+            document.querySelector("#addPromotionModal .btn-close").click();
+        });
+
+        // Event delegation để xử lý sửa và xóa
+        tableBody.addEventListener("click", function (e) {
+            const target = e.target;
+
+            // Xử lý sửa
+            if (target.classList.contains("edit-btn")) {
+                editingRow = target.closest("tr");
+                const cells = editingRow.querySelectorAll("td");
+
+                document.getElementById("editPromotionName").value = cells[1].textContent;
+                document.getElementById("editPromotionDescription").value = cells[2].textContent;
+                document.getElementById("editPromotionDiscount").value = parseInt(cells[3].textContent);
+                document.getElementById("editStartDate").value = cells[4].textContent;
+                document.getElementById("editEndDate").value = cells[5].textContent;
+            }
+
+            // Xử lý xóa
+            if (target.classList.contains("delete-btn")) {
+                deletingRow = target.closest("tr");
+            }
+        });
+
+        // Cập nhật chương trình khuyến mãi
+        document.querySelector("#editPromotionModal .btn-primary").addEventListener("click", function () {
+            if (!editingRow) return;
+
+            const promotionName = document.getElementById("editPromotionName").value;
+            const promotionDescription = document.getElementById("editPromotionDescription").value;
+            const promotionDiscount = document.getElementById("editPromotionDiscount").value;
+            const startDate = document.getElementById("editStartDate").value;
+            const endDate = document.getElementById("editEndDate").value;
+
+            if (!promotionName || !promotionDiscount || !startDate || !endDate) {
+                alert("Vui lòng điền đầy đủ thông tin!");
+                return;
+            }
+
+            const cells = editingRow.querySelectorAll("td");
+            cells[1].textContent = promotionName;
+            cells[2].textContent = promotionDescription;
+            cells[3].textContent = `${promotionDiscount}%`;
+            cells[4].textContent = startDate;
+            cells[5].textContent = endDate;
+
+            alert("Cập nhật chương trình khuyến mãi thành công!");
+            document.querySelector("#editPromotionModal .btn-close").click();
+        });
+
+        // Xóa chương trình khuyến mãi
+        document.querySelector("#deletePromotionModal .btn-danger").addEventListener("click", function () {
+            if (!deletingRow) return;
+
+            deletingRow.remove();
+            alert("Xóa chương trình khuyến mãi thành công!");
+            document.querySelector("#deletePromotionModal .btn-close").click();
+        });
+    });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
