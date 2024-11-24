@@ -1,6 +1,6 @@
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let lastProduct = cart[cart.length - 1]; 
-
+var temp1 ;
 
 const countElement = document.getElementById('count'); 
 const subtractButton = document.getElementById('substract');
@@ -23,7 +23,7 @@ updateCartButton.addEventListener('click', () => {
     const totalPrice = calculateTotalPrice();
     document.querySelector('.tamtinhsanpham .price').innerText = `${totalPrice.toLocaleString()}đ`;
     document.querySelector('.rowright .p').innerText = `${totalPrice.toLocaleString()}đ`;
-     document.getElementById("tongtienthanhtoan").innerText = `${totalPrice.toLocaleString()}đ`;
+   //  document.getElementById("tongtienthanhtoan").innerText = `${totalPrice.toLocaleString()}đ`;
 });
 
 
@@ -56,12 +56,15 @@ function updateCart() {
             productElement.querySelector('.countsanpham .sum').innerText = lastProduct.quantity;
 
             
-            var total = lastProduct.price * lastProduct.quantity;
-            productElement.querySelector('.tamtinhsanpham .price').innerText = parse(total)+ 'đ';
+            var total = parseInt(lastProduct.price) * parseInt(lastProduct.quantity);
+            productElement.querySelector('.tamtinhsanpham .price').innerText =` ${total}`+ '.000đ';
+           
         }
     });
 }
-
+var total = parseInt(lastProduct.price) * parseInt(lastProduct.quantity);
+document.getElementById('tamtinhpriceright').innerText = ` ${total}`+ '.000đ';
+document.getElementById("tongtienthanhtoan").innerHTML =` ${total}`+ '.000đ';
 
 document.addEventListener('DOMContentLoaded', function () {
     updateCart();
@@ -109,13 +112,23 @@ function giaohang() {
             "Quận Quy Nhơn": "65.000",
         }
     };
-
+var temp = 0 ;
 
     if (thanhPho && quan) {     
         const fee = shippingRates[thanhPho] && shippingRates[thanhPho][quan];
+        temp  = parseInt(fee);
         
         if (fee !== undefined) {
             document.getElementById('phigiaohang').innerHTML = `Phí giao hàng: ${fee} VND`;
+            localStorage.setItem('shippingFee', fee);
+
+            
+            // Cập nhật tổng tiền (sản phẩm + phí giao hàng)
+            const currentTotal = parseInt(document.getElementById('tongtienthanhtoan').innerText.replace('đ', '').replace('.', '').trim());
+            const shippingFee = parseInt(fee.replace('đ', '').replace('.', '').trim());
+            const finalTotal = currentTotal + shippingFee;
+
+            document.getElementById('tongtienthanhtoan').innerText = `${finalTotal.toLocaleString()}đ`;
         } else {
             document.getElementById('phigiaohang').innerHTML = 'Phí giao hàng không có sẵn cho khu vực này.';
         }
@@ -123,4 +136,6 @@ function giaohang() {
         document.getElementById('phigiaohang').innerHTML = 'Vui lòng chọn thành phố và quận để tính phí.';
     }
 }
+
+
 
