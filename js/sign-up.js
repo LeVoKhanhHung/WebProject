@@ -37,7 +37,7 @@ document.querySelector('form').addEventListener('submit', function (event) {
     window.location.href = 'login.html';
 });
 
-//Script xử lý xóa tài khoảns
+//Script xử lý xóa tài khoản
 document.getElementById('delete-account').addEventListener('click', function () {
     const emailToDelete = prompt('Nhập email của tài khoản cần xóa:');
 

@@ -33,8 +33,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
-
-// Chuyển hướng đến trang Sản phẩm
-function navigateToProduct() {
-    window.location.href = "product.html";
-}
