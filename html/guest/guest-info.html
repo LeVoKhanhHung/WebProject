@@ -97,8 +97,8 @@
                                 <!-- Thông tin cá nhân -->
                                 <div class="col-md-8">
                                     <h5>Thông tin cá nhân</h5>
-                                    <h3 id="user-name">Nguyễn Văn A</h3> <!-- userName -->
-                                    <p id="user-email">nguyenvana@example.com</p> <!-- email -->
+                                    <h3 id="user-name">Lê Võ Khánh Hưng</h3> <!-- userName -->
+                                    <p id="user-email">19130083@st.hcmuaf.edu.vn</p> <!-- email -->
                                     <ul class="list-unstyled">
                                         <li><strong>Địa chỉ:</strong> <span id="user-address">123 Đường ABC, TP.HCM</span></li> <!-- address -->
                                         <li><strong>Số điện thoại:</strong> <span id="user-phone">0987654321</span></li> <!-- phoneNumber -->
@@ -447,7 +447,6 @@
     </div>
 </section>
 
-<script src="../../js/bootstrap.bundle.min.js"></script>
 <script>
     function saveProfile() {
         const name = document.getElementById('editName').value;
@@ -464,23 +463,55 @@
         document.getElementById('user-company').innerText = company;
         document.getElementById('user-address').innerText = address;
 
-        $('#editProfileModal').modal('hide');
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+        modal.hide();
     }
 
-
     function changePassword() {
+        const email = sessionStorage.getItem("loggedInUser"); // Lấy email của người dùng đã đăng nhập
         const oldPassword = document.getElementById('oldPassword').value;
         const newPassword = document.getElementById('newPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (!email) {
+            alert('Không tìm thấy người dùng đang đăng nhập!');
+            return;
+        }
+
+        // Lấy danh sách người dùng từ localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        const user = users.find(user => user.email === email);
+
+        if (!user) {
+            alert('Người dùng không tồn tại!');
+            return;
+        }
+
+        if (user.password !== oldPassword) {
+            alert('Mật khẩu cũ không chính xác!');
+            return;
+        }
 
         if (newPassword !== confirmPassword) {
             alert('Mật khẩu mới và xác nhận không khớp!');
             return;
         }
 
+        // Cập nhật mật khẩu
+        user.password = newPassword;
+
+        // Lưu lại danh sách người dùng với mật khẩu đã thay đổi vào localStorage
+        localStorage.setItem('users', JSON.stringify(users));
+
         alert('Mật khẩu đã được thay đổi thành công!');
-        $('#changePasswordModal').modal('hide');
+
+        // Đóng modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('changePasswordModal'));
+        modal.hide();
     }
 </script>
+
+<script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

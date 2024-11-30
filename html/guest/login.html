@@ -34,29 +34,17 @@
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
 
-    // Tài khoản mẫu để thuyết trình
-    const demoEmail = "19130083@st.hcmuaf.edu.vn";
-    const demoPassword = "NongLamHCM";
-
-    // Kiểm tra với tài khoản mẫu
-    if (email === demoEmail && password === demoPassword) {
-      alert("Đăng nhập thành công (demo)!");
-      window.location.href = "index.html"; // Chuyển tới trang index.html
-      return;
-    }
-
     // Truy xuất danh sách người dùng từ LocalStorage
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Kiểm tra email và mật khẩu trong danh sách người dùng
+  // Kiểm tra thông tin đăng nhập
     const user = users.find(user => user.email === email && user.password === password);
 
     if (user) {
-      // Nếu thông tin đúng
-      alert(`Đăng nhập thành công! Chào mừng ${user.fullname}.`);
-      window.location.href = "index.html"; // Chuyển đến trang chính
+      alert(`Đăng nhập thành công! Chào mừng ${user.userName}.`);
+      sessionStorage.setItem("loggedInUser", email); // Lưu email vào sessionStorage
+      window.location.href = "index.html";
     } else {
-      // Nếu thông tin không đúng
       alert("Email hoặc mật khẩu không đúng. Vui lòng thử lại!");
     }
   });

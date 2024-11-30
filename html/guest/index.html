@@ -22,7 +22,7 @@
                     <div class="d-flex justify-content-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link fw-bold text-dark" href="#">HOME</a>
+                                <a class="nav-link fw-bold text-dark" href="index.html">HOME</a>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">SẢN PHẨM</button>
@@ -41,10 +41,7 @@
                                 <a class="nav-link fw-bold text-dark" href="#">HỢP TÁC</a>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">CÔNG TY</button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">KHÁCH HÀNG</button>
+                                <a class="nav-link fw-bold text-dark" href="about-us.html">CÔNG TY</a>
                             </li>
                         </ul>
                     </div>
@@ -61,10 +58,14 @@
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn"><i class="fa-solid fa-user"></i></button>
+                                <button type="button" class="btn" onclick="redirectToGuestInfo()">
+                                    <i class="fa-solid fa-user"></i>
+                                </button>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <button type="button" class="btn" onclick="location.href='giohang.html';">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -347,6 +348,20 @@
         </div>
     </div>
 </section>
+
+<script>
+    function redirectToGuestInfo() {
+        const loggedInUser = sessionStorage.getItem("loggedInUser");
+
+        if (!loggedInUser) {
+            alert("Vui lòng đăng nhập trước.");
+        } else if (loggedInUser === "19130083@st.hcmuaf.edu.vn") {
+            window.location.href = "guest-info.html";
+        } else {
+            alert("Bạn không có quyền truy cập trang này.");
+        }
+    }
+</script>
 
 <script src="../../js/bootstrap.bundle.min.js"></script>
 
