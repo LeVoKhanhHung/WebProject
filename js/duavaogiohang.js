@@ -1,5 +1,5 @@
 document.querySelector('.btn-add-to-cart').addEventListener('click', function () {
- 
+
     let productName = document.querySelector('#sp').innerText.trim();
     let price = '';
     if (document.querySelector('#btnradio1').checked) {
@@ -12,7 +12,7 @@ document.querySelector('.btn-add-to-cart').addEventListener('click', function ()
     let id = document.querySelector('#masanpham').innerHTML.trim();
 
     let quantity = document.querySelector('.btn-group a').innerText.trim();
-    
+
 
     let product = {
         name: productName,
@@ -21,14 +21,14 @@ document.querySelector('.btn-add-to-cart').addEventListener('click', function ()
         quantity: parseInt(quantity),
     };
 
-  
+
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     cart.push(product);
 
-  
+
     localStorage.setItem('cart', JSON.stringify(cart));
-    
-    
+
+
     alert('Sản phẩm đã được thêm vào giỏ hàng!');
 });
