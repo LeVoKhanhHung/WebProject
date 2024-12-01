@@ -2,36 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sản Phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sản Phẩm</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!--    <link rel="stylesheet" href="css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/product.css">
 </head>
 <body>
+<!-- Header -->
+<!-- Header -->
 <section class="header">
     <div>
         <div class="" style="background-color: antiquewhite">
             <div class="row">
                 <div class="col-3 p-2 text-black">
                     <div class="d-flex justify-content-center">
-                        <img src="img/logo.png" style="height: 50px" alt="Logo">
+                        <img src="../../img/logo.png" style="height: 50px" alt="Logo">
                     </div>
                 </div>
                 <div class="col-6 p-3 text-black">
                     <div class="d-flex justify-content-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link fw-bold text-dark" href="guest/index.html">HOME</a>
+                                <a class="nav-link fw-bold text-dark" href="index.html">HOME</a>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">SẢN PHẨM</button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Nấm Tươi</a></li>
+                                    <li><a class="dropdown-item" href="product.html">Nấm Tươi</a></li>
                                     <li><a class="dropdown-item" href="#">Nấm Khô</a></li>
                                     <li><a class="dropdown-item" href="#">Bột Nấm Ăn</a></li>
                                     <li><a class="dropdown-item" href="#">Nấm Dược Liệu</a></li>
                                     <li><a class="dropdown-item" href="#">Chà Bông Nấm</a></li>
+                                    <li><a class="dropdown-item" href="#">Phôi Nấm</a></li>
+                                    <li><a class="dropdown-item" href="#">Nấm Quà Tặng</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -41,10 +45,7 @@
                                 <a class="nav-link fw-bold text-dark" href="#">HỢP TÁC</a>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">CÔNG TY</button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">KHÁCH HÀNG</button>
+                                <a class="nav-link fw-bold text-dark" href="about-us.html">CÔNG TY</a>
                             </li>
                         </ul>
                     </div>
@@ -53,7 +54,7 @@
                     <div class="d-flex justify-content-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <button type="button" class="btn btn-warning">toan</button>
+                                <button type="button" class="btn btn-warning" id="user-name-btn">guest</button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="btn">
@@ -61,10 +62,14 @@
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn"><i class="fa-solid fa-user"></i></button>
+                                <button type="button" class="btn" onclick="redirectToGuestInfo()">
+                                    <i class="fa-solid fa-user"></i>
+                                </button>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <button type="button" class="btn" onclick="location.href='giohang.html';">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -81,8 +86,14 @@
                         <ul class="nav">
                             <li class="nav-item">
                                 <div class="">
-                                    <a class="nav-link fw-bold text-dark pb-0" href="#">NẤM QUÀ TẶNG</a>
-                                    <a class="nav-link fw-medium text-secondary pt-0" href="#">2 Sản Phẩm</a>
+                                    <a class="nav-link fw-bold text-dark pb-0" href="product.html">NẤM TƯƠI</a>
+                                    <a class="nav-link fw-medium text-secondary pt-0" href="product.html">21 Sản Phẩm</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="">
+                                    <a class="nav-link fw-bold text-dark pb-0" href="#">NẤM KHÔ</a>
+                                    <a class="nav-link fw-medium text-secondary pt-0" href="#">15 Sản Phẩm</a>
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -105,20 +116,14 @@
                             </li>
                             <li class="nav-item">
                                 <div class="">
-                                    <a class="nav-link fw-bold text-dark pb-0" href="#">NẤM TƯƠI</a>
-                                    <a class="nav-link fw-medium text-secondary pt-0" href="#">21 Sản Phẩm</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <div class="">
-                                    <a class="nav-link fw-bold text-dark pb-0" href="#">NẤM KHÔ</a>
-                                    <a class="nav-link fw-medium text-secondary pt-0" href="#">15 Sản Phẩm</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <div class="">
                                     <a class="nav-link fw-bold text-dark pb-0" href="#">PHÔI NẤM</a>
                                     <a class="nav-link fw-medium text-secondary pt-0" href="#">1 Sản Phẩm</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="">
+                                    <a class="nav-link fw-bold text-dark pb-0" href="#">NẤM QUÀ TẶNG</a>
+                                    <a class="nav-link fw-medium text-secondary pt-0" href="#">2 Sản Phẩm</a>
                                 </div>
                             </li>
                         </ul>
@@ -128,6 +133,8 @@
         </div>
     </div>
 </section>
+
+<!-- Menu-->
 <section class="menu">
     <div class="container">
         <div class="row">
@@ -140,8 +147,8 @@
                 <div class="d-flex justify-content-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a class="text-secondary" href="#">Trang Chủ</a></li>
-                            <li class="breadcrumb-item"><a class="text-secondary" href="#">Sản Phẩm</a></li>
+                            <li class="breadcrumb-item"><a class="text-secondary" href="index.html">Trang Chủ</a></li>
+                            <li class="breadcrumb-item"><a class="text-secondary" href="product.html">Sản Phẩm</a></li>
                             <li class="breadcrumb-item" aria-current="page">Data</li>
                         </ol>
                     </nav>
@@ -183,6 +190,8 @@
         </div>
     </div>
 </section>
+
+<!-- Content-->
 <section class="content">
     <div class="container">
         <div class="row">
@@ -192,67 +201,75 @@
                         <div class="row">
                             <div class="col">
                                 <ul class="nav pb-0 text-secondary fw-medium">
-                                    <li class="">Bột Nấm Ăn</li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Chà Bông Nấm</li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Nấm Dược Liệu</li>
+                                    <li class="">Nấm Tươi</li>
                                 </ul>
                                 <ul class="nav pt-2 text-secondary fw-medium">
                                     <li class="">Nấm Khô</li>
                                 </ul>
                                 <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Nấm Quà Tặng</li>
+                                    <li class="">Bột Nấm Ăn</li>
                                 </ul>
                                 <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Nấm Tươi</li>
+                                    <li class="">Nấm Dược Liệu</li>
+                                </ul>
+                                <ul class="nav pt-2 text-secondary fw-medium">
+                                    <li class="">Chà Bông Nấm</li>
                                 </ul>
                                 <ul class="nav pt-2 text-secondary fw-medium">
                                     <li class="">Phôi Nấm</li>
                                 </ul>
+                                <ul class="nav pt-2 text-secondary fw-medium">
+                                    <li class="">Nấm Quà Tặng</li>
+                                </ul>
                             </div>
                             <div class="col-4 fs-6">
                                 <ul class="nav pb-0 text-secondary fw-medium">
+                                    <li class="ps-5"><div class="badge border text-bg-light">21</div></li>
+                                </ul>
+                                <ul class="nav pt-2 text-secondary fw-medium">
+                                    <li class="ps-5"><div class="badge border text-bg-light">15</div></li>
+                                </ul>
+                                <ul class="nav pt-2 text-secondary fw-medium">
                                     <li class="ps-5"><div class="badge border text-bg-light">4</div></li>
+                                </ul>
+                                <ul class="nav pt-2 text-secondary fw-medium">
+                                    <li class="ps-5"><div class="badge border text-bg-light ">7</div></li>
                                 </ul>
                                 <ul class="nav pt-2 text-secondary fw-medium">
                                     <li class="ps-5"><div class="badge border text-bg-light">3</div></li>
                                 </ul>
                                 <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">7</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light ">15</div></li>
+                                    <li class="ps-5"><div class="badge border text-bg-light">1</div></li>
                                 </ul>
                                 <ul class="nav pt-2 text-secondary fw-medium">
                                     <li class="ps-5"><div class="badge border text-bg-light">2</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">21</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">1</div></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="pt-2">
-                    <label for="customRange3" class="form-label text-danger fw-bold fs-5">Khoảng Giá</label>
-                    <input type="range" class="form-range" min="0" max="10000000" step="20000" id="customRange3">
-                    <div class="row ps-3">
-                        <ul class="nav">
-                            <li class="nav_item col-2 text-secondary d-flex justify-content-left">Giá:</li>
-                            <li class="col-8 fw-bold">0đ - 10.000.000đ</li>
-                            <li class="nav_item">
-                                <button type="button" class="btn pt-0">Lọc</button>
-                            </li>
-                        </ul>
+                    <label class="form-label text-danger fw-bold fs-5">Khoảng Giá</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="priceRange" id="priceRange1" value="0-1000000">
+                        <label class="form-check-label" for="priceRange1">0đ - 1.000.000đ</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="priceRange" id="priceRange2" value="1000000-5000000">
+                        <label class="form-check-label" for="priceRange2">1.000.000đ - 5.000.000đ</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="priceRange" id="priceRange3" value="5000000-10000000">
+                        <label class="form-check-label" for="priceRange3">5.000.000đ - 10.000.000đ</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="priceRange" id="priceRange4" value="10000000-20000000">
+                        <label class="form-check-label" for="priceRange4">10.000.000đ - 20.000.000đ</label>
+                    </div>
+                    <div class="pt-2">
+                        <button type="button" class="btn btn-primary">Lọc</button>
                     </div>
                 </div>
-
                 <div>
                     <div class="pt-3">
                         <div class="d-flex ps-1 text-danger fw-bold fs-5">Bán Chạy Nhất</div>
@@ -260,81 +277,51 @@
                     <div class="">
                         <ul class="nav mt-2">
                             <li class="h-80 d-inline-block pt-2" style="height:80px">
-                                <a href="ChiTietSanPham.html"><img src="img/img19.png" style="width: 80px" class="" alt="..."></a>
+                                <a href=""><img src="/img/img19.png" style="width: 80px" class="" alt="..."></a>
                             </li>
                             <li class="">
-                                <a class="nav-link fw-medium text-dark pt-1" href="ChiTietSanPham.html">Nấm Hương Tươi</a>
-                                <ul class="nav">
-                                    <li class=""><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
+                                <a class="nav-link fw-medium text-dark pt-1" href="#">Nấm Hương Tươi</a>
+                                <div class="stars"></div>
                                 <div class="ms-3">22.000đ - 85.000đ</div>
                             </li>
                         </ul>
                         <ul class="nav mt-3">
                             <li class="h-80 d-inline-bloc pt-2" style="height:80px">
-                                <a href="ChiTietSanPham.html"><img src="img/img3.png" style="width: 80px" class="" alt="..."></a>
+                                <a href="#"><img src="/img/img3.png" style="width: 80px" class="" alt="..."></a>
                             </li>
                             <li class="">
-                                <a class="nav-link fw-medium text-dark pt-1" href="ChiTietSanPham.html">Nấm Mỡ Tươi</a>
-                                <ul class="nav">
-                                    <li class=""><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
+                                <a class="nav-link fw-medium text-dark pt-1" href="#">Nấm Mỡ Trắng Tươi</a>
+                                <div class="stars"></div>
                                 <div class="ms-3">39.000đ - 165.000đ</div>
                             </li>
                         </ul>
                         <ul class="nav mt-3">
                             <li class="h-80 d-inline-block pt-2" style="height:80px">
-                                <a href="ChiTietSanPham.html"><img src="img/img12.png" style="width: 80px" class="" alt="..."></a>
+                                <a href="#"><img src="/img/img12.png" style="width: 80px" class="" alt="..."></a>
                             </li>
                             <li class="">
-                                <a class="nav-link fw-medium text-dark pt-1" href="ChiTietSanPham.html">Bột Linh Chi Đỏ Thái</a>
-                                <ul class="nav">
-                                    <li class=""><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
+                                <a class="nav-link fw-medium text-dark pt-1" href="">Bột Linh Chi Đỏ Thái</a>
+                                <div class="stars"></div>
                                 <div class="ms-3">65.000đ - 1.050.000đ</div>
                             </li>
                         </ul>
                         <ul class="nav mt-3">
                             <li class="h-80 d-inline-block pt-2" style="height:80px">
-                                <a href="ChiTietSanPham.html"><img src="img/img7.png" style="width: 80px" class="" alt="..."></a>
+                                <a href=""><img src="/img/img7.png" style="width: 80px" class="" alt="..."></a>
                             </li>
                             <li class="">
-                                <a class="nav-link fw-medium text-dark pt-1" href="ChiTietSanPham.html">Nấm Mỡ Nâu Tươi</a>
-                                <ul class="nav">
-                                    <li class=""><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
+                                <a class="nav-link fw-medium text-dark pt-1" href="">Nấm Mỡ Nâu Tươi</a>
+                                <div class="stars"></div>
                                 <div class="ms-3">58.000đ - 250.000đ</div>
                             </li>
                         </ul>
                         <ul class="nav mt-3">
                             <li class="h-80 d-inline-block pt-2" style="height:80px">
-                                <a href="ChiTietSanPham.html"><img src="img/img11.png" style="width: 80px" class="" alt="..."></a>
+                                <a href=""><img src="/img/img11.png" style="width: 80px" class="" alt="..."></a>
                             </li>
                             <li class="">
-                                <a class="nav-link fw-medium text-dark pt-1" href="ChiTietSanPham.html">Nấm Rôm Sấy</a>
-                                <ul class="nav">
-                                    <li class=""><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
+                                <a class="nav-link fw-medium text-dark pt-1" href="">Nấm Rơm Sấy</a>
+                                <div class="stars"></div>
                                 <div class="ms-3">39.000đ - 185.000đ</div>
                             </li>
                         </ul>
@@ -344,11 +331,11 @@
             <div class="col-9">
                 <div class="d-flex ps-5">
                     <ul class="nav">
-                        <li class="nav-item"  data-price-min="58000" data-price-max="250000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product" >
-                                        <a href="ChiTietSanPham.html"><img src="img/img1.png" style="width: 200px" class="" alt="..."></a>
+                                        <img src="/img/img1.png" style="width: 200px" class="" alt="...">
                                     </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
@@ -356,15 +343,15 @@
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html">Nấm Hương Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Hương Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">58.000đ - 250.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item"  data-price-min="19000" data-price-max="265000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img2.png" style="width: 200px" class="" alt="..."></a>
+                                        <img src="/img/img2.png" style="width: 200px" class="" alt="...">
                                     </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
@@ -372,15 +359,15 @@
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Mộc Nhĩ Khô</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Mộc Nhĩ Khô</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">19.000đ - 265.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item"  data-price-min="69000" data-price-max="315000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product" >
-                                        <a href="ChiTietSanPham.html"><img src="img/img3.png" style="width: 200px" class="" alt="..."></a>
+                                        <img src="/img/img3.png" style="width: 200px" class="" alt="...">
                                     </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
@@ -388,15 +375,15 @@
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Mỡ Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Mỡ Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">69.000đ - 315.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="39000" data-price-max="185000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img4.png" style="width: 200px" class="" alt="..."></a>
+                                        <img src="/img/img4.png" style="width: 200px" class="" alt="...">
                                     </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
@@ -404,105 +391,49 @@
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Rôm Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Rơm Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">39.000đ - 185.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item"  data-price-min="45000" data-price-max="570000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img5.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img5.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Bột Nấm Hương</a>
+                                <div class="product_name d-flex justify-content-center">Bột Nấm Hương</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">45.000đ - 570.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="29000" data-price-max="115000">
+                        <li class="nav-item">
+                            <a href="product-detail.html" class="text-decoration-none text-dark">
                                 <div class="h-100 d-inline-block border rounded" style="height:100px">
                                     <div class="container">
                                         <div class="img_product">
-                                            <a href="ChiTietSanPham.html"><img src="img/img6.png" style="width: 200px" class="" alt="..."></a>                                        </div>
+                                            <img src="/img/img6.png" style="width: 200px" class="" alt="...">
+                                        </div>
                                     </div>
                                     <div class="product_infor d-flex justify-content-center">
                                         <button data-weight="200" class="btn">200g</button>
                                         <button data-weight="500" class="btn">500g</button>
                                         <button data-weight="1000" class="btn">1kg</button>
                                     </div>
-                                    <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Kim Châm Tươi</a>
+                                    <div class="product_name d-flex justify-content-center">Nấm Kim Châm Tươi</div>
                                     <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">29.000đ - 115.000đ</div>
                                 </div>
+                            </a>
                         </li>
-                        <li class="nav-item"  data-price-min="79000" data-price-max="365000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img7.png" style="width: 200px" class="" alt="..."></a>                                    </div>
-                                </div>
-                                <div class="product_infor d-flex justify-content-center">
-                                    <button data-weight="200" class="btn">200g</button>
-                                    <button data-weight="500" class="btn">500g</button>
-                                    <button data-weight="1000" class="btn">1kg</button>
-                                </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Mỡ Nâu Tươi</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">79.000đ - 365.000đ</div>
-                            </div>
-                        </li>
-                        <li class="nav-item"  data-price-min="22000" data-price-max="200000">
-                            <div class="h-100 d-inline-block border rounded" style="height:100px">
-                                <div class="container">
-                                    <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img8.png" style="width: 200px" class="" alt="..."></a>                                    </div>
-                                </div>
-                                <div class="product_infor d-flex justify-content-center">
-                                    <button data-weight="200" class="btn">200g</button>
-                                    <button data-weight="500" class="btn">500g</button>
-                                    <button data-weight="1000" class="btn">1kg</button>
-                                </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Bào Ngư Xám Tươi</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">22.000đ - 200.000đ</div>
-                            </div>
-                        </li>
-                        <li class="nav-item" data-price-min="150000" data-price-max="535000">
-                            <div class="h-100 d-inline-block border rounded" style="height:100px">
-                                <div class="container">
-                                    <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img9.png" style="width: 200px" class="" alt="..."></a>                                    </div>
-                                </div>
-                                <div class="product_infor d-flex justify-content-center">
-                                    <button data-weight="200" class="btn">200g</button>
-                                    <button data-weight="500" class="btn">500g</button>
-                                    <button data-weight="1000" class="btn">1kg</button>
-                                </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Đông Cô Tươi</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">150.000đ - 535.000đ</div>
-                            </div>
-                        </li>
-                        <li class="nav-item" data-price-min="75000" data-price-max="295000">
-                            <div class="h-100 d-inline-block border rounded" style="height:100px">
-                                <div class="container">
-                                    <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img10.png" style="width: 200px" class="" alt="..."></a>                                    </div>
-                                </div>
-                                <div class="product_infor d-flex justify-content-center">
-                                    <button data-weight="200" class="btn">200g</button>
-                                    <button data-weight="500" class="btn">500g</button>
-                                    <button data-weight="1000" class="btn">1kg</button>
-                                </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Tuyết Tươi</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">75.000đ - 295.000đ</div>
-                            </div>
-                        </li>
-                        <li class="nav-item" data-price-min="150000" data-price-max="325000">
-                            <div class="h-100 d-inline-block border rounded" style="height:100px">
-                                <div class="container">
-                                    <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img11.png" style="width: 200px" class="" alt="..."></a>
+                                        <img src="/img/img7.png" style="width: 200px" class="" alt="...">
                                     </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
@@ -510,325 +441,850 @@
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Rôm Khô</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">150.000đ - 325.000đ</div>
+                                <div class="product_name d-flex justify-content-center">Nấm Mỡ Nâu Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">79.000đ - 365.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="350000" data-price-max="3400000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img12.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img8.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Linh Chi Đỏ Thái Lát</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">350.000đ - 3.400.000đ</div>
+                                <div class="product_name d-flex justify-content-center">Nấm Bào Ngư Xám Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">20.000đ - 70.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="80000" data-price-max="325000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img13.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img9.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Bột Nấm Mộc Nhĩ</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Đông Cô Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">150.000đ - 535.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img10.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Tuyết Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">75.000đ - 295.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img11.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Rơm Khô</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">230.000đ - 555.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img12.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Linh Chi Đỏ Thái Lát</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">350.000đ - 1.200.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img13.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Bột Nấm Mèo</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">80.000đ - 325.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="70000" data-price-max="315000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img14.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img14.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Mối Đen Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Mối Đen Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">70.000đ - 315.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="670000" data-price-max="6500000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img15.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img15.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Đông Trùng Hạ Thảo</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">670.000đ - 6.500.000đ</div>
+                                <div class="product_name d-flex justify-content-center">Nấm Đông Trùng Hạ Thảo Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">550.000đ - 4.500.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="450000" data-price-max="4100000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img16.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img16.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">50g</button>
                                     <button data-weight="500" class="btn">100g</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Bột Nấm Linh Chi Đỏ</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">450.000đ - 4.100.000đ</div>
+                                <div class="product_name d-flex justify-content-center">Bột Nấm Linh Chi Đỏ</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">650.000đ - 1.200.000đ</div>
                                 <div></div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="80000" data-price-max="375000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img17.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img17.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Bụng Dê Khô</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Bụng Dê Khô</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">80.000đ - 375.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="65000" data-price-max="235000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img18.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img18.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Hầu Thủ Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Hầu Thủ Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">65.000đ - 235.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="85000" data-price-max="640000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img19.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img19.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Hoàng Đế Milky</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">85.000đ - 640.000đ</div>
+                                <div class="product_name d-flex justify-content-center">Nấm Hoàng Đế Milky</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">85.000đ - 460.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="45000" data-price-max="155000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img20.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img20.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Tâm Trúc Khô</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Tâm Trúc Khô</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">45.000đ - 155.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="55000" data-price-max="205000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img21.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img21.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Ngọc Châm Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Ngọc Châm Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">55.000đ - 205.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="35000" data-price-max="190000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img22.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img22.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Chân Dài Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Chân Dài Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">35.000đ - 190.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="50000" data-price-max="295000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img23.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img23.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Hào Hương Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Hào Hương Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">50.000đ - 295.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="60000" data-price-max="385000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img24.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img24.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Nâu Tây Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Nâu Tây Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">60.000đ - 385.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="75000" data-price-max="315000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img25.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img25.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Ngọc Châm Nâu</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Ngọc Châm Nâu Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">75.000đ - 315.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="60000" data-price-max="280000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img26.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img26.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Sò Hương Trắng</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Sò Hương Trắng Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">60.000đ - 280.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="30000" data-price-max="270000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img27.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img27.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Trà Tân Khô</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">30.000đ - 270.000đ</div>
+                                <div class="product_name d-flex justify-content-center">Nấm Trà Tân Khô</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">250.000đ - 485.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="250000" data-price-max="1200000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img28.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img28.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Đông Cô Khô</a>
-                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">250.000đ - 1.200.000đ</div>
+                                <div class="product_name d-flex justify-content-center">Nấm Đông Cô Khô</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">250.000đ - 580.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="95000" data-price-max="415000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img29.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img29.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Hoàng Kim Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Hoàng Kim Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">95.000đ - 415.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="55000" data-price-max="320000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img30.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img30.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Yến Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Yến Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">55.000đ - 320.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="40000" data-price-max="280000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img31.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img31.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Nấm Notaky Tươi</a>
+                                <div class="product_name d-flex justify-content-center">Nấm Notaky Tươi</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">40.000đ - 280.000đ</div>
                             </div>
                         </li>
-                        <li class="nav-item" data-price-min="50000" data-price-max="400         000">
+                        <li class="nav-item">
                             <div class="h-100 d-inline-block border rounded" style="height:100px">
                                 <div class="container">
                                     <div class="img_product">
-                                        <a href="ChiTietSanPham.html"><img src="img/img32.png" style="width: 200px" class="" alt="..."></a>                                    </div>
+                                        <img src="/img/img32.png" style="width: 200px" class="" alt="...">
+                                    </div>
                                 </div>
                                 <div class="product_infor d-flex justify-content-center">
                                     <button data-weight="200" class="btn">200g</button>
                                     <button data-weight="500" class="btn">500g</button>
                                     <button data-weight="1000" class="btn">1kg</button>
                                 </div>
-                                <a class="product_name nav-link text-warning-emphasis fw-medium d-flex justify-content-center" href="ChiTietSanPham.html" >Bột Nấm Bào Ngư</a>
+                                <div class="product_name d-flex justify-content-center">Bột Nấm Bào Ngư</div>
                                 <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">50.000đ - 400.000đ</div>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img33.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Hầu Thủ</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">32.000đ - 365.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img34.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Rôm Sấy Khô</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">50.000đ - 400.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img35.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Combo Lẩu Nấm Kim Châm</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">30.000đ - 250.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img36.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Đông Cô Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">45.000đ - 500.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img37.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Hồng Ngọc</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">32.000đ - 370.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img38.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Linh Chi Sừng Hươu Khô</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">600.000đ - 2.300.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img39.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Thượng Hoàng Khô</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">1.600.000đ - 6.200.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img40.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="2000" class="btn">2L</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Rượu Linh Chi – Nhân Sâm</div>
+                                <div class="d-flex justify-content-center">– Hải Mã</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">2.000.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img41.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="2000" class="btn">2L</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Rượu Lim Xanh – Nhân Sâm</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">1.800.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img42.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="2000" class="btn">2L</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Rượu Linh Chi – Nhân Sâm</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">1.500.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img43.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="300" class="btn">300ml</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Cao Linh Chi Mật Ong Nông</div>
+                                <div class="d-flex justify-content-center"> Lâm</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">595.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img44.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Lim Xanh Nông Lâm</div>
+                                <div class="d-flex justify-content-center">Thái Lát</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">1.025.000đ-3.900.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img45.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Hầu Thủ Khô Nông Lâm</div>
+
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">600.000đ-1.800.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img46.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Vân Chi Nông Lâm</div>
+
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">800.000đ-3.200.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img47.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Dược Liệu Bổ Trợ Linh Chi </div>
+                                <div class="d-flex justify-content-center">Nông Lâm</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">495.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img48.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="100" class="btn">1lọ</button>
+                                    <button data-weight="600" class="btn">6lọ</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nước Trùng Thảo Yến Sào</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">50.000đ - 295.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img49.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="500" class="btn">500ml</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Trùng Thảo Mật Ong Nông Lâm</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">1.580.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img50.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="50" class="btn">50g</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Đông Trùng Hạ Thảo Militaris</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">3.750.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img51.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Viên Nang Đông Trùg Hạ Thảo</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">650.000đ - 3.375.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img52.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Xerula Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">80.000đ - 320.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img53.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Trà Tân Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">220.000đ - 1.000.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img54.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Hồng Ngọc Khô</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">200.000đ - 1.500.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img55.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Mọc Nhĩ Thái Sợi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">16.000đ - 250.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img56.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Tuyết Sấy Khô Cắt Nhuyễn</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">17.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img57.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Trà Tân Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">20.000đ - 195.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img58.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Đùi Gà Baby</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">75.000đ - 158.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img59.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Kim Phúc Tươi</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">80.000đ - 295.000đ</div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="h-100 d-inline-block border rounded" style="height:100px">
+                                <div class="container">
+                                    <div class="img_product">
+                                        <img src="/img/img60.png" style="width: 200px" class="" alt="...">
+                                    </div>
+                                </div>
+                                <div class="product_infor d-flex justify-content-center">
+                                    <button data-weight="200" class="btn">200g</button>
+                                    <button data-weight="500" class="btn">500g</button>
+                                    <button data-weight="1000" class="btn">1kg</button>
+                                </div>
+                                <div class="product_name d-flex justify-content-center">Nấm Linh Chi Trắng</div>
+                                <div class="mt-2 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">65.000đ - 255.000đ</div>
+                            </div>
+                        </li>
+
+
+
+
                     </ul>
                 </div>
                 <div class="col-17 mt-5">
@@ -856,6 +1312,8 @@
         </div>
     </div>
 </section>
+
+<!-- Footer-->
 <section class="footer">
     <div style="height: 50px">
         <div class="" style="background-color: #f3eee7">
@@ -863,19 +1321,10 @@
                 <div class="row">
                     <div class="col-5 p-2 text-black">
                         <div class="d-flex justify-content-center">
-                            <img src="img/logo.png" style="height: 100px" alt="Logo">
+                            <img src="/img/logo.png" style="height: 100px" alt="Logo">
                         </div>
                         <div class="container" style="width: 500px">
-                            <div class="mt-3 d-flex justify-content-center">
-                                Nấm Xanh chuyên nuôi trồng, sản xuất và phân phối các loại nấm ăn, gồm nấm tươi, nấm khô các loại và sản phẩm chế biến từ nấm với tiêu chuẩn SẠCH SẼ, AN TOÀN vì sức khỏe người dùng. Luôn TẬN TÂM để mang đến sự AN TÂM và nguồn dinh dưỡng tuyệt vời của nấm trong bữa ăn của mọi gia đình Việt.
-                            </div>
-
                             <div class="mt-3 p-2 text-bg-danger fw-bold rounded text-start fs-6" style="height: 40px">CÔNG TY TNHH 3 THÀNH VIÊN</div>
-                            <ul class="nav mt-3">
-                                <li class="fw-bold text-secondary">Mã số doanh nghiệp (MST)</li>
-                                <li class="text-secondary">: 0317078076 do Sở Kế Hoạch và Đầu </li>
-                                <li class="text-secondary">Tư TP Hồ Chí Minh cấp lần đầu ngày 14/12/2024</li>
-                            </ul>
                             <ul class="nav mt-2">
                                 <li class="fw-bold text-secondary">Số chứng nhận ATTP</li>
                                 <li class="text-secondary">: 3956/2022/BQLATTP-HCM</li>
@@ -885,8 +1334,8 @@
                                 <li class="text-secondary">: 267 Phường Đông Hòa, Dĩ An, Bình Dương, Việt Nam</li>
                             </ul>
                             <ul class="nav mt-2">
-                                <li class="fw-bold text-secondary">Hotline Hợp Tác: </li>
-                                <li class="text-secondary">027 363 7756 (Mr T)</li>
+                                <li class="fw-bold text-secondary">Hotline Hợp Tác</li>
+                                <li class="text-secondary">: 027 363 7756 (Mr T)</li>
                             </ul>
                             <ul class="nav mt-2">
                                 <li class="fw-bold text-secondary">Email Liên Hệ</li>
@@ -896,12 +1345,7 @@
                                 <li class="fw-bold text-secondary">Giờ Làm Việc</li>
                                 <li class="text-secondary">: Thứ 2 - Thứ 7 (8h00-17h30)</li>
                             </ul>
-                            <div class="mt-3 p-2 text-bg-danger fw-bold rounded text-start fs-6" style="height: 40px">HKD NÔNG TRẠI NẤM (CENTER)</div>
-                            <ul class="nav mt-3">
-                                <li class="fw-bold text-secondary">Mã số doanh nghiệp</li>
-                                <li class="text-secondary">: 20H5561516 do Phòng Tài Chính Kế Hoạch</li>
-                                <li class="text-secondary">UBND Huyện Đức Hòa cấp lần đầu ngày 17/08/2021</li>
-                            </ul>
+                            <div class="mt-3 p-2 text-bg-danger fw-bold rounded text-start fs-6" style="height: 40px">NÔNG TRẠI NẤM</div>
                             <ul class="nav mt-2">
                                 <li class="fw-bold text-secondary">Số chứng nhận ATTP</li>
                                 <li class="text-secondary">: 21/2021/NNPTNT-LAN</li>
@@ -920,14 +1364,9 @@
                     <div class="col-3 p-2 text-black">
                         <div class="d-flex justify-content-left">
                             <div class="d-flex ps-1">
-                                <div class="vstack gap-3">
+                                <div class="vstack gap-2">
                                     <div class="p-2 pb-0 text-danger fw-bold fs-5" style="--bs-text-opacity: 1;">THÔNG TIN</div>
                                     <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Giới Thiệu</div>
-                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Nông Trại</div>
-                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Cửa Hàng</div>
-                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Đối Tác KD</div>
-                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Truyền Thông</div>
-                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Ưu Đãi</div>
                                     <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Hỏi Đáp - FAQs</div>
                                     <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Liên Hệ</div>
                                 </div>
@@ -936,7 +1375,7 @@
                         <div class="d-flex justify-content-center text-secondary fw-light">------------------------------------------------</div>
                         <div class="d-flex justify-content-left">
                             <div class="d-flex ps-1">
-                                <div class="vstack gap-3">
+                                <div class="vstack gap-2">
                                     <div class="p-2 pb-0 text-danger fw-bold fs-5" style="--bs-text-opacity: 1;">CHÍNH SÁCH</div>
                                     <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Vận Chuyển</div>
                                     <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Thanh Toán</div>
@@ -952,7 +1391,7 @@
                         <div class="container">
                             <div class="d-flex justify-content-center">
                                 <div class="d-flex ps-1">
-                                    <div class="vstack gap-3">
+                                    <div class="vstack gap-1">
                                         <div class="p-2 pb-0 text-danger fw-bold fs-5" style="--bs-text-opacity: 1;">DÒNG SẢN PHẨM</div>
                                         <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Nấm Tươi</div>
                                         <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Nấm Khô</div>
@@ -960,6 +1399,7 @@
                                         <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Nấm Dược Liệu</div>
                                         <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chà Bông Nấm</div>
                                         <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Phôi Nấm</div>
+                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Nấm Quà Tặng</div>
                                     </div>
                                 </div>
                             </div>
@@ -969,14 +1409,16 @@
                 </div>
                 <div class="row justify-content-center mt-1">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
                 <div class="row">
-                    <div class="mt-3 ps-4 pb-3 col-4 d-flex justify-content-center">Copyright © 2021–2025 Nấm Xanh. All rights reserved.</div>
+                    <div class="mt-3 ps-4 pb-3 col-4 d-flex justify-content-center" style="visibility: hidden;">
+                        Copyright © 2021–2025 Nấm Xanh. All rights reserved.
+                    </div>
                     <div class="mt-3 col-7 d-flex justify-content-end">
                         <ul class="nav">
-                            <li><a href=""><img src="img/logo1.png" style="width: 40px" class="" alt="..."></a></li>
-                            <li class="ps-1"><a href=""><img src="img/logo2.png" style="width: 30px" class="" alt="..."></a></li>
-                            <li class="ps-1"><a href=""><img src="img/logo3.png" style="width: 30px" class="" alt="..."></a></li>
-                            <li class="ps-1"><a href=""><img src="img/logo4.png" style="width: 30px" class="" alt="..."></a></li>
-                            <li class="ps-1"><a href=""><img src="img/logo5.png" style="width: 40px" class="" alt="..."></a></li>
+                            <li><a href=""><img src="/img/logo1.png" style="width: 40px" class="" alt="..."></a></li>
+                            <li class="ps-1"><a href=""><img src="/img/logo2.png" style="width: 30px" class="" alt="..."></a></li>
+                            <li class="ps-1"><a href=""><img src="/img/logo3.png" style="width: 30px" class="" alt="..."></a></li>
+                            <li class="ps-1"><a href=""><img src="/img/logo4.png" style="width: 30px" class="" alt="..."></a></li>
+                            <li class="ps-1"><a href=""><img src="/img/logo5.png" style="width: 40px" class="" alt="..."></a></li>
                         </ul>
                     </div>
                 </div>
@@ -985,41 +1427,7 @@
     </div>
 </section>
 
-<script>
-    // Lấy các phần tử cần thiết
-    const rangeInput = document.getElementById("customRange3");
-    const filterButton = document.querySelector(".btn.pt-0");
-    const products = document.querySelectorAll(".nav-item");
-
-    // Xử lý khi nhấn nút Lọc
-    filterButton.addEventListener("click", () => {
-        const maxPrice = parseInt(rangeInput.value); // Giá trị thanh trượt
-        filterProducts(maxPrice);
-    });
-
-    // Hàm lọc sản phẩm
-    function filterProducts(maxPrice) {
-        products.forEach(product => {
-            const minPrice = parseInt(product.getAttribute("data-price-min"));
-            const maxProductPrice = parseInt(product.getAttribute("data-price-max"));
-
-            // Hiển thị sản phẩm nếu giá nằm trong khoảng
-            if (minPrice <= maxPrice) {
-                product.style.display = "block";
-            } else {
-                product.style.display = "none";
-            }
-        });
-    }
-
-    // Cập nhật hiển thị giá trị khoảng giá khi kéo thanh trượt
-    rangeInput.addEventListener("input", () => {
-        const rangeLabel = document.querySelector(".col-8.fw-bold");
-        rangeLabel.textContent = `0đ - ${parseInt(rangeInput.value).toLocaleString()}đ`;
-    });
-</script>
-
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/updateProductPrice.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/product.js"></script>
 </body>
 </html>
