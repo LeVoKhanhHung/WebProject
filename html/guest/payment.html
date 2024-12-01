@@ -4,77 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanhtoan</title>
-    <link rel="stylesheet" href="../../css/styleThanhtoan.css">
+    <link rel="stylesheet" href="/css/styleThanhtoan.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 
 </head>
 <body>
-    <header class="menuSelect">
-        <nav class="menu">
-            <ul class="ulmenu">
-                <li class="limenu">
-                    <a class="amenu" href="shopping-cart.html" > <strong>GIỎ HÀNG-> </strong> </a>
-                </li>
-                <li class="limenu">
-                    <a class="amenu activemenu" href="payment.html"> <strong>THANH TOÁN   -></strong></a>
-                </li>
-                <li class="limenu">
-                    <a class="amenu" href="http://"> <strong>HOÀN TẤT</strong></a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <section class="content">
-        <article class="khuyenmai">
-            <p class="pkhuyenmai">
-                Bạn có ưu đãi? <b onclick="toggleBox()">Ấn vào đây để nhập mã</b>
-            </p>
-            <article class="inputkhuyenmai" id = "newBox">
-                <article class="textinput">
-                    Nếu bạn có mã giảm giá, vui lòng điền vào bên dưới.
-                </article>
-                <form action="" class="form">
-                    <textarea name="" id="" class="inputvaluekhuyenmai" placeholder="Nhập mã vào đây"></textarea>
-                    <button type="submit" class="button"> Xác nhận 
-                    </button>
-                </form>
+<section class="header">
+    <div>
+        <div class="" style="background-color: antiquewhite">
+            <div class="row">
+                <div class="col-3 p-2 text-black">
+                    <div class="d-flex justify-content-center">
+                        <img src="/img/logo.png" style="height: 50px" alt="Logo">
+                    </div>
+                </div>
+                <div class="col-6 p-3 text-black">
+                    <div class="d-flex justify-content-center">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold text-dark" href="#">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">SẢN PHẨM</button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Nấm Tươi</a></li>
+                                    <li><a class="dropdown-item" href="#">Nấm Khô</a></li>
+                                    <li><a class="dropdown-item" href="#">Bột Nấm Ăn</a></li>
+                                    <li><a class="dropdown-item" href="#">Nấm Dược Liệu</a></li>
+                                    <li><a class="dropdown-item" href="#">Chà Bông Nấm</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">CHIA SẺ</button>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold text-dark" href="#">HỢP TÁC</a>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">CÔNG TY</button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">KHÁCH HÀNG</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3 p-3 text-black">
+                    <div class="d-flex justify-content-center">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-warning">toan</button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn"><i class="fa-solid fa-user"></i></button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn " ><a href="html/giohang.html"><i class="fa-solid fa-cart-shopping"> </i></a> </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<header class="menuSelect">
+    <nav class="menu">
+        <ul class="ulmenu">
+            <li class="limenu">
+                <a class="amenu" href="giohang.html" > <strong>GIỎ HÀNG-> </strong> </a>
+            </li>
+            <li class="limenu">
+                <a class="amenu activemenu" href="thanhtoan.html"> <strong>THANH TOÁN   -></strong></a>
+            </li>
+            <li class="limenu">
+                <a class="amenu" href="http://"> <strong>HOÀN TẤT</strong></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<section class="content">
+    <article class="khuyenmai">
+        <p class="pkhuyenmai">
+            Bạn có ưu đãi? <b onclick="toggleBox()">Ấn vào đây để nhập mã</b>
+        </p>
+        <article class="inputkhuyenmai" id = "newBox">
+            <article class="textinput">
+                Nếu bạn có mã giảm giá, vui lòng điền vào bên dưới.
+
             </article>
-            <section class="contentproduct">
-                <article class="inforkhuyenmai">
-                    <article class="icon">
-                     <i class="fa-solid fa-circle-exclamation"></i>
-                    </article>
-                    <article class="inforchitiet">
-                     <p>Để nhận
+            <form action="" class="form">
+                <textarea name="" id="" class="inputvaluekhuyenmai" placeholder="Nhập mã vào đây"></textarea>
+                <button type="submit" class="button"> Xác nhận
+                </button>
+            </form>
+        </article>
+        <section class="contentproduct">
+            <article class="inforkhuyenmai">
+                <article class="icon">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </article>
+                <article class="inforchitiet">
+                    <p>Để nhận
                         "35 NAXA"
                         Quý khách hãy
-                        <a href="login.html">ĐĂNG NHẬP</a>
+                        <a href="http://">Đăng nhập</a>
                         vào tài khoản. Nếu chưa có, Quý khách hãy tick
-                        <a href="sign-up.html">Tạo tài khoản mới?</a>
+                        <a href="http://">Tạo tài khoản mới?</a>
                         nhé!</p>
-                    </article>
-                 </article>
-                 <section class="information">
-                    <section class="informationleft">
-                        <article class="inforfreeship">
-                            <p class="p">Thêm <span style="color: rgb(157, 56, 27); font-size: 15px;"> 455.000₫</span> nữa bạn sẽ được FREESHIP</p>
-                            <article class="rowfreeship">
-                                <article class="rowcheck">
-                                </article>
+                </article>
+            </article>
+            <section class="information">
+                <section class="informationleft">
+                    <article class="inforfreeship">
+                        <p class="p">Thêm <span style="color: rgb(157, 56, 27); font-size: 15px;"> 455.000₫</span> nữa bạn sẽ được FREESHIP</p>
+                        <article class="rowfreeship">
+                            <article class="rowcheck">
                             </article>
                         </article>
-                        <!--Thong tin ca  nhan de thanh toan-->
-                        <section class="inforthanhtoanuser"> 
-                            <b class="p">
-                                THÔNG TIN THANH TOÁN
-                            </b>
-                            <form action="" class="form">
-                                <label for="" class="namelabel">Họ và tên<i class="fa-solid fa-circle-exclamation"></i></label>
-                                <input type="text" class="inputname" placeholder="Họ và tên">
-                                <section class="formleft">
-                                    <label for="" class="namelabel">Số điện thoại<i class="fa-solid fa-circle-exclamation"></i></label>
+                    </article>
+                    <!--Thong tin ca  nhan de thanh toan-->
+                    <section class="inforthanhtoanuser">
+                        <b class="p">
+                            THÔNG TIN THANH TOÁN
+                        </b>
+                        <form action="" class="form">
+                            <label for="" class="namelabel">Họ và tên<i class="fa-solid fa-circle-exclamation"></i></label>
+                            <input type="text" class="inputname" placeholder="Họ và tên">
+                            <section class="formleft">
+                                <label for="" class="namelabel">Số điện thoại<i class="fa-solid fa-circle-exclamation"></i></label>
                                 <input type="text" class="inputname" placeholder="Nhập số điện thoại">
                                 <label for="" class="namelabel">Tỉnh/Thành phố<i class="fa-solid fa-circle-exclamation"></i></label>
                                 <select name="" id="" class="inputname">
@@ -95,184 +160,191 @@
                                     <option value="">Quận 5</option>
 
                                 </select>
-                                </section>
-                                <section class="formright">
-                                    <label for="" class="namelabel">Địa chỉ email (Tuỳ chọn)</label>
-                                    <input type="email" class="inputname" required placeholder="Nhập địa chỉ email" >
-                                    <label for="" class="namelabel">Xã phường/Thị trấn<i class="fa-solid fa-circle-exclamation"></i></label>
-                                    <input type="text" class="inputname" required placeholder="Xã phường/Thị trấn" >
-                                    <label for="" class="namelabel">Địa chỉ<i class="fa-solid fa-circle-exclamation"></i></label>
-                                    <input type="text" class="inputname" required placeholder="Toà nhà, số nhà, tên đường" >
-                                </section>
-                                <label for="" class="namelabel">Ngày sinh(Tuỳ chọn)</label>
-                                <input type="date" class="inputname" placeholder="DD/MM/YY">
-                                <label for="" class="namelabel">Ghi chú đơn hàng(tuỳ chọn)</label>
-                                <textarea name="" id="" class="textareaform" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa chỉ giao hàng chi tiết hơn"></textarea>
-                            </form>
-                        </section>
-                    </section>
-                    <section class="informationright">
-                        <b class="donhang">ĐƠN HÀNG CỦA BẠN</b>
-                        <section class="donhangdetails">
-                            <article class="title">
-                                <b class="titleproduct">SẢN PHẨM</b> 
-                                <b class="titleproduct" style="float: right;">TẠM TÍNH</b> 
+                            </section>
+                            <section class="formright">
+                                <label for="" class="namelabel">Địa chỉ email(Tuỳ chọn)</label>
+                                <input type="email" class="inputname" required placeholder="Nhập địa chỉ email" >
+                                <label for="" class="namelabel">Xã phường/thị trấn<i class="fa-solid fa-circle-exclamation"></i></label>
+                                <input type="text" class="inputname" required placeholder="Xã phườn/thị trấn" >
+                                <label for="" class="namelabel">Địa chỉ<i class="fa-solid fa-circle-exclamation"></i></label>
+                                <input type="text" class="inputname" required placeholder="Toà nhà, số nhà, tên đường" >
+                            </section>
+                            <label for="" class="namelabel">Ngày sinh(Tuỳ chọn)</label>
+                            <input type="date" class="inputname" placeholder="DD/MM/YY">
+                            <label for="" class="namelabel">Ghi chú đơn hàng(tuỳ chọn)</label>
+                            <textarea name="" id="" class="textareaform" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa chỉ giao hàng chi tiết hơn"></textarea>
 
-                            </article>
-                            <section class="priceproduct">
+
+
+
+                        </form>
+
+                    </section>
+
+
+                </section>
+                <section class="informationright">
+                    <b class="donhang">ĐƠN HÀNG CỦA BẠN</b>
+                    <section class="donhangdetails">
+                        <article class="title">
+                            <b class="titleproduct">SẢN PHẨM</b>
+                            <b class="titleproduct" style="float: right;">TẠM TÍNH</b>
+
+                        </article>
+                        <section class="priceproduct">
                                 <span class="icondelete">X
 
                                 </span>
-                                <article class="imgproduct">
+                            <article class="imgproduct">
 
-                                </article>
-                                <article class="inforproduct" >
-                                    <p class="title" style="border: none;">Nấm Rơm Khô (Búp) - 100gr</p>
-                                    <p class="idproduct">SKU: NX029-100</p>
-                                    <article class="changeProduct">
-                                        <article class="sub" id="subspthanhtoan">-
+                            </article>
+                            <article class="inforproduct" >
+                                <p class="title" style="border: none;">Nấm Rơm Khô (Búp) - 100gr</p>
+                                <p class="idproduct">SKU: NX029-100</p>
+                                <article class="changeProduct">
+                                    <article class="sub" id="subspthanhtoan">-
 
-                                        </article>
-                                        <article class="count" id="countspthanhtoan">1
+                                    </article>
+                                    <article class="count" id="countspthanhtoan">1
 
-                                        </article>
-                                        <article class="add" id="addspthanhtoan">+
-
-                                        </article>
+                                    </article>
+                                    <article class="add" id="addspthanhtoan">+
 
                                     </article>
 
                                 </article>
-                                <section class="totalprice">
-                                    <p class="pricesp">120.000₫</p>
 
-                                </section>
-
-                            </section>
-
-                            <!--Tam tinh parent donhangdetails-->
-                            <section class="tamtinhprice">
-                                <b class="titleproduct" style="font-size:15px;">Tạm tính</b>
-                                <b class="titleproduct" style="float: right;font-size:15px; color: rgb(157, 56, 27)">120.000₫</b> 
-
+                            </article>
+                            <section class="totalprice">
+                                <p class="pricesp">120.000₫</p>
 
                             </section>
-                            <section class="tamtinhprice">
-                                <b class="titleproduct" style="font-size:15px;">Đổi điểm</b>
-                                <b class="titleproduct" style="float: right;font-size:15px; color: rgb(157, 56, 27)">-10.000₫</b> 
 
+                        </section>
 
-                            </section>
-                            <section class="giaohang">
-                                <b class="titleproduct" style="font-size:20px; ">Giao hàng</b>
-                                <p class="titleproduct" style="float: right;font-size:15px; color: rgb(157, 56, 27)"><span style="font-size:15px ; color: black;" >Ship Thường (Đồng Giá)</span>: 35.000 ₫</p> 
-                                <article class="note" style="color: red;">
-                                    Lưu ý: NẤM TƯƠI chỉ giao TP HCM. Khách tỉnh/thành khác xin không chọn nấm tươi.
-                                </article>
-
-                            </section>
-                            <section class="tamtinhprice" style="border: none;">
-                                <b class="titleproduct" style="font-size:30px;">Tổng</b>
-                                <b class="titleproduct" style="float: right;font-size:30px; color: rgb(157, 56, 27)">145.000₫</b> 
-
-
-                            </section>
-                            
+                        <!--Tam tinh parent donhangdetails-->
+                        <section class="tamtinhprice">
+                            <b class="titleproduct" style="font-size:15px;">Tạm tính</b>
+                            <b class="titleproduct" style="float: right;font-size:15px; color: rgb(157, 56, 27)">120.000₫</b>
 
 
                         </section>
-                        <!--CARD-->
-                        <section class="inforpay"> 
-                            <form action="" class="formpay">
-                                <section class="inputCOD">
-                                    <input type="radio" name="" id="radio" onclick="toggleGuide()">
-                                    <label for="radio" class="p">COD - Trả Tiền Mặt</label>
-                                  <article class="imgCOD"></article>
-                                  <article id="guide" class="hidden">
-                                    Khi hoàn tất đặt hàng, Quý khách chỉ cần đợi Nấm Xanh xác nhận và giao hàng. 
-                                    Quý khách sẽ thanh toán cho shipper và nhận hàng khi NẤM được giao đến địa chỉ nhận hàng.
-                                  </article>
+                        <section class="tamtinhprice">
+                            <b class="titleproduct" style="font-size:15px;">Đổi điểm</b>
+                            <b class="titleproduct" style="float: right;font-size:15px; color: rgb(157, 56, 27)">-10.000₫</b>
 
-
-                                </section>
-                                <section class="inputBank">
-                                    <input type="radio" name="" id="radio" onclick="toggleGuide()">
-                                    <label for="radio" class="p">Bank-Chuyển Khoản</label>
-                                    <article class="imgBank"></article>
-                                    <article id="guide" class="hidden" style="height:85px ;">
-                                        Quý khách sẽ chuyển khoản trước theo tổng giá trị đơn hàng cho Nấm Xanh (thông tin thanh toán ở trang hoàn tất). 
-                                        Sau khi xác nhận thanh toán thành công, kiện hàng sẽ được chuyển đến Quý khách mà không phát sinh thêm khoản phí nào.
-
-                                </section>
-                                <section class="inputMomo">
-                                    <input type="radio" name="" id="radio" onclick="toggleGuide()">
-                                    <label for="radio" class="p">Ví MoMo</label>
-                                    <article class="imgMomo"></article>
-                                    <article id="guide" class="hidden" style="height:120px ;">
-                                        Nếu dùng Laptop/PC, trang sau sẽ hiện QR-Code để Quý khách dùng ứng dụng ví MoMo trên di động quét và thanh toán. 
-                                        Nếu dùng Mobile, sau bước này hệ thống sẽ tự chuyển đến ứng dụng Ví MoMo trên Mobile (các thông tin tự động cập nhật sẵn), 
-                                        Quý khách chỉ cần áp mã (nếu có) và xác nhận thanh toán là xong. Thanh toán sẽ được tự động hoàn thành.
-                                         Nấm Xanh sẽ gửi hàng đến Quý khách mà không có thêm phí phát sinh.
-
-                                </section>
-
-
-
-
-
-                            </form>
-                        </section>
-                        <section class="chinhsach">
-                            Thông tin thanh toán của Quý khách được bảo mật an toàn theo <span style="color: rgb(157, 56, 27); font-size: 15px;">chính sách riêng tư của Nấm Xanh.</span>  <br>
-                             Thông tin này chỉ được sử dụng để liên hệ và hỗ trợ cho Quý khách trong các trường hợp cần thiết.
 
                         </section>
-                        <form action="" class="formsubmit">
-                            <input type="checkbox" name="" id="radio" onclick="toggleGuide()">
-                            <label for="radio" class="p">Tôi đã đọc và đồng ý với <span style="color: rgb(157, 56, 27); font-size: 15px;">điều khoản và điều kiện</span>  của Nấm Xanh. *</label>
-                            <button class="buttonsubmit">
-                                <p class="active">ĐẶT HÀNG
+                        <section class="giaohang">
+                            <b class="titleproduct" style="font-size:20px; ">Giao hàng</b>
+                            <p class="titleproduct" style="float: right;font-size:15px; color: rgb(157, 56, 27)"><span style="font-size:15px ; color: black;" >Ship Thường (Đồng Giá)</span>: 35.000 ₫</p>
+                            <article class="note" style="color: red;">
+                                Lưu ý: NẤM TƯƠI chỉ giao TP HCM. Khách tỉnh/thành khác xin không chọn nấm tươi.
+                            </article>
 
-                                </p>
+                        </section>
+                        <section class="tamtinhprice" style="border: none;">
+                            <b class="titleproduct" style="font-size:30px;">Tổng</b>
+                            <b class="titleproduct" style="float: right;font-size:30px; color: rgb(157, 56, 27)">145.000₫</b>
 
-                            </button>
-                           
 
-                        </form>
+                        </section>
 
 
 
                     </section>
+                    <!--CARD-->
+                    <section class="inforpay">
+                        <form action="" class="formpay">
+                            <section class="inputCOD">
+                                <input type="radio" name="" id="radio" onclick="toggleGuide()">
+                                <label for="radio" class="p">COD - Trả Tiền Mặt</label>
+                                <article class="imgCOD"></article>
+                                <article id="guide" class="hidden">
+                                    Khi hoàn tất đặt hàng, Quý khách chỉ cần đợi Nấm Xanh xác nhận và giao hàng.
+                                    Quý khách sẽ thanh toán cho shipper và nhận hàng khi NẤM được giao đến địa chỉ nhận hàng.
+                                </article>
 
 
-                 </section>
+                            </section>
+                            <section class="inputBank">
+                                <input type="radio" name="" id="radio" onclick="toggleGuide()">
+                                <label for="radio" class="p">Bank-Chuyển Khoản</label>
+                                <article class="imgBank"></article>
+                                <article id="guide" class="hidden" style="height:85px ;">
+                                    Quý khách sẽ chuyển khoản trước theo tổng giá trị đơn hàng cho Nấm Xanh (thông tin thanh toán ở trang hoàn tất).
+                                    Sau khi xác nhận thanh toán thành công, kiện hàng sẽ được chuyển đến Quý khách mà không phát sinh thêm khoản phí nào.
+
+                            </section>
+                            <section class="inputMomo">
+                                <input type="radio" name="" id="radio" onclick="toggleGuide()">
+                                <label for="radio" class="p">Ví MoMo</label>
+                                <article class="imgMomo"></article>
+                                <article id="guide" class="hidden" style="height:120px ;">
+                                    Nếu dùng Laptop/PC, trang sau sẽ hiện QR-Code để Quý khách dùng ứng dụng ví MoMo trên di động quét và thanh toán.
+                                    Nếu dùng Mobile, sau bước này hệ thống sẽ tự chuyển đến ứng dụng Ví MoMo trên Mobile (các thông tin tự động cập nhật sẵn),
+                                    Quý khách chỉ cần áp mã (nếu có) và xác nhận thanh toán là xong. Thanh toán sẽ được tự động hoàn thành.
+                                    Nấm Xanh sẽ gửi hàng đến Quý khách mà không có thêm phí phát sinh.
+
+                            </section>
+
+
+
+
+
+                        </form>
+                    </section>
+                    <section class="chinhsach">
+                        Thông tin thanh toán của Quý khách được bảo mật an toàn theo <span style="color: rgb(157, 56, 27); font-size: 15px;">chính sách riêng tư của Nấm Xanh.</span>  <br>
+                        Thông tin này chỉ được sử dụng để liên hệ và hỗ trợ cho Quý khách trong các trường hợp cần thiết.
+
+                    </section>
+                    <form action="" class="formsubmit">
+                        <input type="checkbox" name="" id="radio" onclick="toggleGuide()">
+                        <label for="radio" class="p">Tôi đã đọc và đồng ý với <span style="color: rgb(157, 56, 27); font-size: 15px;">điều khoản và điều kiện</span>  của Nấm Xanh. *</label>
+                        <button class="buttonsubmit">
+                            <p class="active">ĐẶT HÀNG
+
+                            </p>
+
+                        </button>
+
+
+                    </form>
+
+
+
+                </section>
+
 
             </section>
-            
 
-            
-        </article>
+        </section>
 
-       
-    </section>
-    <footer class="footer">
-        <a href="product.html" class="img"></a>
 
-     </footer>
-     <section class="footer">
-        <div style="height: 50px">
-            <div class="" style="background-color: #f3eee7">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-5 p-2 text-black">
-                            <div class="d-flex justify-content-center">
-                                <img src="../../img/logo.png" style="height: 100px" alt="Logo">
-                            </div>
-                            <div class="container" style="width: 500px">
-                                <div class="mt-3 d-flex justify-content-center">
+
+    </article>
+
+
+</section>
+<footer class="footer">
+    <a href="SanPham.html" class="img"></a>
+
+</footer>
+<section class="footer">
+    <div style="height: 50px">
+        <div class="" style="background-color: #f3eee7">
+            <div class="container">
+                <div class="row">
+                    <div class="col-5 p-2 text-black">
+                        <div class="d-flex justify-content-center">
+                            <img src="/img/logo.png" style="height: 100px" alt="Logo">
+                        </div>
+                        <div class="container" style="width: 500px">
+                            <div class="mt-3 d-flex justify-content-center">
                                 Nấm Xanh chuyên nuôi trồng, sản xuất và phân phối các loại nấm ăn, gồm nấm tươi, nấm khô các loại và sản phẩm chế biến từ nấm với tiêu chuẩn SẠCH SẼ, AN TOÀN vì sức khỏe người dùng. Luôn TẬN TÂM để mang đến sự AN TÂM và nguồn dinh dưỡng tuyệt vời của nấm trong bữa ăn của mọi gia đình Việt.
                             </div>
-    
+
                             <div class="mt-3 p-2 text-bg-danger fw-bold rounded text-start fs-6" style="height: 40px">CÔNG TY TNHH 3 THÀNH VIÊN</div>
                             <ul class="nav mt-3">
                                 <li class="fw-bold text-secondary">Mã số doanh nghiệp (MST)</li>
@@ -299,7 +371,7 @@
                                 <li class="fw-bold text-secondary">Giờ Làm Việc</li>
                                 <li class="text-secondary">: Thứ 2 - Thứ 7 (8h00-17h30)</li>
                             </ul>
-    
+
                             <div class="mt-3 p-2 text-bg-danger fw-bold rounded text-start fs-6" style="height: 40px">Địa Điểm Kinh Doanh 1</div>
                             <ul class="nav mt-3">
                                 <li class="fw-bold text-secondary">Số chứng nhận HACCP</li>
@@ -322,7 +394,7 @@
                                 <li class="fw-bold text-secondary">Giờ Làm Việc</li>
                                 <li class="text-secondary">: Thứ 2 - Thứ 7 (8h00-17h30)</li>
                             </ul>
-    
+
                             <div class="mt-3 p-2 text-bg-danger fw-bold rounded text-start fs-6" style="height: 40px">HKD NÔNG TRẠI NẤM (CENTER)</div>
                             <ul class="nav mt-3">
                                 <li class="fw-bold text-secondary">Mã số doanh nghiệp</li>
@@ -342,41 +414,41 @@
                                 <li class="fw-bold text-secondary">Giờ Làm Việc</li>
                                 <li class="text-secondary">: Thứ 2 - Thứ 7 (7h00-22h00)</li>
                             </ul>
-                            </div>
                         </div>
-                        <div class="col-3 p-2 text-black">
-                            <div class="d-flex justify-content-left">
-                                <div class="d-flex ps-1">
-                                    <div class="vstack gap-3">
-                                        <div class="p-2 pb-0 text-danger fw-bold fs-5" style="--bs-text-opacity: 1;">THÔNG TIN</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Giới Thiệu</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Nông Trại</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Cửa Hàng</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Đối Tác KD</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Truyền Thông</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Ưu Đãi</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Hỏi Đáp - FAQs</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Liên Hệ</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center text-secondary fw-light">------------------------------------------------</div>
-                            <div class="d-flex justify-content-left">
-                                <div class="d-flex ps-1">
-                                    <div class="vstack gap-3">
-                                        <div class="p-2 pb-0 text-danger fw-bold fs-5" style="--bs-text-opacity: 1;">CHÍNH SÁCH</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Vận Chuyển</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Thanh Toán</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Tích Điểm KHTT</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Cookie</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Bảo Mật</div>
-                                        <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Điều Khoản Sử Dụng</div>
-                                    </div>
+                    </div>
+                    <div class="col-3 p-2 text-black">
+                        <div class="d-flex justify-content-left">
+                            <div class="d-flex ps-1">
+                                <div class="vstack gap-3">
+                                    <div class="p-2 pb-0 text-danger fw-bold fs-5" style="--bs-text-opacity: 1;">THÔNG TIN</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Giới Thiệu</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Nông Trại</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Cửa Hàng</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Đối Tác KD</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Truyền Thông</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Ưu Đãi</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Hỏi Đáp - FAQs</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Liên Hệ</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 p-2 text-black">
-                            <div class="container">
+                        <div class="d-flex justify-content-center text-secondary fw-light">------------------------------------------------</div>
+                        <div class="d-flex justify-content-left">
+                            <div class="d-flex ps-1">
+                                <div class="vstack gap-3">
+                                    <div class="p-2 pb-0 text-danger fw-bold fs-5" style="--bs-text-opacity: 1;">CHÍNH SÁCH</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Vận Chuyển</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Thanh Toán</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Tích Điểm KHTT</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Cookie</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Chính Sách Bảo Mật</div>
+                                    <div class="p-2 pt-0 text-secondary fw-normal" style="--bs-text-opacity: 1;">Điều Khoản Sử Dụng</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 p-2 text-black">
+                        <div class="container">
                             <div class="d-flex justify-content-center">
                                 <div class="d-flex ps-1">
                                     <div class="vstack gap-3">
@@ -390,30 +462,30 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
-                            <div class="ps-5 d-flex justify-content-end text-secondary fw-light">-----------------------------------------------</div>
                         </div>
+                        <div class="ps-5 d-flex justify-content-end text-secondary fw-light">-----------------------------------------------</div>
                     </div>
-                    <div class="row justify-content-center mt-1">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
-                    <div class="row">
-                        <div class="mt-3 ps-4 pb-3 col-4 d-flex justify-content-center">Copyright © 2021–2025 Nấm Xanh. All rights reserved.</div>
-                        <div class="mt-3 col-7 d-flex justify-content-end">
-                            <ul class="nav">
-                                <li><a href=""><img src="../../img/logo1.png" style="width: 40px" class="" alt="..."></a></li>
-                                <li class="ps-1"><a href=""><img src="../../img/logo2.png" style="width: 30px" class="" alt="..."></a></li>
-                                <li class="ps-1"><a href=""><img src="../../img/logo3.png" style="width: 30px" class="" alt="..."></a></li>
-                                <li class="ps-1"><a href=""><img src="../../img/logo4.png" style="width: 30px" class="" alt="..."></a></li>
-                                <li class="ps-1"><a href=""><img src="../../img/logo5.png" style="width: 40px" class="" alt="..."></a></li>
-                            </ul>
-                        </div>
-                    </div>
-    
                 </div>
+                <div class="row justify-content-center mt-1">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+                <div class="row">
+                    <div class="mt-3 ps-4 pb-3 col-4 d-flex justify-content-center">Copyright © 2021–2025 Nấm Xanh. All rights reserved.</div>
+                    <div class="mt-3 col-7 d-flex justify-content-end">
+                        <ul class="nav">
+                            <li><a href=""><img src="/img/logo1.png" style="width: 40px" class="" alt="..."></a></li>
+                            <li class="ps-1"><a href=""><img src="/img/logo2.png" style="width: 30px" class="" alt="..."></a></li>
+                            <li class="ps-1"><a href=""><img src="/img/logo3.png" style="width: 30px" class="" alt="..."></a></li>
+                            <li class="ps-1"><a href=""><img src="/img/logo4.png" style="width: 30px" class="" alt="..."></a></li>
+                            <li class="ps-1"><a href=""><img src="/img/logo5.png" style="width: 40px" class="" alt="..."></a></li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    
+
 </body>
-<script src="../../js/scripthanhtoan.js"></script>
+<script src="js/scripthanhtoan.js"></script>
 </html>
