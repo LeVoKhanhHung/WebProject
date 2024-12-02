@@ -22,7 +22,7 @@ body, html, head{
     margin-left: auto;
     margin-right: auto;
     height: 100px;
-  
+
     vertical-align: middle;
     text-align: center;
     padding: 0;
@@ -45,9 +45,9 @@ body, html, head{
     width: 100%;
     height: 70px;
     margin: 0;
-  
+
     color: rgb(83, 78, 73);
-    
+
     padding-top: 30px;
 }
 .amenu strong{
@@ -80,21 +80,21 @@ body, html, head{
     margin-bottom: 20px;
     background-color: rgb(216, 164, 65);
     border-radius: 3px;
-   padding: 0;
+    padding: 0;
 }
 .inforkhuyenmai .inforchitiet{
     width:95% ;
     height: 50px;
     margin: 0;
-  
+
     float: left;
- 
+
 }
 .inforchitiet p{
     margin: 0;
     width: 100%;
     height: 50px;
-    
+
     font-size: 15px;
     padding: 10px;
     padding-top: 15px;
@@ -118,13 +118,13 @@ body, html, head{
     color: white;
 }
 .productcontainer{
-  
+
     width: 100%;
     height: 500px;
-  
+
     padding: auto;
     margin: 0;
-  margin-top: 20px;
+    margin-top: 20px;
 }
 .productcontainer .product {
     width:80% ;
@@ -133,14 +133,14 @@ body, html, head{
     padding: auto;
     margin-left: auto;
     margin-right: auto;
-   
+
 }
 .product .productleft{
     width: 59%;
     height: 400px;
     margin: 0;
     float: left;
-    
+
     padding: auto;
     margin-right: 20px;
 }
@@ -156,26 +156,26 @@ body, html, head{
     font-size: 20px;
     text-align: center;
     padding-top: 20px;
-    
+
 }
 .producttitle p b{
     font-size: 15px;
 }
- .sanpham{
+.sanpham{
     width: 35%;
     height: 100px;
     margin: 0;
     padding: auto;
     float: left;
-   
+
 }
- .masanpham{
+.masanpham{
     float: left;
     width: 20%;
     height: 100px;
     margin: 0;
     padding: auto;
-    
+
 }
 .giasanpham{
     float: left;
@@ -183,23 +183,23 @@ body, html, head{
     height: 100px;
     margin: 0;
     padding: auto;
- 
+
 }
- .soluongsanpham{
+.soluongsanpham{
     float: left;
     width: 15%;
     height: 100px;
     margin: 0;
     padding: auto;
-    
+
 }
- .tamtinhsanpham{
+.tamtinhsanpham{
     float: left;
     width: 15%;
     height: 100px;
     margin: 0;
     padding: auto;
-    
+
 }
 .productleft .productdetails{
     width: 100%;
@@ -213,7 +213,7 @@ body, html, head{
     height: 100px;
     margin: 0;
     padding: auto;
-    
+
     float: left;
 }
 .buttonX a{
@@ -222,15 +222,15 @@ body, html, head{
     width: 100%;
     height: 100px;
     margin: 0;
-   padding-top: 40px;
-   padding-left: 3px;
-   color: gray;
+    padding-top: 40px;
+    padding-left: 3px;
+    color: gray;
 }
 .sanpham .imgsanpham{
     width: 28%;
     height: 95px;
     margin: 0;
-   padding-top: 5px;
+    padding-top: 5px;
     background-image: url(/img/nambaongu.jpg);
     background-size: contain;
     background-repeat: no-repeat;
@@ -242,7 +242,7 @@ body, html, head{
     height: 100px;
     margin: 0;
     padding-top: 25px;
-   
+
     float: left;
 }
 .thongtinsanpham p{
@@ -254,7 +254,7 @@ body, html, head{
     font-size: 15px;
 
 }
- .psanpham{
+.psanpham{
     padding-top: 25px;
     width: 100%;
     height: 100px;
@@ -293,8 +293,8 @@ body, html, head{
     padding: 1px;
     font-size: 25px;
     cursor: pointer;
-   
-    
+
+
 }
 .countsanpham .count{
     margin: 0;
@@ -342,17 +342,17 @@ body, html, head{
     height: 100px;
     margin: 0;
     padding: auto;
-    
-    
+
+
 }
 .updatedetails{
     width: 100%;
     height: 50px;
-    
+
     padding: auto;
     margin-top: 30px;
-    
-    
+
+
 }
 .updatedetails .textarea{
     float: left;
@@ -415,15 +415,15 @@ body, html, head{
 
 }
 .product .productright{
-   
+
     width: 39%;
     height: 400px;
     margin: 0;
     float: left;
-    
+
     padding: auto;
     border: 3px solid rgba(128, 128, 128, 0.497);
-  
+
     border-radius: 5px;
 }
 .productright .rowproduct{
@@ -433,7 +433,7 @@ body, html, head{
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
-    
+
 }
 .rowproduct .row{
     width: 100%;
@@ -442,9 +442,9 @@ body, html, head{
     font-size: 25px;
     color:rgb(157, 56, 27) ;
     text-align: center;
-   
-   
-    
+
+
+
 }
 .p  b{
     display: inline-block;
@@ -462,7 +462,7 @@ body, html, head{
     height: 100px;
     margin: 0;
     padding: auto;
- 
+
     float: left;
 
 }
@@ -497,9 +497,9 @@ body, html, head{
     border-bottom: 2px solid gray;
     padding-top: 10px;
     cursor: pointer;
-  
+
 }
-  .p1 .detailsp1{
+.p1 .detailsp1{
     position: absolute;
     width: 100%;
     margin: 0;
@@ -517,18 +517,18 @@ body, html, head{
     height: 400px;
     margin: 0;
     padding: auto;
-   
+
     float: left;
 }
 .detailsp1left .pgiaohang{
-color: black;
-font-size: 15px;
-width: 100%;
-height: 400px;
-margin: 0;
-padding: 0;
-padding-top: 150px;
-padding-right: 10px;
+    color: black;
+    font-size: 15px;
+    width: 100%;
+    height: 400px;
+    margin: 0;
+    padding: 0;
+    padding-top: 150px;
+    padding-right: 10px;
 
 }
 .detailsp1 .inforgiaohang{
@@ -538,13 +538,13 @@ padding-right: 10px;
     padding: auto;
     float: left;
     vertical-align: middle;
-    
+
 }
 .inforgiaohang .form{
     width: 100%;
     height: 200px;
     margin: 0;
-    
+
     margin-top: 50px;
 }
 .form .select{
@@ -561,7 +561,7 @@ padding-right: 10px;
     height: 100px;
     margin: 0;
     padding: auto;
-    
+
     float: left;
 }
 .row .button{
@@ -572,7 +572,7 @@ padding-right: 10px;
     border: none;
     border-radius: 5px;
     transition-duration: 0.5s;
-    
+
 }
 .row .button:hover{
     background-color: rgb(221, 130, 85);
@@ -593,11 +593,11 @@ padding-right: 10px;
     width: 100%;
     height: 100px;
     margin: 0;
-   padding: 0;
+    padding: 0;
     background-color: rgb(247,247,247);
 }
 .footer .img{
-   display: inline-block;
+    display: inline-block;
     width: 30%;
     height: 80px;
     margin: 0;
@@ -607,8 +607,8 @@ padding-right: 10px;
     background-size: 200px 60px;
     background-repeat: no-repeat;
     filter: grayscale(100%);
-    
+
 }
 .footer .img:hover{
-   filter: url(/img/logo.png);
+    filter: url(/img/logo.png);
 }

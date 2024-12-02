@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/admin-index.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -85,51 +86,8 @@
     </div>
 </div>
 
-<script>
-    // Sample data for charts
-    var ctx1 = document.getElementById('productSalesChart').getContext('2d');
-    var productSalesChart = new Chart(ctx1, {
-        type: 'bar',
-        data: {
-            labels: ['Nấm Linh Chi', 'Nấm Cordyceps', 'Nấm Hương', 'Nấm Bào Ngư'], // Products
-            datasets: [{
-                label: 'Doanh thu (VND)',
-                data: [1200000, 800000, 600000, 400000], // Sales figures
-                backgroundColor: 'rgba(0, 123, 255, 0.5)',
-                borderColor: 'rgba(0, 123, 255, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    var ctx2 = document.getElementById('monthlyRevenueChart').getContext('2d');
-    var monthlyRevenueChart = new Chart(ctx2, {
-        type: 'line',
-        data: {
-            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7'], // Months
-            datasets: [{
-                label: 'Doanh thu theo tháng (VND)',
-                data: [300000, 500000, 700000, 800000, 1200000, 1000000, 1300000], // Monthly revenue
-                borderColor: 'rgba(75, 192, 192, 1)',
-                tension: 0.1
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script src="/js/statistics.js"></script>
 
 </body>
 </html>

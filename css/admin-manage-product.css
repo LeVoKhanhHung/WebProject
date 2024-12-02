@@ -56,3 +56,36 @@ h1, h2 {
 .btn-sm {
     padding: 5px 10px;
 }
+
+/* Cố định chiều rộng cho các cột */
+table {
+    width: 100%; /* Đảm bảo bảng chiếm toàn bộ chiều rộng của phần tử chứa */
+    table-layout: fixed; /* Thiết lập chế độ bố cục cố định cho bảng */
+}
+
+table td {
+    padding: 8px; /* Khoảng cách giữa nội dung và biên của ô */
+}
+
+/* Cố định chiều rộng cho các cột */
+table td:nth-child(1), /* Cột số thứ tự */
+table td:nth-child(2), /* Cột tên sản phẩm */
+table td:nth-child(3), /* Cột giá */
+table td:nth-child(4), /* Cột số lượng */
+table td:nth-child(5), /* Cột ảnh */
+table td:nth-child(6), /* Cột mô tả */
+table td:nth-child(7), /* Cột nhà cung cấp */
+table td:nth-child(8), /* Cột tình trạng */
+table td:nth-child(9), /* Cột trạng thái hàng */
+table td:nth-child(10) { /* Cột hành động */
+    width: 150px; /* Bạn có thể thay đổi kích thước này theo nhu cầu */
+}
+
+/* Giới hạn chiều rộng và hiển thị ba chấm cho mô tả dài */
+.short-description {
+    white-space: nowrap; /* Không xuống dòng */
+    overflow: hidden; /* Ẩn phần văn bản bị tràn */
+    text-overflow: ellipsis; /* Thêm dấu ba chấm khi nội dung tràn */
+    max-width: 200px; /* Giới hạn chiều rộng của mô tả */
+}
+
