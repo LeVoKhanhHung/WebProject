@@ -10,3 +10,14 @@
     font-family: 'Font Awesome 6 Free'; /* Đảm bảo Font Awesome được tích hợp */
     font-weight: 900; /* Dùng font-weight phù hợp */
 }
+
+/* Ẩn tất cả sản phẩm */
+li.nav-item.product-item{
+    display: none;
+}
+
+/* Hiển thị sản phẩm thuộc trang hiện tại */
+li.nav-item.product-item[data-active="true"] {
+    display: block;
+}
+
