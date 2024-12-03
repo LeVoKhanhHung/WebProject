@@ -7,7 +7,16 @@ document.querySelector("form").addEventListener("submit", function (event) {
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Kiểm tra tài khoản
+    // Kiểm tra nếu tài khoản là admin
+    if (email === "admin" && password === "admin") {
+        showTemporaryMessage("Đăng nhập thành công! Chào mừng Admin.", 'success');
+        setTimeout(function () {
+            window.location.href = "/html/admin/index.html";
+        }, 2000); // Chờ 2 giây rồi chuyển sang trang admin
+        return;
+    }
+
+    // Kiểm tra tài khoản người dùng
     const user = users.find(user => user.email === email && user.password === password);
 
     if (user) {
@@ -16,7 +25,7 @@ document.querySelector("form").addEventListener("submit", function (event) {
         showTemporaryMessage(`Đăng nhập thành công! Chào mừng ${user.fullname}.`, 'success');
         setTimeout(function () {
             window.location.href = "index.html";
-        }, 2000); // Chờ 1 giây rồi chuyển trang
+        }, 2000); // Chờ 2 giây rồi chuyển trang người dùng
     } else {
         showTemporaryMessage("Email hoặc mật khẩu không đúng. Vui lòng thử lại!", 'error');
     }
@@ -37,7 +46,6 @@ function showTemporaryMessage(message, type) {
     messageBox.style.borderRadius = '5px';
     messageBox.style.transition = 'opacity 1s';
 
-    // Thêm vào body
     document.body.appendChild(messageBox);
 
     // Tự động ẩn sau 2 giây
@@ -45,6 +53,6 @@ function showTemporaryMessage(message, type) {
         messageBox.style.opacity = 0;
         setTimeout(function () {
             messageBox.remove();
-        }, 2000); // Sau khi ẩn thì xóa thông báo
+        }, 2000);
     }, 2000);
 }

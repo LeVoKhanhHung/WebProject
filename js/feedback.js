@@ -10,8 +10,7 @@ function sendResponse() {
         return;
     }
 
-    // Xử lý gửi phản hồi (có thể gửi lên server hoặc xử lý ở đây)
+    // Xử lý gửi phản hồi
     alert("Phản hồi đã được gửi!");
-    // Đóng modal sau khi gửi phản hồi
     $('#responseModal').modal('hide');
 }

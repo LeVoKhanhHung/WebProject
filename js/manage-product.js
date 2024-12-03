@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const productName = row.cells[1].innerText;
             const productPrice = row.cells[2].innerText.replace('đ', '').replace(/,/g, '');
             const productQuantity = row.cells[3].innerText;
-            const productImage = row.cells[4].innerText;  // Thêm thông tin hình ảnh
-            const productDescription = row.cells[5].innerText;  // Thêm thông tin mô tả
-            const productSupplier = row.cells[6].innerText;  // Thêm nhà cung cấp
-            const productCategory = row.cells[7].innerText;  // Thêm danh mục sản phẩm
-            const productStatus = row.cells[8].innerText;  // Thêm trạng thái sản phẩm
+            const productImage = row.cells[4].innerText;
+            const productDescription = row.cells[5].innerText;
+            const productSupplier = row.cells[6].innerText;
+            const productCategory = row.cells[7].innerText;
+            const productStatus = row.cells[8].innerText;
 
             // Hiển thị thông tin lên modal
             document.getElementById('productName').value = productName;
@@ -78,11 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentEditRow.cells[1].innerText = updatedName;
         currentEditRow.cells[2].innerText = `${Number(updatedPrice).toLocaleString()}đ`;
         currentEditRow.cells[3].innerText = updatedQuantity;
-        currentEditRow.cells[4].innerText = updatedImage;  // Cập nhật hình ảnh
-        currentEditRow.cells[5].innerText = updatedDescription;  // Cập nhật mô tả
-        currentEditRow.cells[6].innerText = updatedSupplier;  // Cập nhật nhà cung cấp
-        currentEditRow.cells[7].innerText = updatedCategory;  // Cập nhật danh mục
-        currentEditRow.cells[8].innerText = updatedStatus;  // Cập nhật trạng thái
+        currentEditRow.cells[4].innerText = updatedImage;
+        currentEditRow.cells[5].innerText = updatedDescription;
+        currentEditRow.cells[6].innerText = updatedSupplier;
+        currentEditRow.cells[7].innerText = updatedCategory;
+        currentEditRow.cells[8].innerText = updatedStatus;
 
         // Đóng modal
         const modal = bootstrap.Modal.getInstance(editModal);

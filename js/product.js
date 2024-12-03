@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (loggedInUserFullname) {
         // Tách phần tên cuối
         const nameParts = loggedInUserFullname.trim().split(" ");
-        const lastName = nameParts[nameParts.length - 1]; // Phần tên cuối cùng
+        const lastName = nameParts[nameParts.length - 1];
 
         // Cập nhật nội dung nút btn-warning
         const userNameBtn = document.getElementById("user-name-btn");
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (sortType.includes("cao đến thấp")) {
                 return parseInt(bPrice) - parseInt(aPrice);
             } else {
-                return 0; // Không sắp xếp cho các loại khác
+                return 0;
             }
         });
 
