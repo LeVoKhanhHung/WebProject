@@ -23,7 +23,6 @@ body {
 }
 
 /* Product List Styles */
-/* Giới thiệu Sản Phẩm */
 .product-list {
     display: flex;
     gap: 20px;
@@ -33,23 +32,23 @@ body {
 
 .product-item {
     text-align: center;
-    border: 2px solid #ddd; /* Thêm viền cho sản phẩm */
-    border-radius: 10px; /* Góc bo tròn */
+    border: 2px solid #ddd;
+    border-radius: 10px;
     padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-item:hover {
-    transform: translateY(-5px); /* Đẩy sản phẩm lên khi hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Tăng độ đổ bóng khi hover */
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .product-item img {
     height: 200px;
     width: 200px;
     object-fit: cover;
-    border-radius: 8px; /* Bo tròn ảnh sản phẩm */
+    border-radius: 8px;
 }
 
 .product-item p {
@@ -67,9 +66,9 @@ body {
     font-size: 1.8rem;
     color: #333;
     font-weight: 600;
-    text-transform: uppercase; /* Chữ in hoa */
-    letter-spacing: 1px; /* Giãn cách chữ */
-    border-bottom: 2px solid #007bff; /* Thêm gạch chân */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
 }
 

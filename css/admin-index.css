@@ -3,13 +3,13 @@ body {
     background-color: #f1f3f5;
 }
 
+/* Sidebar */
 #sidebar {
-    position: sticky; /* Giữ sidebar ở vị trí cố định khi cuộn */
-    top: 0; /* Gắn sidebar ở đầu trang */
-    height: 100vh; /* Chiều cao đầy đủ của màn hình */
+    position: sticky;
+    top: 0;
+    height: 100vh;
     background-color: #343a40;
     padding-top: 20px;
-    z-index: 100; /* Đảm bảo sidebar luôn ở trên cùng khi cuộn */
 }
 
 #sidebar h3 {
@@ -30,6 +30,7 @@ body {
     border-radius: 5px;
 }
 
+/* Các thành phần chính */
 .main-content {
     background-color: #ffffff;
     padding: 30px;
