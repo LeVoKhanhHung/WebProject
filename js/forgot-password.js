@@ -5,7 +5,7 @@ function validateEmail(email) {
 
 // Xử lý sự kiện gửi form
 document.querySelector("form").addEventListener("submit", function (event) {
-    event.preventDefault(); // Ngăn chặn hành động mặc định của form (reload trang)
+    event.preventDefault(); // Ngăn chặn form tự động reload trang
 
     // Lấy giá trị email từ input
     const emailInput = document.getElementById("email");
