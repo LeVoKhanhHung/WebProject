@@ -28,7 +28,7 @@ function validateForm() {
         { selector: ".inputname[placeholder='Họ và tên']", message: "Họ và tên là bắt buộc!" },
         { selector: ".inputname[placeholder='Nhập số điện thoại']", message: "Số điện thoại là bắt buộc!" },
         { selector: ".inputname[placeholder='Toà nhà, số nhà, tên đường']", message: "Địa chỉ là bắt buộc!" },
-        { selector: ".inputname[placeholder='Xã phường/thị trấn']", message: "Xã phường/thị trấn là bắt buộc!" },
+        
         { selector: ".inputname[type='email']", message: "Email là bắt buộc!" }
     ];
     
