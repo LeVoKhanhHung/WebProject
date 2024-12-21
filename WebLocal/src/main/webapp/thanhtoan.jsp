@@ -300,12 +300,13 @@
                             <div class="fw-bold">${item.name} - ${item.weight}gr</div>
                             <div>ID: ${item.id}</div>
                             <div>Số lượng: ${item.quantity}</div>
+
                           </div>
                         </div>
                         <!-- Giá cũ (gạch ngang) -->
                         <div class="old-price text-muted" style="text-decoration: line-through;">
                             ${item.total} đ
-                        </div>
+                        </div><span style="margin-left: -80px;color: red">(${item.sale}%)</span>
                         <!-- Tính giá mới -->
                         <c:set var="total" value="${item.total - (item.total * item.sale/100)}" />
                         <!-- Giá mới -->
@@ -322,7 +323,7 @@
                     <c:set var="sum" value="${sessionScope.cr7.price}" />
 
 
-                    <span class="text-danger fs-5">${sum} đ</span>
+                    <span class="text-danger fs-5" id="Order">${sum} đ</span>
                   </div>
 
 
@@ -343,7 +344,7 @@
                           <!-- Phí vận chuyển -->
                           <div class="d-flex justify-content-between mb-2">
                             <span>Phí vận chuyển:</span>
-                            <span class="fw-bold text-danger">30,000 đ</span>
+                            <span class="fw-bold text-danger" id="pricecod">30,000 đ</span>
                           </div>
                           <!-- Mã giảm giá -->
                           <div class="input-group">
@@ -369,7 +370,7 @@
                           <!-- Phí vận chuyển -->
                           <div class="d-flex justify-content-between mb-2">
                             <span>Phí vận chuyển:</span>
-                            <span class="fw-bold text-danger">20,000 đ</span>
+                            <span class="fw-bold text-danger" id="pricebank">20,000 đ</span>
                           </div>
                           <!-- Mã giảm giá -->
                           <div class="input-group">
@@ -394,12 +395,12 @@
                           <!-- Phí vận chuyển -->
                           <div class="d-flex justify-content-between mb-2">
                             <span>Phí vận chuyển:</span>
-                            <span class="fw-bold text-danger">25,000 đ</span>
+                            <span class="fw-bold text-danger" id="pricemomo">25,000 đ</span>
                           </div>
 
                           <!-- Mã giảm giá -->
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" id="momoCoupon" value="MOMO">
+                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" id="momoCoupon">
                             <button class="btn btn-success" type="button" onclick="applyCoupon()">Áp dụng</button>
                           </div>
                         </div>
@@ -429,6 +430,62 @@
 
 
 <script>
+  function applyCoupon() {
+    // Lấy giá trị mã giảm giá và phương thức thanh toán hiện tại
+    const codCoupon = document.getElementById("codCoupon").value.trim();
+    const bankCoupon = document.getElementById("bankCoupon").value.trim();
+    const momoCoupon = document.getElementById("momoCoupon").value.trim();
+
+    const codShippingFee = 30000;
+    const bankShippingFee = 20000;
+    const momoShippingFee = 25000;
+
+    let currentPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+    let discount = 0;
+    let finalFee = 0;
+
+    if (!currentPaymentMethod) {
+      alert("Vui lòng chọn phương thức thanh toán!");
+      return;
+    }
+
+    // Logic áp dụng giảm giá dựa trên phương thức thanh toán
+    switch (currentPaymentMethod.id) {
+      case "cod":
+        discount = codCoupon === "GIAM10K" ? 10000 : 0; // Giảm 10,000 đ nếu đúng mã
+        finalFee = Math.max(codShippingFee - discount, 0);
+        alert(`Phí vận chuyển sau giảm:`+ finalFee.toLocaleString() +`đ`);
+        document.getElementById("pricecod").innerHTML = finalFee.toLocaleString() +`đ`;
+        var price =   document.getElementById("Order").innerText;
+        console.log(price);
+        var total = parseInt(price) + parseInt(finalFee);
+        document.getElementById("Order").innerHTML = total.toLocaleString() + " đ";
+        break;
+      case "bank":
+        discount = bankCoupon === "GIAM5K" ? 5000 : 0; // Giảm 5,000 đ nếu đúng mã
+        finalFee = Math.max(bankShippingFee - discount, 0);
+        alert(`Phí vận chuyển sau giảm:`+ finalFee.toLocaleString() +`đ`);
+        document.getElementById("pricebank").innerHTML = finalFee.toLocaleString() +`đ`;
+        var price =   document.getElementById("Order").innerText;
+        console.log(price);
+        var total = parseInt(price) + parseInt(finalFee);
+        document.getElementById("Order").innerHTML = total.toLocaleString() + " đ";
+        break;
+      case "momo":
+        discount = momoCoupon === "GIAM7K" ? 7000 : 0; // Giảm 7,000 đ nếu đúng mã
+        finalFee = Math.max(momoShippingFee - discount, 0);
+        alert(`Phí vận chuyển sau giảm:`+ finalFee.toLocaleString() +`đ`);
+        document.getElementById("pricemomo").innerHTML = finalFee.toLocaleString() +`đ`;
+        var price =   document.getElementById("Order").innerText;
+        console.log(price);
+        var total = parseInt(price) + parseInt(finalFee);
+        document.getElementById("Order").innerHTML = total.toLocaleString() + " đ";
+        break;
+      default:
+        alert("Mã giảm giá không hợp lệ hoặc phương thức thanh toán chưa chọn.");
+    }
+  }
+
   function handlePaymentSelection(selectedRadio) {
     // Lấy tất cả các phần tử collapse
     const paymentCollapses = document.querySelectorAll('.accordion-collapse');
