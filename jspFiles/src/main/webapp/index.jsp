@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -25,25 +26,16 @@
     <div class="container text-center">
         <h3 class="mb-4 text-uppercase text-dark">Sản Phẩm Bán Chạy</h3>
         <div class="row g-4">
-            <%
-                String[][] bestSellers = {
-                        {"img/img19.png", "Nấm Hương Tươi", "22.000đ - 85.000đ"},
-                        {"img/img3.png", "Nấm Mỡ Tươi", "39.000đ - 165.000đ"},
-                        {"img/img12.png", "Bột Linh Chi Đỏ Thái", "65.000đ - 1.050.000đ"},
-                        {"img/img7.png", "Nấm Mỡ Nâu Tươi", "58.000đ - 250.000đ"},
-                        {"img/img11.png", "Nấm Rôm Sấy", "39.000đ - 185.000đ"},
-                        {"img/img9.png", "Nấm Đông Cô Tươi", "150.000đ - 535.000đ"}
-                };
-                for (String[] product : bestSellers) {
-            %>
-            <div class="col-md-4">
-                <div class="product-item p-3 border rounded shadow-sm">
-                    <img src="<%= product[0] %>" alt="<%= product[1] %>" class="img-fluid rounded mb-3">
-                    <p class="fw-bold"><%= product[1] %></p>
-                    <p class="text-muted"><%= product[2] %></p>
+            <!-- Dùng JSTL để lặp qua danh sách sản phẩm -->
+            <c:forEach var="product" items="${bestSellers}">
+                <div class="col-md-4">
+                    <div class="product-item p-3 border rounded shadow-sm">
+                        <img src="${product.image}" alt="${product.name}" class="img-fluid rounded mb-3">
+                        <p class="fw-bold">${product.name}</p>
+                        <p class="text-muted">${product.price}</p>
+                    </div>
                 </div>
-            </div>
-            <% } %>
+            </c:forEach>
         </div>
     </div>
 </section>
@@ -53,18 +45,16 @@
     <div class="container text-center">
         <h3 class="mb-4 text-uppercase text-dark">Sản Phẩm Mới</h3>
         <div class="row g-4">
-            <%
-                String[][] newArrivals = bestSellers; // Sử dụng dữ liệu giống như sản phẩm bán chạy
-                for (String[] product : newArrivals) {
-            %>
-            <div class="col-md-4">
-                <div class="product-item p-3 border rounded shadow-sm">
-                    <img src="<%= product[0] %>" alt="<%= product[1] %>" class="img-fluid rounded mb-3">
-                    <p class="fw-bold"><%= product[1] %></p>
-                    <p class="text-muted"><%= product[2] %></p>
+            <!-- Dùng JSTL để lặp qua danh sách sản phẩm mới -->
+            <c:forEach var="product" items="${newArrivals}">
+                <div class="col-md-4">
+                    <div class="product-item p-3 border rounded shadow-sm">
+                        <img src="${product.image}" alt="${product.name}" class="img-fluid rounded mb-3">
+                        <p class="fw-bold">${product.name}</p>
+                        <p class="text-muted">${product.price}</p>
+                    </div>
                 </div>
-            </div>
-            <% } %>
+            </c:forEach>
         </div>
     </div>
 </section>
