@@ -6,7 +6,7 @@
     <title>Sản Phẩm</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
 </head>
 <body>
 <!-- Header -->
@@ -53,18 +53,7 @@
                     </nav>
                 </div>
             </div>
-            <div class="col-3 mt-5">
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">Thứ tự theo mức độ phổ biến</button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Thứ tự theo mức độ phổ biến</a></li>
-                        <li><a class="dropdown-item" href="#">Thứ tự theo điểm đánh giá</a></li>
-                        <li><a class="dropdown-item" href="#">Mới nhất</a></li>
-                        <li><a class="dropdown-item" href="#">Thứ tự theo giá: thấp đến cao</a></li>
-                        <li><a class="dropdown-item" href="#">Thứ tự theo giá: cao đến thấp</a></li>
-                    </ul>
-                </div>
-            </div>
+            
         </div>
     </div>
 </section>
