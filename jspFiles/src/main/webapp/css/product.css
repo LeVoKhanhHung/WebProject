@@ -1,0 +1,23 @@
+.stars {
+    display: inline-block;
+    font-size: 16px; /* Điều chỉnh kích thước ngôi sao */
+    color: #FFD43B;
+    margin-left: 16px; /* Điều chỉnh vị trí ngôi sao */
+}
+
+.stars::before {
+    content: '\f005 \f005 \f005 \f005 \f005'; /* Ký tự mã Unicode của ngôi sao Font Awesome */
+    font-family: 'Font Awesome 6 Free'; /* Đảm bảo Font Awesome được tích hợp */
+    font-weight: 900; /* Dùng font-weight phù hợp */
+}
+
+/* Ẩn tất cả sản phẩm */
+li.nav-item.product-item{
+    display: none;
+}
+
+/* Hiển thị sản phẩm thuộc trang hiện tại */
+li.nav-item.product-item[data-active="true"] {
+    display: block;
+}
+
