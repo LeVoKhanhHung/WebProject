@@ -53,7 +53,18 @@
                     </nav>
                 </div>
             </div>
-            
+            <div class="col-3 mt-5">
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">Thứ tự theo mức độ phổ 					biến</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Thứ tự theo mức độ phổ biến</a></li>
+                        <li><a class="dropdown-item" href="#">Thứ tự theo điểm đánh giá</a></li>
+                        <li><a class="dropdown-item" href="#">Mới nhất</a></li>
+                        <li><a class="dropdown-item" href="#">Thứ tự theo giá: thấp đến cao</a></li>
+                        <li><a class="dropdown-item" href="#">Thứ tự theo giá: cao đến thấp</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </section>
