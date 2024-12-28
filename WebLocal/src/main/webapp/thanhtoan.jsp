@@ -1,4 +1,9 @@
 <%@ page import="Models.cart.Cart" %>
+<%@ page import="Models.Shipping.Shipping" %>
+<%@ page import="Services.ServiceShipping" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Models.Shipping.Shippingdetail" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -151,6 +156,7 @@
 
 <body>
 <%@include file="header.jsp"%>
+<section style="margin-bottom: 400px">
 <header class="progress-header">
   <div class="step-container">
     <!-- Step 1 -->
@@ -290,6 +296,13 @@
                       }
                       System.out.println("Session Cart: " + cart);
                       System.out.println("Number of items in cart: " + cart.getItems().size());
+                     Shipping shipping = (Shipping) session.getAttribute("totalship");
+                     if(shipping == null){
+                      shipping = new Shipping();
+                      session.setAttribute("totalship",shipping);
+                    }
+                      System.out.println(shipping.getItems() + "adsfasdfsdf");
+
 
                     %>
                     <c:forEach var="item" items="${sessionScope.cr7.items}">
@@ -328,85 +341,124 @@
 
 
 
-                  <!-- Phương Thức Thanh Toán -->
-                  <div class="accordion mt-4" id="paymentAccordion">
-                    <!-- COD - Thanh toán khi nhận hàng -->
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="codHeader">
-                        <input type="radio" name="paymentMethod" id="cod" class="me-2" onchange="handlePaymentSelection(this)" value="COD-Thanh toán khi nhận hàng">
-                        <label for="cod" class="accordion-button collapsed">
-                          <i class="fa-solid fa-truck me-2"></i>COD - Thanh toán khi nhận hàng
-                        </label>
-                      </h2>
-                      <div id="codCollapse" class="accordion-collapse collapse show">
-                        <div class="accordion-body">
-                          <p>Thanh toán cho shipper khi nhận hàng.</p>
-                          <!-- Phí vận chuyển -->
-                          <div class="d-flex justify-content-between mb-2">
-                            <span>Phí vận chuyển:</span>
-                            <span class="fw-bold text-danger" id="pricecod">30,000 đ</span>
-                          </div>
-                          <!-- Mã giảm giá -->
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" id="codCoupon">
-                            <button class="btn btn-success" type="button" onclick="applyCoupon()">Áp dụng</button>
-                          </div>
+                  <div class="card mb-4 shadow-sm border-0 rounded-3">
+                    <div class="card-body p-4">
+                      <form id="shippingForm">
+                        <h5 class="mb-4">Phương Thức Giao Hàng</h5>
+                        <c:forEach var="item" items="${sessionScope.totalship.items}">
+
+                        <!-- Tùy chọn giao hàng nhanh -->
+                        <div class="form-check mb-3">
+                          <input type="radio" class="form-check-input" id="fastShipping" name="shippingMethod" value="fast" onchange="updateShippingCost(this)" required>
+                          <label class="form-check-label" for="fastShipping">
+                            ${item.name} - <span class="fw-bold text-danger">${item.price} đ</span>
+                          </label>
                         </div>
-                      </div>
+                        </c:forEach>
+                        <div class="input-group mb-3">
+                                                 <input type="text" class="form-control" placeholder="Nhập mã giảm giá" id="codCoupon">
+                                                  <button class="btn btn-success" type="button" onclick="applyCoupon()">Áp dụng</button>
+                        </div>
+<%--                        <!-- Tùy chọn giao hàng tiêu chuẩn -->--%>
+<%--                        <div class="form-check mb-3">--%>
+<%--                          <input type="radio" class="form-check-input" id="standardShipping" name="shippingMethod" value="standard" onchange="updateShippingCost(this)">--%>
+<%--                          <label class="form-check-label" for="standardShipping">--%>
+<%--                            Giao hàng tiêu chuẩn (3-5 ngày) - <span class="fw-bold text-danger">30,000 đ</span>--%>
+<%--                          </label>--%>
+<%--                        </div>--%>
+
+<%--                        <!-- Tùy chọn nhận tại cửa hàng -->--%>
+<%--                        <div class="form-check mb-3">--%>
+<%--                          <input type="radio" class="form-check-input" id="pickupShipping" name="shippingMethod" value="pickup" onchange="updateShippingCost(this)">--%>
+<%--                          <label class="form-check-label" for="pickupShipping">--%>
+<%--                            Nhận tại cửa hàng (Miễn phí)--%>
+<%--                          </label>--%>
+<%--                        </div>--%>
+
+<%--                        <!-- Hiển thị phí vận chuyển -->--%>
+<%--                        <div class="mt-3">--%>
+<%--                          <p class="fw-bold">Phí vận chuyển:--%>
+<%--                            <span id="shippingCost" class="text-danger">0 đ</span>--%>
+<%--                          </p>--%>
+<%--                        </div>--%>
+
+<%--                        <div class="input-group mb-3">--%>
+<%--                          <input type="text" class="form-control" placeholder="Nhập mã giảm giá" id="codCoupon">--%>
+<%--                          <button class="btn btn-success" type="button" onclick="applyCoupon()">Áp dụng</button>--%>
+<%--                        </div>--%>
+
+                        <!-- Nút tiếp tục -->
+
+                      </form>
                     </div>
+                  </div>
 
-                    <!-- Chuyển khoản ngân hàng -->
-                    <div class="accordion-item">
+                  <!-- Phương Thức Thanh Toán --><div class="accordion mt-4" id="paymentAccordion">
 
-                      <h2 class="accordion-header" id="bankHeader">
-                        <input type="radio" name="paymentMethod" id="bank" class="me-2" onchange="handlePaymentSelection(this)" value="BANK-Chuyển khoản ngân hàng">
-                        <label for="bank" class="accordion-button collapsed">
-                          <i class="fa-solid fa-building-columns me-2"></i>Chuyển khoản ngân hàng
-                        </label>
-                      </h2>
-                      <div id="bankCollapse" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                          <p>Chuyển khoản tới số tài khoản 123-456-789 (VCB).</p>
-                          <!-- Phí vận chuyển -->
-                          <div class="d-flex justify-content-between mb-2">
-                            <span>Phí vận chuyển:</span>
-                            <span class="fw-bold text-danger" id="pricebank">20,000 đ</span>
-                          </div>
-                          <!-- Mã giảm giá -->
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" id="bankCoupon" >
-                            <button class="btn btn-success" type="button" onclick="applyCoupon()">Áp dụng</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Ví MoMo -->
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="momoHeader">
-                        <input type="radio" name="paymentMethod" id="momo" class="me-2" onchange="handlePaymentSelection(this)" value="MOMO-Thanh toán MOMO">
-                        <label for="momo" class="accordion-button collapsed">
-                          <i class="fa-solid fa-wallet me-2"></i>Ví MoMo
-                        </label>
-                      </h2>
-                      <div id="momoCollapse" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                          <p>Quét mã QR hoặc gửi tiền đến số 0987654321.</p>
-                          <!-- Phí vận chuyển -->
-                          <div class="d-flex justify-content-between mb-2">
-                            <span>Phí vận chuyển:</span>
-                            <span class="fw-bold text-danger" id="pricemomo">25,000 đ</span>
-                          </div>
-
-                          <!-- Mã giảm giá -->
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" id="momoCoupon">
-                            <button class="btn btn-success" type="button" onclick="applyCoupon()">Áp dụng</button>
-                          </div>
-                        </div>
+                  <!-- COD - Thanh toán khi nhận hàng -->
+                  <div class="accordion-item border-0 rounded-3 mb-3 shadow-sm">
+                    <h2 class="accordion-header" id="codHeader">
+                      <input type="radio" name="paymentMethod" id="cod" class="me-2" onchange="handlePaymentSelection(this)" value="COD-Thanh toán khi nhận hàng">
+                      <label for="cod" class="accordion-button collapsed">
+                        <i class="fa-solid fa-truck me-2"></i>COD - Thanh toán khi nhận hàng
+                      </label>
+                    </h2>
+                    <div id="codCollapse" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                        <p>Thanh toán cho shipper khi nhận hàng.</p>
                       </div>
                     </div>
                   </div>
+
+                  <!-- Chuyển khoản ngân hàng -->
+                  <div class="accordion-item border-0 rounded-3 mb-3 shadow-sm">
+                    <h2 class="accordion-header" id="bankHeader">
+                      <input type="radio" name="paymentMethod" id="bank" class="me-2" onchange="handlePaymentSelection(this)" value="BANK-Chuyển khoản ngân hàng">
+                      <label for="bank" class="accordion-button collapsed">
+                        <i class="fa-solid fa-building-columns me-2"></i>Chuyển khoản ngân hàng
+                      </label>
+                    </h2>
+                    <div id="bankCollapse" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                        <p>Vui lòng chuyển khoản tới thông tin sau:</p>
+                        <div class="d-flex align-items-center mb-3">
+                          <img src="img/no-image-news.jpg" alt="Ngân hàng VCB" class="me-3" style="width: 50px; height: 50px;">
+                          <div>
+                            <p class="mb-0">Số tài khoản: <strong>5555-032-463-9999</strong></p>
+                            <p class="mb-0">Tên chủ tài khoản: <strong>Nguyễn Bùi Hoàng Vũ</strong></p>
+                            <p class="mb-0">Ngân hàng: <strong>Vietcombank</strong></p>
+                          </div>
+                        </div>
+                        <p>Ghi chú: Vui lòng ghi "Họ tên - Mã đơn hàng" khi chuyển khoản.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Ví MoMo -->
+                  <div class="accordion-item border-0 rounded-3 shadow-sm">
+                    <h2 class="accordion-header" id="momoHeader">
+                      <input type="radio" name="paymentMethod" id="momo" class="me-2" onchange="handlePaymentSelection(this)" value="MOMO-Thanh toán MOMO">
+                      <label for="momo" class="accordion-button collapsed">
+                        <i class="fa-solid fa-wallet me-2"></i>Ví MoMo
+                      </label>
+                    </h2>
+                    <div id="momoCollapse" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                        <p>Quét mã QR hoặc gửi tiền tới số sau:</p>
+                        <div class="d-flex align-items-center mb-3">
+                          <img src="img/momo.png" alt="Ví MoMo" class="me-3" style="width: 50px; height: 50px;">
+                          <div>
+                            <p class="mb-0">Số điện thoại: <strong>0868032463</strong></p>
+                            <p class="mb-0">Tên chủ tài khoản: <strong>Nguyễn Bùi Hoàng Vũ</strong></p>
+                          </div>
+                        </div>
+                        <p>Lưu ý: Ghi rõ "Họ tên - Mã đơn hàng" khi thực hiện giao dịch.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
 
                 </div>
 
@@ -422,69 +474,14 @@
     </section>
   </article>
 </section>
-<div style="width: 100%;height: 500px;background-color: rgba(240,234,226,0.9)">
-  <%@include file="footer.jsp"
-  %>
-
+</section>
+<div style=" background-color: #f3eee7;  height: 450px">
+  <%@include file="footer.jsp"%>
 </div>
 
 
 <script>
-  function applyCoupon() {
-    // Lấy giá trị mã giảm giá và phương thức thanh toán hiện tại
-    const codCoupon = document.getElementById("codCoupon").value.trim();
-    const bankCoupon = document.getElementById("bankCoupon").value.trim();
-    const momoCoupon = document.getElementById("momoCoupon").value.trim();
 
-    const codShippingFee = 30000;
-    const bankShippingFee = 20000;
-    const momoShippingFee = 25000;
-
-    let currentPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
-    let discount = 0;
-    let finalFee = 0;
-
-    if (!currentPaymentMethod) {
-      alert("Vui lòng chọn phương thức thanh toán!");
-      return;
-    }
-
-    // Logic áp dụng giảm giá dựa trên phương thức thanh toán
-    switch (currentPaymentMethod.id) {
-      case "cod":
-        discount = codCoupon === "GIAM10K" ? 10000 : 0; // Giảm 10,000 đ nếu đúng mã
-        finalFee = Math.max(codShippingFee - discount, 0);
-        alert(`Phí vận chuyển sau giảm:`+ finalFee.toLocaleString() +`đ`);
-        document.getElementById("pricecod").innerHTML = finalFee.toLocaleString() +`đ`;
-        var price =   document.getElementById("Order").innerText;
-        console.log(price);
-        var total = parseInt(price) + parseInt(finalFee);
-        document.getElementById("Order").innerHTML = total.toLocaleString() + " đ";
-        break;
-      case "bank":
-        discount = bankCoupon === "GIAM5K" ? 5000 : 0; // Giảm 5,000 đ nếu đúng mã
-        finalFee = Math.max(bankShippingFee - discount, 0);
-        alert(`Phí vận chuyển sau giảm:`+ finalFee.toLocaleString() +`đ`);
-        document.getElementById("pricebank").innerHTML = finalFee.toLocaleString() +`đ`;
-        var price =   document.getElementById("Order").innerText;
-        console.log(price);
-        var total = parseInt(price) + parseInt(finalFee);
-        document.getElementById("Order").innerHTML = total.toLocaleString() + " đ";
-        break;
-      case "momo":
-        discount = momoCoupon === "GIAM7K" ? 7000 : 0; // Giảm 7,000 đ nếu đúng mã
-        finalFee = Math.max(momoShippingFee - discount, 0);
-        alert(`Phí vận chuyển sau giảm:`+ finalFee.toLocaleString() +`đ`);
-        document.getElementById("pricemomo").innerHTML = finalFee.toLocaleString() +`đ`;
-        var price =   document.getElementById("Order").innerText;
-        console.log(price);
-        var total = parseInt(price) + parseInt(finalFee);
-        document.getElementById("Order").innerHTML = total.toLocaleString() + " đ";
-        break;
-      default:
-        alert("Mã giảm giá không hợp lệ hoặc phương thức thanh toán chưa chọn.");
-    }
-  }
 
   function handlePaymentSelection(selectedRadio) {
     // Lấy tất cả các phần tử collapse
