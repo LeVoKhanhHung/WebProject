@@ -1,9 +1,14 @@
 package Services;
 
 import Dao.ProductsDao;
+import Models.Product.ListProduct;
 import Models.Productt;
 import Models.cart.CartProduct;
 import Models.cart.Cart;
+import Models.inforTransaction.Product;
+import Models.inforTransaction.Transaction;
+import Models.inforTransaction.TransactionHistory;
+import Models.Products.Products;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -257,17 +262,185 @@ public class ServiceProduct {
         return rowsInserted > 0;
 
     }
+    public void selectTransactionHistory(int idUser,Transaction transaction) throws SQLException {
+        ServiceProduct pro = new ServiceProduct();
+        String query = "SELECT * FROM transactionHistory WHERE idUser = ?";
 
 
+             PreparedStatement stmt = dao.conn.prepareStatement(query) ;
 
+            stmt.setInt(1, idUser); // Thay idUser bằng giá trị thực tế
+            // Thay idOrder bằng giá trị thực tế
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                // Xử lý dữ liệu trong kết quả
+                int id = rs.getInt("idHistory");
+                Date transactionDate = rs.getDate("transactionDate");
+                int idOder = rs.getInt("idOrder");
+                float totalPrice = rs.getFloat("totalPrice");
+                String paymentMethod = rs.getString("paymentMethod");
+                String shippingAddress = rs.getString("shippingAddress");
+                List<Product> products = pro.getOrderDetailsByIdOrder(idOder);
+                transaction.addTransactionHistory(new TransactionHistory(id,transactionDate,totalPrice,idOder,idUser,paymentMethod,shippingAddress,products));
+
+                System.out.println("ID: " + id);
+                System.out.println("IdOrder: " + idOder);
+                System.out.println("Transaction Date: " + transactionDate);
+                System.out.println("Total Price: " + totalPrice);
+                System.out.println("Payment Method: " + paymentMethod);
+                System.out.println("Shipping Address: " + shippingAddress);
+
+            }
+
+        }
+
+    public List<Product> getOrderDetailsByIdOrder(int idOrder) throws SQLException {
+        List<Product> products = new ArrayList<>();
+
+        String query = "SELECT * FROM order_details WHERE idOrder = ?";
+
+
+             PreparedStatement preparedStatement = dao.conn.prepareStatement(query);
+
+            // Thiết lập giá trị cho tham số `idOrder`
+            preparedStatement.setInt(1, idOrder);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    // Lấy thông tin từ kết quả truy vấn
+                    int id = resultSet.getInt("id");
+                    int idProduct = resultSet.getInt("idProduct");
+                    int quantity = resultSet.getInt("quantity");
+                    int price = resultSet.getInt("price");
+                    String nameProduct = resultSet.getString("nameProduct");
+
+                    // Tạo đối tượng Product và thêm vào danh sách
+                    products.add(new Product(id, idOrder, idProduct, quantity, price, nameProduct));
+                }
+            }
+        return products;
+    }
+public ListProduct getListProduct() throws SQLException {
+    ListProduct list = new ListProduct();
+    String query = """
+            SELECT
+                p.id AS ProductID,
+                p.productName,
+                MIN(pv.price) AS MinPrice,
+                MAX(pv.price) AS MaxPrice,
+                img1.imageData AS Image1,
+                img2.imageData AS Image2
+            FROM
+                products p
+            LEFT JOIN product_variants pv ON p.id = pv.idProduct
+            LEFT JOIN (
+                SELECT i1.idProduct, i1.imageData
+                FROM Images i1
+                WHERE (
+                    SELECT COUNT(*) 
+                    FROM Images i2 
+                    WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                ) = 1
+            ) img1 ON p.id = img1.idProduct
+            LEFT JOIN (
+                SELECT i1.idProduct, i1.imageData
+                FROM Images i1
+                WHERE (
+                    SELECT COUNT(*) 
+                    FROM Images i2 
+                    WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                ) = 2
+            ) img2 ON p.id = img2.idProduct
+            GROUP BY
+                p.id, p.productName, img1.imageData, img2.imageData;
+        """;
+    PreparedStatement preparedStatement = dao.conn.prepareStatement(query);
+    ResultSet resultSet = preparedStatement.executeQuery();
+
+    // Xử lý kết quả truy vấn
+    System.out.println("ProductID | ProductName | MinPrice | MaxPrice | Image1 | Image2");
+    while (resultSet.next()) {
+        int productId = resultSet.getInt("ProductID");
+        String productName = resultSet.getString("productName");
+        int minPrice = resultSet.getInt("MinPrice");
+        int maxPrice = resultSet.getInt("MaxPrice");
+        String image1 = resultSet.getString("Image1"); // Lấy ảnh dưới dạng BLOB
+        String image2 = resultSet.getString("Image2"); // Lấy ảnh dưới dạng BLOB
+
+        // Hiển thị thông tin
+        System.out.printf("%d | %s | %d | %d | %s | %s%n",
+                productId,
+                productName,
+                minPrice,
+                maxPrice,
+                image1 != null ? image1 : "NULL",
+                image2 != null ? image2 : "NULL"
+        );
+        list.addProduct(productId,productName,image1,image2,minPrice,maxPrice);
+}
+    return list;
+
+    }
+    public Products getProductDetail(String idProduct) throws SQLException {
+        Products pro = new Products();
+        String sql = "SELECT "
+                + "p.productName, "
+                + "MIN(pv.price) AS minPrice, "
+                + "MAX(pv.price) AS maxPrice, "
+                + "pv.productDescription, "
+                + "MAX(CASE WHEN i.row_num = 1 THEN i.imageData END) AS image1, "
+                + "MAX(CASE WHEN i.row_num = 2 THEN i.imageData END) AS image2, "
+                + "MAX(CASE WHEN i.row_num = 3 THEN i.imageData END) AS image3, "
+                + "MAX(CASE WHEN i.row_num = 4 THEN i.imageData END) AS image4 "
+                + "FROM products p "
+                + "JOIN product_variants pv ON p.id = pv.idProduct "
+                + "LEFT JOIN ( "
+                + "    SELECT i.idProduct, i.imageData, ROW_NUMBER() OVER (PARTITION BY i.idProduct ORDER BY i.id) AS row_num "
+                + "    FROM Images i "
+                + ") i ON p.id = i.idProduct AND i.row_num <= 4 "
+                + "WHERE p.id = ? "  // Tham số điều kiện p.id
+                + "GROUP BY p.id, p.productName, pv.productDescription;";
+        PreparedStatement statement = dao.conn.prepareStatement(sql);
+        statement.setString(1, idProduct);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+
+            String productName = resultSet.getString("productName");
+            double minPrice = resultSet.getDouble("minPrice");
+            double maxPrice = resultSet.getDouble("maxPrice");
+            String productDescription = resultSet.getString("productDescription");
+            String image1 = resultSet.getString("image1");
+            String image2 = resultSet.getString("image2");
+            String image3 = resultSet.getString("image3");
+            String image4 = resultSet.getString("image4");
+            System.out.println(idProduct);
+            // In kết quả ra console (hoặc có thể xử lý theo nhu cầu)
+            System.out.println("Product Name: " + productName);
+            System.out.println("Min Price: " + minPrice);
+            System.out.println("Max Price: " + maxPrice);
+            System.out.println("Description: " + productDescription);
+            System.out.println("Image 1: " + image1);
+            System.out.println("Image 2: " + image2);
+            System.out.println("Image 3: " + image3);
+            System.out.println("Image 4: " + image4);
+            System.out.println("-----------------------------");
+            pro.addProduct(Integer.parseInt(idProduct),productName,minPrice,maxPrice,image1,image2,image3,image4,productDescription);
+
+        }
+        return pro;
+    }
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
+        Transaction tr = new Transaction();
       //  System.out.println(s.getProductVariantCountByIdAndWeight(1,200));
         //System.out.println(s.getProductList(22));
        // System.out.println(s.getById("1",200));
-        System.out.println(s.getUserIdByPhoneNumber("0912345678"));
-       System.out.println(s.insertPayment(Integer.parseInt("2"),Integer.parseInt("17"),"COD"));
-
+      //  System.out.println(s.getUserIdByPhoneNumber("0912345678"));
+      // System.out.println(s.insertPayment(Integer.parseInt("2"),Integer.parseInt("17"),"COD"));
+//s.selectTransactionHistory(1,tr);
+//s.getListProduct();
+s.getProductDetail("44");
     }
 }
 
