@@ -319,7 +319,6 @@
 
         </thead>
         <tbody>
-        <button type="submit" id="submitButton" onclick="checkQuantity(1,20,200)">Submit</button>
 
         <c:forEach var="item" items="${sessionScope.cr7.items}">
         <tr>
@@ -347,7 +346,7 @@
 
         </tbody>
       </table>
-      <p id="quantity-error">sdf</p>
+
 
       <div class="discount-box">
         <input type="text" class="form-control" placeholder="Nhập mã ưu đãi">
@@ -366,7 +365,7 @@
 
           <li class="total-price"><span>Tổng cộng:</span> <span id="final-total">${sum} đ</span></li>
         </ul>
-        <a href="thanhtoan.jsp" style="text-decoration: none"><button class="btn-checkout w-100 mt-3">Tiến hành thanh toán</button></a>
+        <a href="getShipping" style="text-decoration: none"><button class="btn-checkout w-100 mt-3">Tiến hành thanh toán</button></a>
       </div>
     </div>
   </div>
