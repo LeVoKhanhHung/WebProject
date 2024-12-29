@@ -129,9 +129,9 @@
                 <div class="border rounded mt-3 d-flex justify-content-center" style="background-color: #B0501D">
                     <div class="text-light fw-bold ms-3 pt-1"  style="height:30px">SẢN PHẨM GỢI Ý</div>
                 </div>
-                <form action="product_detail" method="get">
+                <form action="product_de?productID=&weight=" method="get">
                     <!-- Thêm trường ẩn để lưu id sản phẩm -->
-                    <input type="hidden" name="productID" value="1"> <!-- Thay 1 bằng id sản phẩm thực tế -->
+                    <input type="hidden" name="productID" value="${item.id}"> <!-- Thay 1 bằng id sản phẩm thực tế -->
 
                     <!-- Thêm trường ẩn để lưu quy cách (weight) -->
                     <input type="hidden" name="weight" id="selectedWeight" value="200"> <!-- Mặc định là 200gr -->
