@@ -133,5 +133,45 @@ public class UserDAO extends BaseDAO {
         }
         return false;
     }
+
+    public boolean registerUser(User user) {
+        String sql = "INSERT INTO users (email, userPassword, userName, createDate, isActive) VALUES (?, ?, ?, NOW(), true)";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getUserPassword());
+            stmt.setString(3, user.getUserName());
+            int result = stmt.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM users WHERE email = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setEmail(rs.getString("email"));
+                    user.setUserPassword(rs.getString("userPassword"));
+                    user.setUserName(rs.getString("userName"));
+                    user.setCreateDate(rs.getDate("createDate"));
+                    user.setActive(rs.getBoolean("isActive"));
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
 
