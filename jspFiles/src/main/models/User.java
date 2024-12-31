@@ -18,6 +18,8 @@ public class User {
     private Date createDate;
     private boolean isActive;
 
+    public User() {}
+
     public User(int id, String email, String userPassword, String userName, String phoneNumber, Date birthDate, String companyName, String address, String image, int point, int idFavoriteProduct, int idRole, Date createDate, boolean isActive) {
         this.id = id;
         this.email = email;
