@@ -47,10 +47,14 @@
         <p>Nấm Đỏ rất hân hạnh phục vụ quý khách!</p>
         <section class="sec">
             <article class="conti">
-                <a href="/SanPham.html">Tiếp tục mua sắm</a>
+                <a href="index.jsp">Tiếp tục mua sắm</a>
             </article>
             <article class="productdetails">
-                <a href="/html/giohang.html">Chi tiết đơn hàng</a>
+                <%
+                    int idUser = (int) session.getAttribute("idUser");
+                %>
+                <p>${idUser}</p>
+                <a href="transactionHistory?idUser=${idUser}">Chi tiết đơn hàng</a>
 
             </article>
 
