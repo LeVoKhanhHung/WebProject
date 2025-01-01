@@ -10,6 +10,27 @@
 <body class="d-flex justify-content-center align-items-center vh-100" style="background-color: antiquewhite;">
 <div class="card shadow-sm p-4 w-100" style="max-width: 400px;">
     <h2 class="text-center text-primary mb-4">Quên Mật Khẩu</h2>
+
+    <!-- Hiển thị thông báo lỗi hoặc thành công -->
+    <%
+        String errorMessage = (String) request.getAttribute("errorMessage");
+        String successMessage = (String) request.getAttribute("successMessage");
+        if (errorMessage != null) {
+    %>
+    <div class="alert alert-danger" role="alert">
+        <%= errorMessage %>
+    </div>
+    <%
+        }
+        if (successMessage != null) {
+    %>
+    <div class="alert alert-success" role="alert">
+        <%= successMessage %>
+    </div>
+    <%
+        }
+    %>
+
     <!-- Form xử lý quên mật khẩu -->
     <form action="ForgotPasswordController" method="post">
         <div class="mb-3">
@@ -23,8 +44,7 @@
     </form>
 </div>
 
-<!-- Scripts -->
-<script src="/js/forgot-password.js"></script>
+<!-- Bootstrap Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
