@@ -1,6 +1,6 @@
 package Services;
 
-import Dao.ProductsDao;
+import Dao.ConnDB;
 import Models.Product.ListProduct;
 import Models.Productt;
 import Models.cart.CartProduct;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ServiceProduct {
     List<Productt> productList = new ArrayList<>();
-    private ProductsDao dao = new ProductsDao();
+    private ConnDB dao = new ConnDB();
 
     public List<Productt> getProductList(double weight) throws SQLException {
         List<Productt> productList = new ArrayList<>(); // Khởi tạo danh sách sản phẩm
@@ -382,6 +382,74 @@ public ListProduct getListProduct() throws SQLException {
     return list;
 
     }
+    public int getTotalProducts() throws SQLException {
+        String query = "SELECT COUNT(*) AS total FROM products";
+
+             PreparedStatement stmt = dao.conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+        return 0;
+    }
+
+    public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
+        ListProduct list = new ListProduct();
+        String query = """
+                SELECT
+                    p.id AS ProductID,
+                    p.productName,
+                    MIN(pv.price) AS MinPrice,
+                    MAX(pv.price) AS MaxPrice,
+                    img1.imageData AS Image1,
+                    img2.imageData AS Image2
+                FROM
+                    products p
+                LEFT JOIN product_variants pv ON p.id = pv.idProduct
+                LEFT JOIN (
+                    SELECT i1.idProduct, i1.imageData
+                    FROM Images i1
+                    WHERE (
+                        SELECT COUNT(*) 
+                        FROM Images i2 
+                        WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                    ) = 1
+                ) img1 ON p.id = img1.idProduct
+                LEFT JOIN (
+                    SELECT i1.idProduct, i1.imageData
+                    FROM Images i1
+                    WHERE (
+                        SELECT COUNT(*) 
+                        FROM Images i2 
+                        WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                    ) = 2
+                ) img2 ON p.id = img2.idProduct
+                GROUP BY
+                    p.id, p.productName, img1.imageData, img2.imageData
+                LIMIT ? OFFSET ?;
+            """;
+        int offset = (page - 1) * itemsPerPage;
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
+            stmt.setInt(1, itemsPerPage);
+            stmt.setInt(2, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int productId = rs.getInt("ProductID");
+                    String productName = rs.getString("productName");
+                    int minPrice = rs.getInt("MinPrice");
+                    int maxPrice = rs.getInt("MaxPrice");
+                    String image1 = rs.getString("Image1");
+                    String image2 = rs.getString("Image2");
+
+                    list.addProduct(productId, productName, image1, image2, minPrice, maxPrice);
+                }
+            }
+        }
+        return list;
+    }
     public Products getProductDetail(String idProduct) throws SQLException {
         Products pro = new Products();
         String sql = "SELECT "
@@ -438,9 +506,9 @@ public ListProduct getListProduct() throws SQLException {
        // System.out.println(s.getById("1",200));
       //  System.out.println(s.getUserIdByPhoneNumber("0912345678"));
       // System.out.println(s.insertPayment(Integer.parseInt("2"),Integer.parseInt("17"),"COD"));
-//s.selectTransactionHistory(1,tr);
+s.selectTransactionHistory(3,tr);
 //s.getListProduct();
-s.getProductDetail("44");
+//s.getProductDetail("44");
     }
 }
 
