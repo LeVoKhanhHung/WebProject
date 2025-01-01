@@ -65,13 +65,13 @@ public class CheckOut extends HttpServlet {
             notes = null;  // Nếu người dùng không nhập ghi chú, có thể gán giá trị null
         }
 
-        int idUser;
-        try {
-            idUser = orderDAO.getUserIdByPhoneNumber(phoneNumber);
-            System.out.println(idUser);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        int idUser = (int) session.getAttribute("idUser");
+//        try {
+//            idUser = orderDAO.getUserIdByPhoneNumber(phoneNumber);
+//            System.out.println(idUser);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
 
         // Tạo chuỗi receiveAddress
         StringBuilder receiveAddress = new StringBuilder();
