@@ -95,7 +95,7 @@ public class UserDAO extends BaseDAO {
         return users;
     }
 
-    public boolean updateUser(User user) {
+    public static boolean updateUser(User user) {
         String sql = "UPDATE users SET email = ?, userPassword = ?, userName = ?, phoneNumber = ?, birthDate = ?, companyName = ?, address = ?, image = ?, point = ?, idFavoriteProduct = ?, idRole = ?, createDate = ?, isActive = ? WHERE id = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
