@@ -26,11 +26,6 @@ public class displayTransactionHistory extends HttpServlet {
         HttpSession session = req.getSession(true);
         int idUser = (int) session.getAttribute("idUser");
          pro.selectTransactionHistory(idUser,transaction);
-        System.out.println(transaction.getItems().size());
-               System.out.println("ID nay cua " + idUser);
-              pro.selectTransactionHistory(idUser,transaction);
-
-
         session.setAttribute("transactions", transaction);
         req.getRequestDispatcher("history.jsp").forward(req, resp);
 
