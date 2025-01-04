@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class ServiceProductCategory {
     public ConnDB dao = new ConnDB();
 
-    public ListProduct getProductCategory(int idCategory, int page, int itemsPerPage) throws SQLException {
+    public ListProduct getProductCategory(int idCategory, int page, int productsPerPage) throws SQLException {
 
         ListProduct list = new ListProduct();
         String query = """
@@ -46,13 +46,14 @@ public class ServiceProductCategory {
         p.idCategory = ? -- Điều kiện kiểm tra theo idCategory
     GROUP BY
         p.id, p.productName, img1.imageData, img2.imageData
-    LIMIT ? OFFSET ?;
+        Limit ? offset ?;
+   
 """;
-        int offset = (page - 1) * itemsPerPage;
 
+        int offset = (page - 1) * productsPerPage;
         try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
             stmt.setInt(1, idCategory);
-            stmt.setInt(2, itemsPerPage);
+            stmt.setInt(2, productsPerPage);
             stmt.setInt(3, offset);
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -85,7 +86,7 @@ public class ServiceProductCategory {
 
     public static void main(String[] args) throws SQLException {
         ServiceProductCategory s = new ServiceProductCategory();
-        System.out.println(s.getTotalProducts(4));
+       // System.out.println(s.getProductCategory(4));
     }
     }
 
