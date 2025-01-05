@@ -12,6 +12,11 @@ public class CartProduct implements Serializable {
     public int weight;
     public double total;
     public double sale;
+    public double rawTotal;
+
+    public double getRawTotal() {
+        return rawTotal;
+    }
 
     public int getProductId() {
         return productId;
