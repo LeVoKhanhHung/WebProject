@@ -1,20 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Người Dùng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/admin-index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-index.css">
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <jsp:include page="admin-sidebar.jsp"/>
+        <jsp:include page="admin-sidebar.jsp" />
 
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -36,20 +34,26 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="user" items="${userList}">
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.email}</td>
-                            <td>${user.status}</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editUserModal" onclick="editUser(${user.id})">Chỉnh sửa
-                                </button>
-                                <button class="btn btn-danger btn-sm" onclick="toggleStatus(${user.id})">Khóa</button>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <tr>
+                        <td>1</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>a@example.com</td>
+                        <td>Đang hoạt động</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editUser(1)">Chỉnh sửa</button>
+                            <button class="btn btn-danger btn-sm" onclick="toggleStatus(1)">Khóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Trần Thị B</td>
+                        <td>b@example.com</td>
+                        <td>Đang hoạt động</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editUser(2)">Chỉnh sửa</button>
+                            <button class="btn btn-danger btn-sm" onclick="toggleStatus(2)">Khóa</button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -86,15 +90,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary" id="saveEditButton" onclick="saveUserChanges()">Lưu thay
-                    đổi
-                </button>
+                <button type="button" class="btn btn-primary" id="saveEditButton">Lưu thay đổi</button>
             </div>
         </div>
     </div>
 </div>
 
-<script src="/js/manage-user.js"></script>
+<script src="${pageContext.request.contextPath}/js/manage-user.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
