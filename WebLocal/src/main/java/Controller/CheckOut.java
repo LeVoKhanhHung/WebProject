@@ -1,6 +1,8 @@
 package Controller;
 
+import Services.ServiceOrder;
 import Services.ServiceProduct;
+import Services.ServiceTransactionHistory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,7 +19,10 @@ public class CheckOut extends HttpServlet {
     //THuc hien chuc nang luu cac san pham khi chuan bi thanh toan;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       ServiceProduct orderDAO  = new ServiceProduct();
+   //    ServiceProduct orderDAO  = new ServiceProduct();
+        ServiceOrder orderDAO = new ServiceOrder();
+        ServiceTransactionHistory serviceTransactionHistory = new ServiceTransactionHistory();
+
         HttpSession session = req.getSession();
       Cart cart = (Cart) session.getAttribute("cr7");
         if (cart == null) {
@@ -90,7 +95,7 @@ public class CheckOut extends HttpServlet {
         }
         String receiveAddressUser= (String)receiveAddress.toString();
        // int shippingId = Integer.parseInt(req.getParameter("shippingId"));
-        double totalPrice = cart.getPrice();
+        double totalPrice = cart.getTotalPrice();
 
         try {
             // Lưu thông tin đơn hàng
@@ -101,7 +106,7 @@ public class CheckOut extends HttpServlet {
 
             // Lưu chi tiết đơn hàng
             orderDAO.saveOrderDetails(orderId, cart);
-            orderDAO.saveTransactionHistory(idUser,orderId,totalPrice,paymentMethod,receiveAddressUser);
+            serviceTransactionHistory.saveTransactionHistory(idUser,orderId,totalPrice,paymentMethod,receiveAddressUser);
 
             // Xóa giỏ hàng khỏi session sau khi hoàn tất
             session.removeAttribute("cr7");

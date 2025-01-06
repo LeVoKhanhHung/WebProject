@@ -1,7 +1,9 @@
 package Controller;
 
 import Models.inforTransaction.Transaction;
+import Models.inforTransaction.TransactionHistory;
 import Services.ServiceProduct;
+import Services.ServiceTransactionHistory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,13 +21,13 @@ public class displayTransactionHistory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Transaction transaction = new Transaction();
-        ServiceProduct pro = new ServiceProduct();
+        ServiceTransactionHistory serviceTransactionHistory = new ServiceTransactionHistory();
 
 
            try {
         HttpSession session = req.getSession(true);
         int idUser = (int) session.getAttribute("idUser");
-         pro.selectTransactionHistory(idUser,transaction);
+               serviceTransactionHistory.selectTransactionHistory(idUser,transaction);
         session.setAttribute("transactions", transaction);
         req.getRequestDispatcher("history.jsp").forward(req, resp);
 
