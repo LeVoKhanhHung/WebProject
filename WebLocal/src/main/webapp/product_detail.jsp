@@ -388,7 +388,25 @@
                             </div>
                             <div class="product_name mt-1 d-flex justify-content-center">Nấm Mối Đen Tươi</div>
                             <div class="mt-3 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">70.000đ - 315.000đ</div>
-                        
+                        </div>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <div class="h-100 d-inline-block border border-2 rounded" style="height:100px">
+                            <div class="container">
+                                <div class="img_product">
+                                    <img src="img/img14.png" style="width: 200px" class="" alt="...">
+                                </div>
+                            </div>
+                            <div class="border rounded d-flex justify-content-start fs-6" style="background-color: #B0501D">
+                                <div class="text-light fw-light ms-3 pt-0"  style="width: 160px"><i class="fa-regular fa-gem"></i> Tích 39-165 NAXA khi mua sản phẩm này</div>
+                            </div>
+                            <div class="product_infor mt-3 d-flex justify-content-center">
+                                <button data-weight="200" class="btn">200g</button>
+                                <button data-weight="500" class="btn">500g</button>
+                                <button data-weight="1000" class="btn">1kg</button>
+                            </div>
+                            <div class="product_name mt-1 d-flex justify-content-center">Nấm Mối Đen Tươi</div>
+                            <div class="mt-3 d-flex justify-content-center fw-bold text-danger" style="--bs-text-opacity: 0.8;">70.000đ - 315.000đ</div>
                         </div>
                     </li>
                 </ul>
