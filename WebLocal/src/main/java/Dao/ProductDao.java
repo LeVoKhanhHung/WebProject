@@ -17,6 +17,65 @@ public class ProductDao {
         this.dao = ConnDB.getInstance(); // Lấy instance duy nhất của ConnDB
     }
 
+public List<CartProduct> getProductList(double weight) throws SQLException {
+        List<CartProduct> productList = new ArrayList<>(); // Khởi tạo danh sách sản phẩm
+
+        // Câu SQL với tham số "?"
+        PreparedStatement ps = dao.conn.prepareStatement(
+                "SELECT " +
+                        "    p.id AS productID, " +
+                        "    p.productName, " +
+                        "    i.imageData AS productImage, " +
+                        "    pv.weight AS productWeight, " +
+                        "    pv.quantity AS productQuantity, " +
+                        "    pv.price AS productPrice, " +
+                        "    (pv.price * pv.quantity) AS totalPrice, " +  // Dấu phẩy thiếu
+                        "    s.salePercent " +                          // Dòng này tiếp nối
+                        "FROM " +
+                        "    products p " +
+                        "JOIN " +
+                        "    product_variants pv ON p.id = pv.idProduct " +
+                        "LEFT JOIN " +
+                        "    Images i ON p.id = i.idProduct " +
+                        "INNER JOIN " +
+                        "    sales s ON s.idVariant = pv.id " +
+                        "WHERE " +
+                        "    pv.weight = ?;"
+        );
+
+
+// Truyền giá trị "weight" vào tham số ?
+        ps.setDouble(1, weight);
+
+// Thực thi câu lệnh SQL
+        ResultSet rs = ps.executeQuery();
+
+// Tạo danh sách Product để lưu kết quả
+
+
+// Xử lý kết quả trả về từ ResultSet
+        while (rs.next()) {
+            // Lấy các giá trị từ ResultSet
+            String productID = rs.getString("productID"); // id của sản phẩm
+            String productName = rs.getString("productName"); // tên sản phẩm
+            String productImage = rs.getString("productImage"); // ảnh sản phẩm
+            int productWeight = rs.getInt("productWeight"); // trọng lượng sản phẩm
+            int productQuantity = rs.getInt("productQuantity"); // số lượng sản phẩm
+            double productPrice = rs.getDouble("productPrice"); // giá sản phẩm
+            double totalPrice = rs.getDouble("totalPrice"); // tổng tiền sản phẩm (giá * số lượng)
+            double salePercent = rs.getDouble("salePercent");
+
+            // Tạo đối tượng Product và thêm vào danh sách
+            CartProduct product   =   new CartProduct(productID,productName,productPrice,productQuantity,productImage,productWeight,totalPrice,salePercent);
+
+            productList.add(product);
+        }
+
+
+
+
+        return productList;
+    }
     
 
 
