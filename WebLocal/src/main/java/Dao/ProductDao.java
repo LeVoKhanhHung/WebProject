@@ -77,6 +77,16 @@ public List<CartProduct> getProductList(double weight) throws SQLException {
         return productList;
     }
     
+public CartProduct getById(String id, int weight) throws SQLException {
+        List<CartProduct> productList = getProductList(weight);
+        for (CartProduct product : productList) {
+            if (product.getId().equals(id) && product.weight == weight) {
+                return product;
+            }
+        }
+        System.out.println("Sản phẩm không tồn tại");
+        return null;
+    }
 
 
     public static void main(String[] args) throws SQLException {
