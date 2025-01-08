@@ -34,7 +34,9 @@ public class ServiceProduct {
 
         return productDao.getById(id, weight);
     }
-   
+   public int getProductVariantCountByIdAndWeight(int productId, float weight) {
+        return productDao.getProductVariantCountByIdAndWeight(productId, weight);
+    }
 
 
     public static void main(String[] args) throws Exception {
