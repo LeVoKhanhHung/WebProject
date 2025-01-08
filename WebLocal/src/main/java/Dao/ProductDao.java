@@ -117,6 +117,62 @@ public int getProductVariantCountByIdAndWeight(int productId, float weight) {
         return 0;
     }
 
+public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
+        ListProduct list = new ListProduct();
+        String query = """
+                SELECT
+                    p.id AS ProductID,
+                    p.productName,
+                    MIN(pv.price) AS MinPrice,
+                    MAX(pv.price) AS MaxPrice,
+                    img1.imageData AS Image1,
+                    img2.imageData AS Image2
+                FROM
+                    products p
+                LEFT JOIN product_variants pv ON p.id = pv.idProduct
+                LEFT JOIN (
+                    SELECT i1.idProduct, i1.imageData
+                    FROM Images i1
+                    WHERE (
+                        SELECT COUNT(*) 
+                        FROM Images i2 
+                        WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                    ) = 1
+                ) img1 ON p.id = img1.idProduct
+                LEFT JOIN (
+                    SELECT i1.idProduct, i1.imageData
+                    FROM Images i1
+                    WHERE (
+                        SELECT COUNT(*) 
+                        FROM Images i2 
+                        WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                    ) = 2
+                ) img2 ON p.id = img2.idProduct
+                GROUP BY
+                    p.id, p.productName, img1.imageData, img2.imageData
+                LIMIT ? OFFSET ?;
+            """;
+        int offset = (page - 1) * itemsPerPage;
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
+            stmt.setInt(1, itemsPerPage);
+            stmt.setInt(2, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int productId = rs.getInt("ProductID");
+                    String productName = rs.getString("productName");
+                    int minPrice = rs.getInt("MinPrice");
+                    int maxPrice = rs.getInt("MaxPrice");
+                    String image1 = rs.getString("Image1");
+                    String image2 = rs.getString("Image2");
+
+                    list.addProduct(productId, productName, image1, image2, minPrice, maxPrice);
+                }
+            }
+        }
+        return list;
+    }
 
     public static void main(String[] args) throws SQLException {
         ProductDao s = new ProductDao();
