@@ -65,6 +65,16 @@ public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLEx
         return productDao.getListProductByPage(page,itemsPerPage);
     }
 
+public ListProduct getListProduct() throws SQLException {
+
+    return productDao.getListProduct();
+
+    }
+    public int getTotalProducts() throws SQLException {
+        return productDao.getTotalProducts();
+    }
+
+
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
         Transaction tr = new Transaction();
