@@ -77,7 +77,9 @@ public ListProduct getListProduct() throws SQLException {
     public Products getProductDetail(String idProduct) throws SQLException {
         return productDao.getProductDetail(idProduct);
     }
-
+    public int getCategoryProductCounts(String categoryName) throws SQLException {
+        return productDao.getCategoryProductCounts(categoryName);
+    }
 
 
     public static void main(String[] args) throws Exception {
