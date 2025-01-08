@@ -174,6 +174,55 @@ public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLEx
         return list;
     }
 
+public Products getProductDetail(String idProduct) throws SQLException {
+        Products pro = new Products();
+        String sql = "SELECT "
+                + "p.productName, "
+                + "MIN(pv.price) AS minPrice, "
+                + "MAX(pv.price) AS maxPrice, "
+                + "pv.productDescription, "
+                + "MAX(CASE WHEN i.row_num = 1 THEN i.imageData END) AS image1, "
+                + "MAX(CASE WHEN i.row_num = 2 THEN i.imageData END) AS image2, "
+                + "MAX(CASE WHEN i.row_num = 3 THEN i.imageData END) AS image3, "
+                + "MAX(CASE WHEN i.row_num = 4 THEN i.imageData END) AS image4 "
+                + "FROM products p "
+                + "JOIN product_variants pv ON p.id = pv.idProduct "
+                + "LEFT JOIN ( "
+                + "    SELECT i.idProduct, i.imageData, ROW_NUMBER() OVER (PARTITION BY i.idProduct ORDER BY i.id) AS row_num "
+                + "    FROM Images i "
+                + ") i ON p.id = i.idProduct AND i.row_num <= 4 "
+                + "WHERE p.id = ? "  // Tham số điều kiện p.id
+                + "GROUP BY p.id, p.productName, pv.productDescription;";
+        PreparedStatement statement = dao.conn.prepareStatement(sql);
+        statement.setString(1, idProduct);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+
+            String productName = resultSet.getString("productName");
+            double minPrice = resultSet.getDouble("minPrice");
+            double maxPrice = resultSet.getDouble("maxPrice");
+            String productDescription = resultSet.getString("productDescription");
+            String image1 = resultSet.getString("image1");
+            String image2 = resultSet.getString("image2");
+            String image3 = resultSet.getString("image3");
+            String image4 = resultSet.getString("image4");
+            System.out.println(idProduct);
+            // In kết quả ra console (hoặc có thể xử lý theo nhu cầu)
+            System.out.println("Product Name: " + productName);
+            System.out.println("Min Price: " + minPrice);
+            System.out.println("Max Price: " + maxPrice);
+            System.out.println("Description: " + productDescription);
+            System.out.println("Image 1: " + image1);
+            System.out.println("Image 2: " + image2);
+            System.out.println("Image 3: " + image3);
+            System.out.println("Image 4: " + image4);
+            System.out.println("-----------------------------");
+            pro.addProduct(Integer.parseInt(idProduct),productName,minPrice,maxPrice,image1,image2,image3,image4,productDescription);
+
+        }
+        return pro;
+    }
+
     public static void main(String[] args) throws SQLException {
         ProductDao s = new ProductDao();
         s.getProductDetail("1");
