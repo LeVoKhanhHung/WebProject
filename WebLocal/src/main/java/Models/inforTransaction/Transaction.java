@@ -1,9 +1,10 @@
 package Models.inforTransaction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transaction {
+public class Transaction implements Serializable {
     public List<TransactionHistory> items = new ArrayList<>();
 
     public List<TransactionHistory> getItems() {

@@ -1,60 +1,85 @@
 package Models.cart;
 
-import Models.Productt;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
     private List<CartProduct> items = new ArrayList<>();
-    private double total = 0;
-    private double totalSale = 0;
+    private double totalPrice; // Tổng tiền sau khi giảm giá
+    private double rawTotalPrice; // Tổng tiền trước khi giảm giá
 
-    public double getPrice() {
-        return total;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-
-    public double getTotal() {
-        return total;
+    public double getRawTotalPrice() {
+        return rawTotalPrice;
     }
 
-    public double getTotalSale() {
-        return totalSale;
-    }
+    public void addCart(CartProduct pro) {
+        CartProduct cartProduct = new CartProduct(
+                pro.id,
+                pro.getName(),
+                pro.price,
+                pro.quantity,
+                pro.getImg(),
+                pro.weight,
+                0, // Tổng giá sau giảm sẽ tính sau
+                pro.sale
+        );
 
-    public void addCart(Productt pro) {
-        CartProduct cartProduct = new CartProduct(pro.id, pro.getName(), pro.price, pro.quantity, pro.getImg(), pro.weight, pro.getTotal(),pro.sale);
-        total += pro.price * pro.quantity;
-       total = total - (total* pro.getSale()/100);
-if(!updateCart(pro)){
-    items.add(cartProduct);
-}
+        // Giá chưa giảm
+        double rawProductPrice = pro.price * pro.quantity;
 
+        // Giá sau khi giảm
+        double discountedPrice = pro.price - (pro.price * pro.getSale() / 100);
+        double totalProductPrice = discountedPrice * pro.quantity;
 
+        // Gán giá trị cho sản phẩm mới
+        cartProduct.rawTotal = rawProductPrice;
+        cartProduct.total = totalProductPrice;
 
-    }
-public boolean updateCart(Productt pro){
-    for (CartProduct cart:
-         items) {
-        if(pro.id.equals(cart.id) && pro.weight ==Integer.parseInt(String.valueOf(cart.weight))){
-            cart.quantity+=pro.quantity;
-            cart.total = cart.getPrice() * cart.quantity;
-            System.out.println(cart.total);
-            return true;
+        if (!updateCart(pro)) {
+            items.add(cartProduct);
+            rawTotalPrice += rawProductPrice;
+            totalPrice += totalProductPrice;
+
+            System.out.println(cartProduct.rawTotal + " - Tổng tiền chưa giảm của sản phẩm vừa thêm");
+            System.out.println(cartProduct.total + " - Tổng tiền đã giảm của sản phẩm vừa thêm");
         }
-
-
     }
-    return false;
-}
-    public boolean removeCart(String id, String weight) {
-        System.out.println("id" + id + "w" + weight);
+
+    public boolean updateCart(CartProduct pro) {
         for (CartProduct cart : items) {
-            System.out.println(cart.toString());
+            if (pro.id.equals(cart.id) && pro.weight == Integer.parseInt(String.valueOf(cart.weight))) {
+                // Cập nhật số lượng
+                cart.quantity += pro.quantity;
+
+                // Giá chưa giảm
+                double rawProductPrice = pro.price * pro.quantity;
+
+                // Giá sau khi giảm
+                double discountedPrice = pro.price - (pro.price * pro.getSale() / 100);
+                double totalProductPrice = discountedPrice * pro.quantity;
+
+                // Cập nhật giá trị
+                cart.rawTotal += rawProductPrice;
+                cart.total += totalProductPrice;
+                rawTotalPrice += rawProductPrice;
+                totalPrice += totalProductPrice;
+
+                System.out.println(cart.rawTotal + " - Tổng tiền chưa giảm của sản phẩm trong giỏ");
+                System.out.println(cart.total + " - Tổng tiền đã giảm của sản phẩm trong giỏ");
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean removeCart(String id, String weight) {
+        for (CartProduct cart : items) {
             if (cart.id.equals(String.valueOf(id)) && cart.weight == Integer.parseInt(weight)) {
-                total -= cart.price * cart.quantity;
-                System.out.println("tim thay cart ne");
+                rawTotalPrice -= cart.price * cart.quantity; // Giảm giá trị chưa giảm
+                totalPrice -= cart.total; // Giảm giá trị đã giảm
                 return items.remove(cart);
             }
         }

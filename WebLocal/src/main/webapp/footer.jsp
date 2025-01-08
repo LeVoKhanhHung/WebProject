@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="css/owl.css">
 </head>
 <body>
-<section class="footer" style="background-color: red">
+<section class="footer" style="background-color: red ; width: 100%" >
 
         <div class="" style="background-color: #f3eee7">
             <div class="container">

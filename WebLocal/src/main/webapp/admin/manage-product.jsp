@@ -153,8 +153,12 @@
                         <input type="number" class="form-control" id="product_Quantity" name="product_Quantity">
                     </div>
                     <div class="mb-3">
-                        <label for="productWeight" class="form-label">Trong luong</label>
-                        <input type="number" class="form-control" id="productWeight" name="product_Weight">
+                        <label for="productWeight" class="form-label">Trọng lượng</label>
+                        <select class="form-control" id="productWeight" name="product_Weight">
+                            <option value="200">200gram</option>
+                            <option value="500">500gram</option>
+                            <option value="1000">1kg</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="productImages" class="form-label">Ảnh sản phẩm 1</label>

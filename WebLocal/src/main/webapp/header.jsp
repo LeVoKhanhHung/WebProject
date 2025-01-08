@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Models.Category.Category" %><%--
   Created by IntelliJ IDEA.
   User: airm2
   Date: 15/12/2024
@@ -32,6 +32,13 @@
 </head>
 <body>
 <section class="header">
+    <%
+        Category item1 = (Category) session.getAttribute("categories");
+        if(item1 == null){
+            item1 = new Category();
+            session.setAttribute("categories",item1);
+        }
+    %>
     <div>
         <div class="" style="background-color: antiquewhite">
             <div class="row">
@@ -49,13 +56,9 @@
                             <li class="nav-item">
                                 <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">SẢN PHẨM</button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="product.html">Nấm Tươi</a></li>
-                                    <li><a class="dropdown-item" href="#">Nấm Khô</a></li>
-                                    <li><a class="dropdown-item" href="#">Bột Nấm Ăn</a></li>
-                                    <li><a class="dropdown-item" href="#">Nấm Dược Liệu</a></li>
-                                    <li><a class="dropdown-item" href="#">Chà Bông Nấm</a></li>
-                                    <li><a class="dropdown-item" href="#">Phôi Nấm</a></li>
-                                    <li><a class="dropdown-item" href="#">Nấm Quà Tặng</a></li>
+                                <c:forEach var="item" items="${sessionScope.categories.items}" >
+                                    <li><a class="dropdown-item" href="product_category?idCategory=${item.id}">${item.name}</a></li>
+                                    </c:forEach>
                                 </ul>
                             </li>
                             <li>

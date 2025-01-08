@@ -53,8 +53,8 @@
                 <%
                     int idUser = (int) session.getAttribute("idUser");
                 %>
-                <p>${idUser}</p>
-                <a href="transactionHistory?idUser=${idUser}">Chi tiết đơn hàng</a>
+
+                <a href="transactionHistory">Chi tiết đơn hàng</a>
 
             </article>
 
