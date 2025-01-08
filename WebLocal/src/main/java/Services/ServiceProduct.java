@@ -74,6 +74,11 @@ public ListProduct getListProduct() throws SQLException {
         return productDao.getTotalProducts();
     }
 
+    public Products getProductDetail(String idProduct) throws SQLException {
+        return productDao.getProductDetail(idProduct);
+    }
+
+
 
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
