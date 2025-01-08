@@ -223,6 +223,93 @@ public Products getProductDetail(String idProduct) throws SQLException {
         return pro;
     }
 
+public ListProduct getListProduct() throws SQLException {
+        ListProduct list = new ListProduct();
+        String query = """
+            SELECT
+                p.id AS ProductID,
+                p.productName,
+                MIN(pv.price) AS MinPrice,
+                MAX(pv.price) AS MaxPrice,
+                img1.imageData AS Image1,
+                img2.imageData AS Image2
+            FROM
+                products p
+            LEFT JOIN product_variants pv ON p.id = pv.idProduct
+            LEFT JOIN (
+                SELECT i1.idProduct, i1.imageData
+                FROM Images i1
+                WHERE (
+                    SELECT COUNT(*) 
+                    FROM Images i2 
+                    WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                ) = 1
+            ) img1 ON p.id = img1.idProduct
+            LEFT JOIN (
+                SELECT i1.idProduct, i1.imageData
+                FROM Images i1
+                WHERE (
+                    SELECT COUNT(*) 
+                    FROM Images i2 
+                    WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                ) = 2
+            ) img2 ON p.id = img2.idProduct
+            GROUP BY
+                p.id, p.productName, img1.imageData, img2.imageData;
+        """;
+        PreparedStatement preparedStatement = dao.conn.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        // Xử lý kết quả truy vấn
+        System.out.println("ProductID | ProductName | MinPrice | MaxPrice | Image1 | Image2");
+        while (resultSet.next()) {
+            int productId = resultSet.getInt("ProductID");
+            String productName = resultSet.getString("productName");
+            int minPrice = resultSet.getInt("MinPrice");
+            int maxPrice = resultSet.getInt("MaxPrice");
+            String image1 = resultSet.getString("Image1"); // Lấy ảnh dưới dạng BLOB
+            String image2 = resultSet.getString("Image2"); // Lấy ảnh dưới dạng BLOB
+
+            // Hiển thị thông tin
+            System.out.printf("%d | %s | %d | %d | %s | %s%n",
+                    productId,
+                    productName,
+                    minPrice,
+                    maxPrice,
+                    image1 != null ? image1 : "NULL",
+                    image2 != null ? image2 : "NULL"
+            );
+            list.addProduct(productId,productName,image1,image2,minPrice,maxPrice);
+        }
+        return list;
+
+    }
+
+    // tính tổng sản phẩm theo loại
+    public int getCategoryProductCounts(String categoryName) throws SQLException {
+        // tính tổng số lượng sản phẩm theo loại
+        String query = """
+        SELECT SUM(pv.quantity) AS totalQuantity
+        FROM products p
+        JOIN categories c ON p.idCategory = c.id
+        JOIN product_variants pv ON p.id = pv.idProduct
+        WHERE c.name = ?
+    """;
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
+            // tên loại
+            stmt.setString(1, categoryName);
+
+            // Thực thi truy vấn
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("totalQuantity");
+                }
+            }
+        }
+        return 0;
+    }
+
     public static void main(String[] args) throws SQLException {
         ProductDao s = new ProductDao();
         s.getProductDetail("1");
