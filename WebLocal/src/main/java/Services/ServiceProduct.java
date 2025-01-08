@@ -38,7 +38,7 @@ public class ServiceProduct {
         return productDao.getProductVariantCountByIdAndWeight(productId, weight);
     }
 
-public int getUserIdByPhoneNumber(String phoneNumber) throws Exception {
+    public int getUserIdByPhoneNumber(String phoneNumber) throws Exception {
         String query = "SELECT id FROM users WHERE phoneNumber = ?";
         int userId = -1;
 
@@ -60,12 +60,12 @@ public int getUserIdByPhoneNumber(String phoneNumber) throws Exception {
         return userId;
     }
 
-public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
+    public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
 
         return productDao.getListProductByPage(page,itemsPerPage);
     }
 
-public ListProduct getListProduct() throws SQLException {
+    public ListProduct getListProduct() throws SQLException {
 
     return productDao.getListProduct();
 
@@ -79,6 +79,14 @@ public ListProduct getListProduct() throws SQLException {
     }
     public int getCategoryProductCounts(String categoryName) throws SQLException {
         return productDao.getCategoryProductCounts(categoryName);
+    }
+
+    public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
+        return productDao.getListProductByPage(page,itemsPerPage);
+    }
+
+    public ListProduct getFilteredProducts(String filterType, int page, int itemsPerPage) throws SQLException {
+        return productDao.getFilteredProducts(filterType, page, itemsPerPage);
     }
 
 
