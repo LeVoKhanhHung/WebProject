@@ -26,7 +26,16 @@ public class ServiceProduct {
     private ConnDB dao = new ConnDB();
     ProductDao productDao = new ProductDao();
 
-    
+    public List<CartProduct> getProductList(double weight) throws SQLException {
+
+        return productDao.getProductList(weight);
+    }
+    public CartProduct getById(String id, int weight) throws SQLException {
+
+        return productDao.getById(id, weight);
+    }
+   
+
 
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
