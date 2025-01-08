@@ -60,6 +60,10 @@ public int getUserIdByPhoneNumber(String phoneNumber) throws Exception {
         return userId;
     }
 
+public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
+
+        return productDao.getListProductByPage(page,itemsPerPage);
+    }
 
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
