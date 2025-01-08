@@ -38,6 +38,28 @@ public class ServiceProduct {
         return productDao.getProductVariantCountByIdAndWeight(productId, weight);
     }
 
+public int getUserIdByPhoneNumber(String phoneNumber) throws Exception {
+        String query = "SELECT id FROM users WHERE phoneNumber = ?";
+        int userId = -1;
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
+            // Thiết lập giá trị cho tham số trong câu truy vấn
+            stmt.setString(1, phoneNumber);
+
+            // Thực thi truy vấn
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    userId = rs.getInt("id");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Lỗi khi truy vấn id user: " + e.getMessage());
+        }
+
+        return userId;
+    }
+
 
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();

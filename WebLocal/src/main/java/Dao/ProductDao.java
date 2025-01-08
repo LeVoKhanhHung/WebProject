@@ -88,6 +88,35 @@ public CartProduct getById(String id, int weight) throws SQLException {
         return null;
     }
 
+public int getProductVariantCountByIdAndWeight(int productId, float weight) {
+        String query = "SELECT SUM(quantity) FROM product_variants WHERE idProduct = ? AND weight = ?";
+        try (PreparedStatement statement = dao.conn.prepareStatement(query)) {
+            statement.setInt(1, productId);
+            statement.setFloat(2, weight);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1); // trả về số lượng bản ghi phù hợp
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // trả về 0 nếu không tìm thấy bản ghi nào
+    }
+
+    public int getTotalProducts() throws SQLException {
+        String query = "SELECT COUNT(*) AS total FROM products";
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        }
+        return 0;
+    }
+
 
     public static void main(String[] args) throws SQLException {
         ProductDao s = new ProductDao();
