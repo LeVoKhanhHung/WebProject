@@ -1,7 +1,8 @@
 package Controller;
 
 import Models.cart.Cart;
-import Models.Productt;
+import Models.cart.CartProduct;
+import Models.cart.Productt;
 import Services.ServiceProduct;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,11 +13,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(
-        value = "/product_detail"
+        value = "/product_de"
 )
 public class product_details extends HttpServlet {
 
@@ -29,7 +28,7 @@ public class product_details extends HttpServlet {
         System.out.println(id);
         System.out.println(weight);
 
-        Productt pro = null;
+            CartProduct pro = null;
 HttpSession session = req.getSession(true);
         try {
             pro = serviceProduct.getById(String.valueOf(id), Integer.parseInt(weight));

@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Models.Product.ListProduct" %>
+<%@ page import="Models.Category.Category" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -11,7 +12,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -186,10 +187,13 @@
         font-size: 12px;
     }
     .img_product img {
-        width: 100%; /* Chiều rộng chiếm toàn bộ container */
-        height: 200px; /* Chiều cao cố định */
+        width: 450px;
+        height: 450px;
+        /*width: 100%; !* Chiều rộng chiếm toàn bộ container *!*/
+        /*height: 200px; !* Chiều cao cố định *!*/
         object-fit: cover; /* Cắt ảnh để phù hợp với kích thước container */
         border-bottom: 1px solid #eee; /* Đường viền dưới */
+        border-radius: 5px;
     }
 
     /* Ẩn ảnh hover mặc định */
@@ -210,6 +214,33 @@
 </style>
 <body>
 <%@include file="header.jsp"%>
+<section style="background-color: rgb(254,235,205)">
+  <div class="row">
+    <div class="d-flex justify-content-center">
+        <div class="main_name fw-bold text-danger text-center fs-1 ">Sản Phẩm</div>
+    </div>
+   </div>
+    <div class="row">
+        <div class="col p-3 text-black">
+            <div class="d-flex justify-content-center">
+                <ul class="nav">
+                    <c:forEach var="category" items="${categoryProductCounts.keySet()}">
+                        <li class="nav-item">
+                            <div class="">
+                                <a class="nav-link fw-bold text-dark pb-0" href="#">${category}</a>
+                                <a class="nav-link fw-medium text-secondary pt-0" href="#">
+                                        ${categoryProductCounts[category]} Sản Phẩm
+                                </a>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</section>
 <section class="menu">
     <div class="container">
         <div class="row">
@@ -252,20 +283,29 @@
             </div>
             <div class="col-3 mt-5">
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">Thứ tự theo mức độ phổ biến</button>
+                    <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">Lọc sản phẩm:</button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Thứ tự theo mức độ phổ biến</a></li>
-                        <li><a class="dropdown-item" href="#">Thứ tự theo điểm đánh giá</a></li>
-                        <li><a class="dropdown-item" href="#">Mới nhất</a></li>
-                        <li><a class="dropdown-item" href="#">Thứ tự theo giá: thấp đến cao</a></li>
-                        <li><a class="dropdown-item" href="#">Thứ tự theo giá: cao đến thấp</a></li>
+                        <li><a class="dropdown-item" href="?filterType=priceAsc">Thứ tự theo giá: thấp đến cao</a></li>
+                        <li><a class="dropdown-item" href="?filterType=priceDesc">Thứ tự theo giá: cao đến thấp</a></li>
+                        <li><a class="dropdown-item" href="?filterType=newest">Mới nhất</a></li>
+                        <li><a class="dropdown-item" href="?filterType=rating">Thứ tự theo đánh giá</a></li>
+                        <li><a class="dropdown-item" href="?filterType=promotion">Thứ tự theo khuyến mãi</a></li>
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 <section class="content">
+    <%
+    ListProduct item = (ListProduct) session.getAttribute("listproduct");
+    if(item == null){
+        item = new ListProduct();
+        session.setAttribute("listproduct",item);
+    }
+
+%>
     <div class="container">
         <div class="row">
             <div class="col-3">
@@ -274,7 +314,14 @@
                         <div class="row">
                             <div class="col">
                                 <ul class="nav pb-0 text-secondary fw-medium">
-                                    <li class="">Bột Nấm Ăn</li>
+                                    <c:forEach var="item" items="${sessionScope.categories.items}" >
+                                        <li class="">${item.name}</li>
+                                    </c:forEach>
+
+                                </ul>
+
+                                <ul class="nav pb-0 text-secondary fw-medium">
+                                    <li class="">Bột Nấm</li>
                                 </ul>
                                 <ul class="nav pt-2 text-secondary fw-medium">
                                     <li class="">Chà Bông Nấm</li>
@@ -296,27 +343,15 @@
                                 </ul>
                             </div>
                             <div class="col-4 fs-6">
-                                <ul class="nav pb-0 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">4</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">3</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">7</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light ">15</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">2</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">21</div></li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="ps-5"><div class="badge border text-bg-light">1</div></li>
-                                </ul>
+                                <c:forEach var="category" items="${sessionScope.categoryProductCounts}">
+                                    <ul class="nav pt-2 text-secondary fw-medium">
+                                        <li class="ps-5">
+                                            <div class="badge border text-bg-light">
+                                                    ${category.value}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -414,79 +449,93 @@
             </div>
             <div class="col-9" style="">
                 <div class="d-flex ps-5" style="width: 100%;">
-<%
-    ListProduct item = (ListProduct) session.getAttribute("listproduct");
-    if(item == null){
-        item = new ListProduct();
-        session.setAttribute("listproduct",item);
-    }
-    System.out.println(item.getItems().size());
-%>
+
 
                     <ul class="nav d-flex flex-wrap gap-4" style="width: 100%">
                         <c:forEach var="item" items="${sessionScope.listproduct.items}">
-
-                            <li class="nav-item" style="width: 30%;" >
-                                <a href="product_detail?id=${item.id}" style="text-decoration: none; color: inherit;">
+                            <li class="nav-item" style="width: 30%; height: 500px">
                                 <div class="h-100 d-inline-block border rounded product-item shadow-sm" style="height: auto; position: relative; overflow: hidden; background: #fff; border-radius: 10px;">
                                     <!-- Hình ảnh sản phẩm -->
                                     <div class="img_product position-relative">
-                                        <img src="img/${item.fileName1}" class="default-img" alt="Product Image" style="width: 100%; height: auto; border-bottom: 1px solid #eee;">
-                                        <img src="img/${item.fileName2}" class="hover-img position-absolute" alt="Hover Image" style="width: 100%; height: auto; top: 0; left: 0;  transition: opacity 0.3s ease;">
-                                        <!-- Icon hiển thị khi hover -->
-                                        <div class="product-icons position-absolute d-flex gap-3 justify-content-center align-items-center" style="top: 50%; left: 50%; transform: translate(-50%, -50%);  transition: opacity 0.5s;">
-                                            <i class="fas fa-shopping-cart cart-icon" style="font-size: 20px; background: rgba(0,0,0,0.6); color: white; padding: 10px; border-radius: 50%;" onclick="addToCart('${item.name}', '${item.priceMax}','${item.fileName2}')"></i>
-                                            <i class="fas fa-heart heart-icon" style="font-size: 20px; background: rgba(0,0,0,0.6); color: white; padding: 10px; border-radius: 50%;" onclick="addToFavorites('${item.name}','${item.fileName2}' )"></i>
+                                        <a href="product_detail?id=${item.id}" style="text-decoration: none; color: inherit;">
+                                            <img src="img/${item.fileName1}" class="default-img" alt="Product Image" style="width: 100%; height: 300px; border-bottom: 1px solid #eee;">
+                                            <img src="img/${item.fileName2}" class="hover-img position-absolute" alt="Hover Image" style="width: 100%; height: auto; top: 0; left: 0; transition: opacity 0.3s ease;">
+                                        </a>
+                                        <!-- Icons hiển thị khi hover -->
+                                        <div class="product-icons position-absolute d-flex gap-3 justify-content-center align-items-center" style="top: 50%; left: 50%; transform: translate(-50%, -50%); transition: opacity 0.5s;">
+                                            <!-- Icon giỏ hàng -->
+                                            <form id="cart-form-${item.id}" action="product_deIcon" method="GET" style="display: none;">
+                                                <input type="hidden" name="productID" value="${item.id}">
+                                                <input type="hidden" name="weight" class="selected-weight" value="">
+                                            </form>
+
+                                            <!-- Icon giỏ hàng -->
+                                            <a href="#"
+                                               class="fas fa-shopping-cart cart-icon"
+                                               style="font-size: 20px; background: rgba(0,0,0,0.6); color: white; padding: 10px; border-radius: 50%; text-decoration: none;"
+                                               onclick="submitCartForm('${item.id}')">
+                                            </a>
+                                            <div id="notification1" class="alert alert-success" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 1000;">
+                                                Sản phẩm đã được thêm vào giỏ hàng thành công!
+                                            </div>
+                                            <!-- Icon yêu thích -->
+                                            <a href="#"
+                                               class="fas fa-heart heart-icon"
+                                               style="font-size: 20px; background: rgba(0,0,0,0.6); color: white; padding: 10px; border-radius: 50%; text-decoration: none;"
+                                               onclick="addToFavorites('${item.name}','', '${item.id}')">
+                                            </a>
+                                            <form id="favorites-form-${item.id}" action="addWishlist" method="POST" style="display: none;">
+                                                <input type="hidden" name="productID" value="${item.id}">
+                                                <input type="hidden" name="weight" value="">
+                                            </form>
                                         </div>
                                     </div>
                                     <!-- Thông tin sản phẩm -->
                                     <div class="p-3 text-center">
                                         <div class="product_infor d-flex justify-content-center gap-2 mb-2">
-                                            <button data-weight="200" class="btn btn-sm btn-outline-secondary rounded-pill">200g</button>
-                                            <button data-weight="500" class="btn btn-sm btn-outline-secondary rounded-pill">500g</button>
-                                            <button data-weight="1000" class="btn btn-sm btn-outline-secondary rounded-pill">1kg</button>
+                                            <button data-id="${item.id}" data-weight="200" class="btn btn-sm btn-outline-secondary rounded-pill weight-btn">200g</button>
+                                            <button data-id="${item.id}" data-weight="500" class="btn btn-sm btn-outline-secondary rounded-pill weight-btn">500g</button>
+                                            <button data-id="${item.id}" data-weight="1000" class="btn btn-sm btn-outline-secondary rounded-pill weight-btn">1kg</button>
                                         </div>
                                         <div class="product_name text-dark fw-bold mb-2">${item.name}</div>
                                         <div class="price text-danger fw-bold" style="font-size: 1.2rem;">${item.priceMin}đ - ${item.priceMax}đ</div>
                                     </div>
                                 </div>
-                                </a>
                             </li>
-                            <div id="notification" class="notification" style="display:none; width: 40%; border-radius: 10px">
-                                <img id="notification-img" src="img/${item.fileName2}" alt="Product Image" style="width: 50% ; border-radius: 5px">
+
+                            <div id="notification" class="notification" style="display:block; width: 40%; border-radius: 10px">
+                                <img id="notification-img" src="img/${item.fileName2}" alt="Product Image" style="width: 50%; border-radius: 5px">
                                 <div id="notification-name"></div>
                                 <div id="notification-price"></div>
                                 <div id="notification-quantity"></div>
-                                <div id="notification-message" class="message">Thành công</div> <!-- Thêm dòng này -->
+                                <div id="notification-message" class="message">Thành công</div>
                             </div>
                         </c:forEach>
 
-
-
-
-
                     </ul>
+
 
                 </div>
                 <div class="col-17 mt-5">
                     <div class="d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
+                            <div class="pagination">
+                                <c:if test="${sessionScope.currentPage > 1}">
+                                    <a href="product_category?idCategory=${param.idCategory}&page=${sessionScope.currentPage - 1}" class="btn btn-primary">Previous</a>
+                                </c:if>
+
+                                <c:forEach begin="1" end="${sessionScope.totalPages}" var="i">
+                                    <a href="product_category?idCategory=${param.idCategory}&page=${i}" class="btn ${i == sessionScope.currentPage ? 'btn-secondary' : 'btn-outline-secondary'}">
+                                            ${i}
                                     </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
+                                </c:forEach>
+
+                                <c:if test="${sessionScope.currentPage < sessionScope.totalPages}">
+                                    <a href="product_category?idCategory=${param.idCategory}&page=${sessionScope.currentPage + 1}" class="btn btn-primary">Next</a>
+                                </c:if>
+                            </div>
                         </nav>
+
                     </div>
                 </div>
             </div>
@@ -496,23 +545,43 @@
 <%@include file="footer.jsp"%>
 <script>
     /* JavaScript cho nút active */
-    document.querySelectorAll('.product_infor button').forEach(button => {
-        button.addEventListener('click', function () {
+    document.querySelectorAll('.product_infor button').forEach(function(button) {
+        button.addEventListener('click', function() {
             // Xóa class active khỏi tất cả các nút
-            document.querySelectorAll('.product_infor button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.product_infor button').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
             // Thêm class active cho nút được chọn
             this.classList.add('active');
         });
     });
-    function addToCart(productName, productPrice,img) {
-        showNotification(productName, productPrice, 'cart',img);
+
+    function addToCart(productName, productPrice, img) {
+        showNotification(productName, productPrice, 'cart', img);
     }
 
-    function addToFavorites(productName,img) {
-        showNotification(productName, '', 'favorite',img);
+    function addToFavorites(productName, img, productId) {
+        // Lấy trọng lượng từ sản phẩm đang được chọn
+        var selectedWeight = document.querySelector('#cart-form-' + productId + ' .selected-weight').value;
+
+        // Kiểm tra nếu chưa chọn trọng lượng
+        if (!selectedWeight) {
+            alert('Vui lòng chọn trọng lượng trước khi thêm vào danh sách yêu thích!');
+            return;
+        }
+
+        // Cập nhật giá trị trọng lượng vào form
+        var form = document.getElementById('favorites-form-' + productId);
+        form.querySelector('input[name="weight"]').value = selectedWeight;
+
+        // Gửi form
+        form.submit();
+
+        // Hiển thị thông báo
+        showNotification(productName, '', 'favorite', img);
     }
 
-    function showNotification(productName, productPrice, type,img) {
+    function showNotification(productName, productPrice, type, img) {
         var notification = document.getElementById('notification');
         var notificationImg = document.getElementById('notification-img');
         var notificationName = document.getElementById('notification-name');
@@ -530,26 +599,63 @@
         }
 
         // Hiển thị hình ảnh sản phẩm
-        notificationImg.src = 'img/' + img; // Thay đổi hình ảnh nếu cần
-        console.log(img);
+        notificationImg.src = 'img/' + img;
 
         // Hiển thị thông báo ngay lập tức
         notification.style.display = 'block';
-        notification.classList.add('show'); // Thêm lớp "show" để thông báo xuất hiện ngay lập tức với hiệu ứng
+        notification.classList.add('show');
 
         // Ẩn dần thông báo sau 3 giây
         setTimeout(function() {
             notification.classList.remove('show');
-        }, 3000); // Thời gian thông báo sẽ hiển thị trên màn hình
+        }, 3000);
 
         // Sau khi ẩn dần, ẩn hoàn toàn
         setTimeout(function() {
             notification.style.display = 'none';
-        }, 3500); // Thời gian thông báo hoàn toàn ẩn đi
+        }, 3500);
     }
 
+    // Object lưu các trọng lượng đã chọn
+    var selectedWeights = {};
 
+    // Lắng nghe sự kiện chọn trọng lượng
+    document.querySelectorAll('.weight-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var productId = this.getAttribute('data-id');
+            var weight = this.getAttribute('data-weight');
+
+            // Lưu trọng lượng đã chọn vào object
+            selectedWeights[productId] = weight;
+
+            // Cập nhật class 'active-weight' cho nút được chọn
+            document.querySelectorAll("[data-id='" + productId + "']").forEach(function(btn) {
+                btn.classList.remove('active-weight');
+            });
+            this.classList.add('active-weight');
+
+            // Cập nhật trọng lượng vào form ẩn
+            var form = document.getElementById('cart-form-' + productId);
+            var weightInput = form.querySelector('.selected-weight');
+            weightInput.value = weight;
+        });
+    });
+
+    // Gửi form khi nhấn vào icon giỏ hàng
+    function submitCartForm(productId) {
+        var form = document.getElementById('cart-form-' + productId);
+
+        // Kiểm tra nếu chưa chọn trọng lượng
+        if (!form.querySelector('.selected-weight').value) {
+            alert('Vui lòng chọn trọng lượng trước khi thêm vào giỏ hàng!');
+            return;
+        }
+
+        // Gửi form đến servlet
+        form.submit();
+    }
 </script>
+
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/updateProductPrice.js"></script>
 </body>

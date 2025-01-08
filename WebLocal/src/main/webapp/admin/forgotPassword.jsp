@@ -18,10 +18,10 @@
 <div class="container">
     <div class="form-container">
         <h2 class="text-center mb-4">Quên Mật Khẩu</h2>
-        <form action="reset_password.html" method="post">
+        <form action="../forgotPassword" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" class="form-control" id="email" required name="email">
             </div>
             <button type="submit" class="btn btn-primary w-100">Gửi Yêu Cầu</button>
         </form>

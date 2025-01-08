@@ -5,6 +5,7 @@
 <%@ page import="Models.Shipping.Shippingdetail" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: airm2
@@ -308,7 +309,7 @@
                     <c:forEach var="item" items="${sessionScope.cr7.items}">
                       <div class="product-item">
                         <div class="product-details d-flex align-items-center">
-                          <img src="img/nambaongu.jpg" alt="Product">
+                          <img src="img/${item.img}" alt="Product">
                           <div>
                             <div class="fw-bold">${item.name} - ${item.weight}gr</div>
                             <div>ID: ${item.id}</div>
@@ -318,13 +319,13 @@
                         </div>
                         <!-- Giá cũ (gạch ngang) -->
                         <div class="old-price text-muted" style="text-decoration: line-through;">
-                            ${item.total} đ
+                            <fmt:formatNumber value="${item.rawTotal}" type="number" groupingUsed="true" /> đ
                         </div><span style="margin-left: -80px;color: red">(${item.sale}%)</span>
                         <!-- Tính giá mới -->
-                        <c:set var="total" value="${item.total - (item.total * item.sale/100)}" />
+                        <c:set var="total" value="${item.total}" />
                         <!-- Giá mới -->
                         <div class="new-price text-danger">
-                            ${total} đ
+                          <fmt:formatNumber value="${item.total}" type="number" groupingUsed="true" /> đ
                         </div>
                       </div>
                     </c:forEach>
@@ -333,10 +334,10 @@
                   </div>
                   <div class="total-section d-flex justify-content-between mt-4">
                     <span>Tổng cộng:</span>
-                    <c:set var="sum" value="${sessionScope.cr7.price}" />
+                    <c:set var="sum" value="${sessionScope.cr7.totalPrice}" />
 
 
-                    <span class="text-danger fs-5" id="Order">${sum} đ</span>
+                    <fmt:formatNumber value="${sum}" type="number" groupingUsed="true" /> đ
                   </div>
 
 
@@ -351,7 +352,7 @@
                         <div class="form-check mb-3">
                           <input type="radio" class="form-check-input" id="fastShipping" name="shippingMethod" value="fast" onchange="updateShippingCost(this)" required>
                           <label class="form-check-label" for="fastShipping">
-                            ${item.name} - <span class="fw-bold text-danger">${item.price} đ</span>
+                            ${item.name} - <span class="fw-bold text-danger"> <fmt:formatNumber value="${item.price}" type="number" groupingUsed="true" /> đ</span>
                           </label>
                         </div>
                         </c:forEach>

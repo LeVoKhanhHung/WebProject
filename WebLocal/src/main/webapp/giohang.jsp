@@ -2,6 +2,7 @@
 <%@ page import="Models.cart.Cart" %>
 
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -323,7 +324,7 @@
         <c:forEach var="item" items="${sessionScope.cr7.items}">
         <tr>
           <td>
-            <img src="https://via.placeholder.com/80" alt="Nấm Bào Ngư" class="product-img me-2">
+            <img src="img/${item.img}" alt="Nấm Bào Ngư" class="product-img me-2">
             ${item.name} - ${item.weight}gr
           </td>
           <td >SKU: ${item.id}</td>
@@ -339,7 +340,7 @@
 
 
 
-          <td id="subtotal">${item.total} đ</td>
+          <td id="subtotal"> <fmt:formatNumber value="${item.total}" type="number" groupingUsed="true" /> đ</td>
           <td><a href="remove?productID=${item.id}&weight=${item.weight}"><button class="btn btn-danger btn-sm">&times;</button></a></td>
         </tr>
         </c:forEach>
@@ -359,11 +360,11 @@
       <div class="cart-summary">
         <h5>Cộng giỏ hàng</h5>
         <ul class="list-unstyled">
-          <c:set var="sum" value="${sessionScope.cr7.price}" />
-          <li><span>Tạm tính:</span> <strong id="cart-total">${sum} đ</strong></li>
+          <c:set var="sum" value="${sessionScope.cr7.totalPrice}" />
+          <li><span>Tạm tính:</span> <strong id="cart-total"><fmt:formatNumber value="${sum}" type="number" groupingUsed="true" /> đ</strong></li>
           <li><span>Giao hàng:</span> <span class="text-danger">Tính phí giao hàng</span></li>
 
-          <li class="total-price"><span>Tổng cộng:</span> <span id="final-total">${sum} đ</span></li>
+          <li class="total-price"><span>Tổng cộng:</span> <span id="final-total"><fmt:formatNumber value="${sum}" type="number" groupingUsed="true" /> đ</span></li>
         </ul>
         <a href="getShipping" style="text-decoration: none"><button class="btn-checkout w-100 mt-3">Tiến hành thanh toán</button></a>
       </div>
