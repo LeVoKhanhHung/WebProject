@@ -289,11 +289,10 @@ public ListProduct getListProduct() throws SQLException {
     public int getCategoryProductCounts(String categoryName) throws SQLException {
         // tính tổng số lượng sản phẩm theo loại
         String query = """
-        SELECT SUM(pv.quantity) AS totalQuantity
-        FROM products p
-        JOIN categories c ON p.idCategory = c.id
-        JOIN product_variants pv ON p.id = pv.idProduct
-        WHERE c.name = ?
+        SELECT COUNT(DISTINCT p.id) AS totalQuantity
+                FROM products p
+                JOIN categories c ON p.idCategory = c.id
+                WHERE c.name = ?
     """;
 
         try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
