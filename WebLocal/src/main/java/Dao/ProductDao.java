@@ -61,7 +61,7 @@ public class ProductDao {
             double salePercent = rs.getDouble("salePercent");
 
             // Tạo đối tượng Product và thêm vào danh sách
-            CartProduct product   =   new CartProduct(productID,productName,productPrice,productQuantity,productImage,productWeight,totalPrice,salePercent);
+            CartProduct product   =   new CartProduct(productID,productName,productPrice,1,productImage,productWeight,totalPrice,salePercent);
 
             productList.add(product);
         }
@@ -277,5 +277,116 @@ public class ProductDao {
         }
         return list;
 
+    }
+    public ListProduct getFilteredProducts(String filterType, int page, int itemsPerPage) throws SQLException {
+        ListProduct list = new ListProduct();
+        String query = """
+        SELECT
+            p.id AS ProductID,
+            p.productName,
+            MIN(pv.price) AS MinPrice,
+            MAX(pv.price) AS MaxPrice,
+            img1.imageData AS Image1,
+            img2.imageData AS Image2,
+            MAX(pv.importDate) AS NewestDate,
+            AVG(r.ratingRank) AS AvgRating,
+            MAX(s.salePercent) AS MaxSalePercent
+        FROM
+            products p
+        LEFT JOIN product_variants pv ON p.id = pv.idProduct
+        LEFT JOIN (
+            SELECT i1.idProduct, i1.imageData
+            FROM Images i1
+            WHERE (
+                SELECT COUNT(*)\s
+                FROM Images i2\s
+                WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+            ) = 1
+        ) img1 ON p.id = img1.idProduct
+        LEFT JOIN (
+            SELECT i1.idProduct, i1.imageData
+            FROM Images i1
+            WHERE (
+                SELECT COUNT(*)\s
+                FROM Images i2\s
+                WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+            ) = 2
+        ) img2 ON p.id = img2.idProduct
+        LEFT JOIN ratings r ON p.id = r.idProduct
+        LEFT JOIN sales s ON s.idVariant = pv.id
+        GROUP BY
+            p.id, p.productName, img1.imageData, img2.imageData
+    """;
+
+        // Thêm điều kiện ORDER BY theo filterType
+        switch (filterType) {
+            case "priceAsc":
+                query += " ORDER BY MIN(pv.price) ASC";
+                break;
+            case "priceDesc":
+                query += " ORDER BY MAX(pv.price) DESC";
+                break;
+            case "newest":
+                query += " ORDER BY MAX(pv.importDate) DESC";
+                break;
+            case "rating":
+                query += " ORDER BY AVG(r.ratingRank) DESC";
+                break;
+            case "sale":
+                query += " ORDER BY MAX(s.salePercent) DESC";
+                break;
+            default:
+                query += " ORDER BY p.id ASC"; // Mặc định sắp xếp theo ID
+                break;
+        }
+
+        // Thêm phân trang
+        query += " LIMIT ? OFFSET ?";
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)){
+            stmt.setInt(1, itemsPerPage); // Giới hạn số sản phẩm trên mỗi trang
+            stmt.setInt(2, (page - 1) * itemsPerPage); // Tính toán OFFSET dựa trên số trang
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    int productId = resultSet.getInt("ProductID");
+                    String productName = resultSet.getString("productName");
+                    int minPrice = resultSet.getInt("MinPrice");
+                    int maxPrice = resultSet.getInt("MaxPrice");
+                    String image1 = resultSet.getString("Image1");
+                    String image2 = resultSet.getString("Image2");
+
+                    list.addProduct(productId, productName, image1, image2, minPrice, maxPrice);
+                }
+            }
+        }
+        return list;
+    }
+    public int getCategoryProductCounts(String categoryName) throws SQLException {
+        // tính tổng số lượng sản phẩm theo loại
+        String query = """
+        SELECT COUNT(DISTINCT p.id) AS totalQuantity
+                                        FROM products p
+                                        JOIN categories c ON p.idCategory = c.id
+                                        WHERE c.name = ?
+    """;
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
+            // tên loại
+            stmt.setString(1, categoryName);
+
+            // Thực thi truy vấn
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("totalQuantity");
+                }
+            }
+        }
+        return 0;
+    }
+
+
+    public static void main(String[] args) throws SQLException {
+        ProductDao s = new ProductDao();
+        System.out.println(s.getCategoryProductCounts("Nấm Khô"));
     }
 }
