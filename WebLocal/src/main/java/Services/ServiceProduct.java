@@ -89,6 +89,10 @@ public class ServiceProduct {
         return productDao.getFilteredProducts(filterType, page, itemsPerPage);
     }
 
+    public ListProduct getTop5BestSellingProducts() throws SQLException {
+        return productDao.getTop5BestSellingProducts();
+    }
+
 
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
