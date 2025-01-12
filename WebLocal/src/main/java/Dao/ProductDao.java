@@ -395,6 +395,64 @@ public ListProduct getListProduct() throws SQLException {
         return list;
     }
 
+// top 5 sản phẩm bán chạy
+	public ListProduct getTop5BestSellingProducts() throws SQLException {
+        ListProduct topProducts = new ListProduct();
+        String query = """
+        SELECT 
+            od.idProduct AS ProductID,
+            od.nameProduct AS ProductName,
+            SUM(od.quantity) AS TotalSold,
+            MIN(od.price) AS MinPrice,
+            MAX(od.price) AS MaxPrice,
+            img1.imageData AS Image1,
+            img2.imageData AS Image2
+        FROM
+            order_details od
+        JOIN products p ON od.idProduct = p.id
+        LEFT JOIN (
+            SELECT i1.idProduct, i1.imageData
+            FROM Images i1
+            WHERE (
+                SELECT COUNT(*) 
+                FROM Images i2 
+                WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+            ) = 1
+        ) img1 ON p.id = img1.idProduct
+        LEFT JOIN (
+            SELECT i1.idProduct, i1.imageData
+            FROM Images i1
+            WHERE (
+                SELECT COUNT(*) 
+                FROM Images i2 
+                WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+            ) = 2
+        ) img2 ON p.id = img2.idProduct
+        GROUP BY 
+            od.idProduct, od.nameProduct, img1.imageData, img2.imageData
+        ORDER BY 
+            TotalSold DESC
+        LIMIT 5;
+    """;
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query);
+             ResultSet resultSet = stmt.executeQuery()) {
+
+            while (resultSet.next()) {
+                int productId = resultSet.getInt("ProductID");
+                String productName = resultSet.getString("ProductName");
+                int totalSold = resultSet.getInt("TotalSold");
+                int minPrice = resultSet.getInt("MinPrice");
+                int maxPrice = resultSet.getInt("MaxPrice");
+                String image1 = resultSet.getString("Image1");
+                String image2 = resultSet.getString("Image2");
+
+                topProducts.addProduct(productId, productName, image1, image2, minPrice, maxPrice);
+            }
+        }
+
+        return topProducts;
+    }
     public static void main(String[] args) throws SQLException {
         ProductDao s = new ProductDao();
         s.getProductDetail("1");
