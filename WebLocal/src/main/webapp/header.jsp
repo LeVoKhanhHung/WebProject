@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-3 p-2 text-black">
                     <div class="d-flex justify-content-center">
-                        <img src="img/logo.png" style="height: 50px" alt="Logo">
+                        <img src="${pageContext.request.contextPath}/img/logo.png" style="height: 50px" alt="Logo">
                     </div>
                 </div>
                 <div class="col-6 p-3 text-black">
@@ -85,14 +85,16 @@
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn" onclick="redirectToGuestInfo()">
+                                <a href="${pageContext.request.contextPath}/getUser"><button type="button" class="btn" onclick="redirectToGuestInfo()">
                                     <i class="fa-solid fa-user"></i>
-                                </button>
+                                </button></a>
+
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn" onclick="location.href='giohang.jsp';">
+                                <a href="${pageContext.request.contextPath}/giohang.jsp"> <button type="button" class="btn" onclick="location.href='giohang.jsp';">
                                     <i class="fa-solid fa-cart-shopping"></i>
-                                </button>
+                                </button></a>
+
                             </li>
                         </ul>
                     </div>
