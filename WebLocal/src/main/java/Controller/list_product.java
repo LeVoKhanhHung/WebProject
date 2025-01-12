@@ -64,11 +64,16 @@ public class list_product extends HttpServlet {
 //            ListProduct item = serviceProduct.getListProductByPage(page, itemsPerPage);
             ListProduct filteredProducts = serviceProduct.getFilteredProducts(filterType, page, itemsPerPage);
 
+	    // Lấy danh sách top 5 sản phẩm bán chạy nhất
+//            ListProduct top5BestSellingProducts = serviceProduct.getTop5BestSellingProducts();	    
+
             // Lưu thông tin vào session
 //            session.setAttribute("listproduct", item);
             session.setAttribute("listproduct", filteredProducts);
             session.setAttribute("totalPages", totalPages);
             session.setAttribute("categoryProductCounts", categoryProductCounts);
+
+//            session.setAttribute("top5BestSellingProducts", top5BestSellingProducts);
 
             // Chuyển tiếp tới JSP
             req.getRequestDispatcher("index.jsp").forward(req, resp);
