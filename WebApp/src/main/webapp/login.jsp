@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đăng Nhập</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/login.css">
+  <!-- <link rel="stylesheet" href="<%= request.getContextPath() %>/css/login.css"> -->
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100" style="background-color: antiquewhite;">
-<!-- Form Đăng nhập-->
+<!-- Form Đăng nhập -->
 <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
   <h2 class="text-center text-primary">Đăng Nhập</h2>
-  <form action="<%= request.getContextPath() %>/LoginServlet" method="post">
+  <form method="post" action="login">
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
       <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" required>
@@ -29,7 +29,8 @@
   </form>
 </div>
 
-<!-- Script-->
+<!-- Script -->
+<!-- <script src="<%= request.getContextPath() %>/js/login.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,36 +1,34 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 250px; height: 100vh;">
-    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <span class="fs-4">Admin Panel</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a href="<%= request.getContextPath() %>/admin-index.jsp" class="nav-link active">Dashboard</a>
-        </li>
-        <li>
-            <a href="<%= request.getContextPath() %>/admin-product-management.jsp" class="nav-link link-dark">Quản lý sản phẩm</a>
-        </li>
-        <li>
-            <a href="<%= request.getContextPath() %>/admin-order-management.jsp" class="nav-link link-dark">Quản lý đơn hàng</a>
-        </li>
-        <li>
-            <a href="<%= request.getContextPath() %>/admin-user-management.jsp" class="nav-link link-dark">Quản lý người dùng</a>
-        </li>
-        <li>
-            <a href="<%= request.getContextPath() %>/admin-report.jsp" class="nav-link link-dark">Thống kê</a>
-        </li>
+<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+  <div class="position-sticky">
+    <h3 class="text-center my-3">Admin Panel</h3>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link ${pageContext.request.requestURI.endsWith('admin-index.jsp') ? 'active' : ''}" href="<c:url value='/admin/index' />">Trang chủ</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${pageContext.request.requestURI.endsWith('admin-manage-product.jsp') ? 'active' : ''}" href="<c:url value='/admin-manage-product.jsp' />">Quản lý sản phẩm</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${pageContext.request.requestURI.endsWith('admin-manage-promotion.jsp') ? 'active' : ''}" href="<c:url value='/admin-manage-promotion.jsp' />">Quản lý chương trình khuyến mãi</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${pageContext.request.requestURI.endsWith('admin-manage-review.jsp') ? 'active' : ''}" href="<c:url value='/admin-manage-review.jsp' />">Quản lý đánh giá sản phẩm</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${pageContext.request.requestURI.endsWith('admin-manage-order.jsp') ? 'active' : ''}" href="<c:url value='/admin-manage-order.jsp' />">Quản lý đơn hàng</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${pageContext.request.requestURI.endsWith('admin-statistics.jsp') ? 'active' : ''}" href="<c:url value='/admin-statistics.jsp' />">Thống kê và báo cáo doanh thu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${pageContext.request.requestURI.endsWith('admin-manage-user.jsp') ? 'active' : ''}" href="<c:url value='/admin-manage-user.jsp' />">Quản lý người dùng</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${pageContext.request.requestURI.endsWith('admin-feedback.jsp') ? 'active' : ''}" href="<c:url value='/admin-feedback.jsp' />">Phản hồi khách hàng</a>
+      </li>
     </ul>
-    <hr>
-    <div class="dropdown">
-        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="<%= request.getContextPath() %>/images/avatar.png" alt="Admin Avatar" width="32" height="32" class="rounded-circle me-2">
-            <strong>Admin</strong>
-        </a>
-        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
-            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/admin-profile.jsp">Hồ sơ</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/logout">Đăng xuất</a></li>
-        </ul>
-    </div>
-</div>
+  </div>
+</nav>
+
