@@ -102,6 +102,11 @@ public ListProduct getListProduct() throws SQLException {
         return productDao.searchProductsByName(productName, page, itemsPerPage);
     }
 
+    public String getProductDescriptionById(int productId) throws SQLException {
+        return productDao.getProductDescriptionById(productId);
+    }
+
+
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
         Transaction tr = new Transaction();
