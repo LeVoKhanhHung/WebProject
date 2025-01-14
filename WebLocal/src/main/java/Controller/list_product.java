@@ -9,10 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet(
@@ -26,8 +26,16 @@ public class list_product extends HttpServlet {
 
         int page = 1; // Mặc định là trang 1
         int itemsPerPage = 9; // Số sản phẩm hiển thị mỗi trang
+        String productName = req.getParameter("productName"); // Tham số tìm kiếm tên sản phẩm
 
-	 // danh mục có ten trong danh sách
+        // Kiểm tra tham số `page` từ request
+        if (req.getParameter("page") != null) {
+            page = Integer.parseInt(req.getParameter("page"));
+            session.setAttribute("currentPage", page); // Lưu vào session
+        } else if (session.getAttribute("currentPage") != null) {
+            page = (int) session.getAttribute("currentPage");
+        }
+
         List<String> categories = List.of("NẤM QUÀ TẶNG", "BỘT NẤM ĂN", "NẤM DƯỢC LIỆU", "CHÀ BÔNG NẤM", "NẤM TƯƠI", "NẤM KHÔ", "PHÔI NẤM");
 
         // số lượng sản phẩm cho theo loại danh mục
@@ -40,46 +48,39 @@ public class list_product extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
-	// Kiểm tra tham số `page` từ request
-        if (req.getParameter("page") != null) {
-            page = Integer.parseInt(req.getParameter("page"));
-            session.setAttribute("currentPage", page); // Lưu vào session
-        } else if (session.getAttribute("currentPage") != null) {
-            page = (int) session.getAttribute("currentPage");
-        }
-
-	try {
+        try {
+            ListProduct productList;
             // Tổng số sản phẩm
             int totalProducts = serviceProduct.getTotalProducts();
             // Tổng số trang
             int totalPages = (int) Math.ceil((double) totalProducts / itemsPerPage);
-
-            // Kiểm tra tham số lọc từ request
-            String filterType = req.getParameter("filterType");
-            if (filterType == null || filterType.isEmpty()) {
-                filterType = "default"; // Lọc mặc định nếu không có tham số
-            }
-            // Lấy danh sách sản phẩm của trang hiện tại
+            if(productName != null && !productName.trim().isEmpty()){
+                productList = serviceProduct.searchProductsByName(productName, page, itemsPerPage);
+                totalPages = (int) Math.ceil((double)  totalProducts/ itemsPerPage);
+            }else{
+                // Kiểm tra tham số lọc từ request
+                String filterType = req.getParameter("filterType");
+                if (filterType == null || filterType.isEmpty()) {
+                    filterType = "default"; // Lọc mặc định nếu không có tham số
+                }
+                // Lấy danh sách sản phẩm của trang hiện tại
 //            ListProduct item = serviceProduct.getListProductByPage(page, itemsPerPage);
-            ListProduct filteredProducts = serviceProduct.getFilteredProducts(filterType, page, itemsPerPage);
-
-	    // Lấy danh sách top 5 sản phẩm bán chạy nhất
-//            ListProduct top5BestSellingProducts = serviceProduct.getTop5BestSellingProducts();	    
+                productList = serviceProduct.getFilteredProducts(filterType, page, itemsPerPage);
+            }
 
             // Lưu thông tin vào session
 //            session.setAttribute("listproduct", item);
-            session.setAttribute("listproduct", filteredProducts);
+            session.setAttribute("listproduct", productList);
             session.setAttribute("totalPages", totalPages);
             session.setAttribute("categoryProductCounts", categoryProductCounts);
 
-//            session.setAttribute("top5BestSellingProducts", top5BestSellingProducts);
-
             // Chuyển tiếp tới JSP
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+           resp.sendRedirect("getTopBuy");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
 
