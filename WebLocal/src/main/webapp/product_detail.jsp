@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page import="Models.Products.Products" %><%--
   Created by IntelliJ IDEA.
   User: airm2
@@ -15,6 +16,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
+<style>
+    .row-item:hover {
+        background-color: #f5f5f5;
+        transform: scale(1.02); /* Phóng to nhẹ */
+        transition: all 0.3s ease-in-out; /* Hiệu ứng mượt */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng */
+    }
+
+    .row-item .badge {
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    /* Hiệu ứng badge khi di chuột */
+    .row-item:hover .badge {
+        background-color: #ff9800; /* Đổi màu */
+    }
+</style>
 <body>
 <%@include file="header.jsp"%>
 <section class="content1">
@@ -88,7 +106,7 @@
                     </ul>
                 </div>
                 <div class="mt-2">
-                    <div class="d-flex fw-bold text-danger fs-4">${item.minPrice}đ - ${item.maxPrice}đ</div>
+                    <div class="d-flex fw-bold text-danger fs-4"><fmt:formatNumber value="${item.minPrice}" type="number" groupingUsed="true" /> đ - <fmt:formatNumber value="${item.maxPrice}" type="number" groupingUsed="true" /> đ</div>
                 </div>
                 <div class="border border-warning rounded-3 border-3 mt-3" style="border-color: rgb(193 101 44) !important">
                     <div class="border rounded" style="background-color: #B0501D; border-width: 6px">
@@ -129,12 +147,13 @@
                 <div class="border rounded mt-3 d-flex justify-content-center" style="background-color: #B0501D">
                     <div class="text-light fw-bold ms-3 pt-1"  style="height:30px">SẢN PHẨM GỢI Ý</div>
                 </div>
-                <form action="product_de?productID=&weight=" method="get">
+                <form action="product_de?productID=&weight=&quantity=" method="get">
                     <!-- Thêm trường ẩn để lưu id sản phẩm -->
                     <input type="hidden" name="productID" value="${item.id}"> <!-- Thay 1 bằng id sản phẩm thực tế -->
 
                     <!-- Thêm trường ẩn để lưu quy cách (weight) -->
                     <input type="hidden" name="weight" id="selectedWeight" value="200"> <!-- Mặc định là 200gr -->
+                    <input type="hidden" name="quantity" id="quantity" value="1">
 
                     <div class="container d-flex justify-content-center">
                         <div class="border rounded bg-secondary-subtle mt-2 border pt-1" style="width: 220px;height: 35px">
@@ -152,48 +171,47 @@
                         <label class="btn btn-outline-dark pt-0 ps-1 ms-2" style="height: 25px; width: 50px" for="btnradio2">500gr</label>
                         <input type="radio" class="btn-check" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-controls="collapseExample3" name="btnradio" id="btnradio3" onclick="updateWeight('1000')">
                         <label class="btn btn-outline-dark pt-0 ps-1 ms-2" style="height: 25px; width: 50px" for="btnradio3">1kg</label>
+
                         <div class="collapse" id="collapseExample1">
-                            <div class="mt-4 text-danger fw-bold">${item.minPrice}đ</div>
+                            <div class="mt-4 text-danger fw-bold"> <fmt:formatNumber value="${item.minPrice}" type="number" groupingUsed="true" /> đ</div>
                         </div>
                         <div class="collapse" id="collapseExample2">
                             <div class="mt-4 text-danger fw-bold">65.000đ</div>
                         </div>
                         <div class="collapse" id="collapseExample3">
-                            <div class="mt-4 text-danger fw-bold">${item.maxPrice}đ</div>
+                            <div class="mt-4 text-danger fw-bold"><fmt:formatNumber value="${item.maxPrice}" type="number" groupingUsed="true" /> đ</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-2 mt-4">
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <button type="button" class="btn btn-outline-secondary text-dark d-flex justify-content-center" style="width: 20px">-</button>
-                                <a class="btn btn-outline-secondary text-dark d-flex justify-content-center" style="width: 20px">1</a>
-                                <button type="button" class="btn btn-outline-secondary text-dark d-flex justify-content-center" style="width: 20px">+</button>
+                                <button type="button" class="btn btn-outline-secondary text-dark d-flex justify-content-center" style="width: 20px" onclick="updateQuantity(-1)">-</button>
+                                <a class="btn btn-outline-secondary text-dark d-flex justify-content-center"   id="displayQuantity" style="width: 20px" >1</a>
+                                <button type="button" class="btn btn-outline-secondary text-dark d-flex justify-content-center" style="width: 20px" onclick="updateQuantity(1)">+</button>
                             </div>
                         </div>
                         <div class="col-6 ms-3 border rounded mt-4" style="background-color: #B0501D; height: 40px;padding: 0;border-radius: 5px">
-                            <button type="submit" class="text-light fw-medium d-flex pt-2 d-flex justify-content-center btn-add-to-cart" style="cursor: pointer;color: white;background-color: #B0501D; width: 100%;margin: 0 ">THÊM VÀO GIỎ HÀNG</button>
+                            <button type="submit" class="text-light fw-medium d-flex pt-2 d-flex justify-content-center btn-add-to-cart" style="cursor: pointer;color: white;background-color: #B0501D; width: 100%;margin: 0 ;border: none">THÊM VÀO GIỎ HÀNG</button>
                         </div>
                         <div class="col-3 ms-1 border rounded mt-4" style="background-color: #B0501D; height: 40px">
-                            <div class="text-light fw-medium pt-2 d-flex justify-content-center"> <a href="/html/giohang.html" style="text-decoration: none;color: white; cursor: pointer;">MUA NGAY</a> </div>
+                            <div class="text-light fw-medium pt-2 d-flex justify-content-center">
+                                <a href="javascript:void(0);" onclick="submitFormNow()" style="text-decoration: none; color: white; cursor: pointer;">MUA NGAY</a>
+                            </div>
                         </div>
                     </div>
                 </form>
-                </c:forEach>
-                <script>
-                    // Cập nhật giá trị cho trường ẩn "weight" khi người dùng chọn quy cách
-                    function updateWeight(weight) {
-                        document.getElementById('selectedWeight').value = weight;
-                    }
-                </script>
                 <div>
-                    <ul class="nav mt-2">
-                        <li class="nav-item mt-0">
-                            <button type="button" class="btn"><i class="fa-regular fa-heart"></i></button>
-                        </li>
-                        <li class="nav_item fw-bold mt-1">Thêm yêu thích</li>
-                    </ul>
-                </div>
+                <ul class="nav mt-2">
+                    <li class="nav-item mt-0">
+                        <button type="button" class="btn"><i class="fa-regular fa-heart"></i></button>
+                    </li>
+                    <a href="addWishlist?productID=${item.id}" style="text-decoration: none;color: black"><li class="nav_item fw-bold mt-1">Thêm yêu thích</li></a>
+                </ul>
             </div>
+            </div>
+                </c:forEach>
+
+
             <div class="col-3 pe-0">
                 <div class="">
                     <ul class="nav">
@@ -212,54 +230,23 @@
                     <div class="d-flex mt-2">
                         <div class="container">
                             <div class="vstack gap-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <ul class="nav pb-0 text-secondary fw-medium">
-                                            <li class="">Bột Nấm Ăn</li>
+                                <div class="row" >
+                                    <c:forEach var="item" items="${sessionScope.categories.items}">
+                                        <!-- Tạo một hàng cho mỗi mục -->
+
+                                        <ul class="row align-items-center row-item p-2 rounded" style="list-style: none;margin-bottom: 0">
+                                            <!-- Cột bên trái hiển thị tên danh mục -->
+                                            <div class="col text-secondary fw-medium">
+                                                <a href="product_category?idCategory=${item.id}" style="text-decoration: none;color: black"><li style="cursor: pointer" >${item.name}</li></a>
+                                            </div>
+                                            <!-- Cột bên phải hiển thị giá trị tương ứng -->
+                                            <div class="col-4 fs-6">
+                                                <div class="badge border text-bg-light">${item.quantity}</div>
+                                            </div>
                                         </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="">Chà Bông Nấm</li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="">Nấm Dược Liệu</li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="">Nấm Khô</li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="">Nấm Quà Tặng</li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="">Nấm Tươi</li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="">Phôi Nấm</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-4 fs-6">
-                                        <ul class="nav pb-0 text-secondary fw-medium">
-                                            <li class="ps-5"><div class="badge border text-bg-light">4</div></li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="ps-5"><div class="badge border text-bg-light">3</div></li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="ps-5"><div class="badge border text-bg-light">7</div></li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="ps-5"><div class="badge border text-bg-light ">15</div></li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="ps-5"><div class="badge border text-bg-light">2</div></li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="ps-5"><div class="badge border text-bg-light">21</div></li>
-                                        </ul>
-                                        <ul class="nav pt-2 text-secondary fw-medium">
-                                            <li class="ps-5"><div class="badge border text-bg-light">1</div></li>
-                                        </ul>
-                                    </div>
+                                    </c:forEach>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -288,20 +275,10 @@
                         <a class="nav-link fw-bold text-dark pb-0" href="#">MÔ TẢ</a>
                     </div>
                 </li>
-                <li class="nav_item">
-                    <div class="">
-                        <a class="nav-link fw-bold text-dark pb-0" href="#">ĐÁNH GIÁ</a>
-                    </div>
-                </li>
-                <li class="nav_item">
-                    <div class="">
-                        <a class="nav-link fw-bold text-dark pb-0" href="#">VẬN CHUYỂN</a>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
-    <div class="row mt-5 d-flex justify-content-center mb-5">THÔNG TIN VỀ SẢN PHẨM</div>
+    <div class="row mt-5 d-flex justify-content-center mb-5"><p class="text-center">${product_description}</p></div>
 </section>
 <section>
     <div class="row">
@@ -420,9 +397,55 @@
     </div>
 </section>
 <%@include file="footer.jsp"%>
+<script>
+    // Cập nhật giá trị cho trường ẩn "weight" khi người dùng chọn quy cách
+    function updateWeight(weight) {
+        document.getElementById('selectedWeight').value = weight;
+    }
+    function updateQuantity(change) {
+        const quantityField = document.getElementById('quantity');
+        const displayQuantity = document.getElementById('displayQuantity');
 
+        // Lấy giá trị hiện tại
+        let currentQuantity = parseInt(quantityField.value);
+
+        // Tính giá trị mới
+        currentQuantity += change;
+
+        // Đảm bảo số lượng không nhỏ hơn 1
+        if (currentQuantity < 1) {
+            currentQuantity = 1;
+        }
+
+        // Cập nhật giá trị mới
+        quantityField.value = currentQuantity;
+        displayQuantity.textContent = currentQuantity;
+    }
+    function submitFormNow() {
+        // Lấy đối tượng form
+        const form = document.querySelector('form[action="buyProduct?productID=&weight=&quantity="]');
+
+        // Gửi form
+        form.submit();
+    }
+    function updateWeight(weight) {
+        // Ẩn tất cả các phần tử collapse (bao gồm các giá cũ)
+        document.querySelectorAll('.collapse').forEach(function(collapse) {
+            collapse.classList.remove('show');
+        });
+
+        // Kiểm tra quy cách và hiển thị giá tương ứng
+        if (weight === '200') {
+            document.getElementById('collapseExample1').classList.add('show');
+        } else if (weight === '500') {
+            document.getElementById('collapseExample2').classList.add('show');
+        } else if (weight === '1000') {
+            document.getElementById('collapseExample3').classList.add('show');
+        }
+    }
+</script>
 <script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/updateProductPrice.js"></script>
+
 <script src="js/duavaogiohang.js "></script>
 </body>
 </html>
