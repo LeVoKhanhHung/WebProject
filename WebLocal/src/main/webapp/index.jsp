@@ -4,6 +4,7 @@
 <%@ page import="Models.Product.ListProduct" %>
 <%@ page import="Models.Category.Category" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: airm2
@@ -19,6 +20,17 @@
     <title>Sản Phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" href="css/templatemo-space-dynamic.css">
+    <link rel="stylesheet" href="css/animated.css">
+    <link rel="stylesheet" href="css/owl.css">
     <!--    <link rel="stylesheet" href="css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -210,39 +222,127 @@
     /*.img_product:hover .default-img {*/
     /*    opacity: 0;*/
     /*}*/
+    .row-item:hover {
+        background-color: #f5f5f5;
+        transform: scale(1.02); /* Phóng to nhẹ */
+        transition: all 0.3s ease-in-out; /* Hiệu ứng mượt */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng */
+    }
 
+    .row-item .badge {
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    /* Hiệu ứng badge khi di chuột */
+    .row-item:hover .badge {
+        background-color: #ff9800; /* Đổi màu */
+    }
+    .product-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .product-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 10px;
+    }
+
+    .product-info a {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px; /* Điều chỉnh chiều rộng tùy thuộc vào không gian của bạn */
+    }
+
+    .price-range {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .nav {
+        display: flex;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav li {
+        margin-right: 5px;
+    }
+
+    .nav i {
+        font-size: 16px;
+    }
+
+    .search-form {
+        width: 50%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-form input[type="text"] {
+        width: 90%;
+        padding: 10px;
+        border-radius: 5px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .search-form button {
+        padding: 10px 15px;
+        background-color: #f8f9fa;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .search-form button i {
+        color: #000;
+    }
 </style>
 <body>
 <%@include file="header.jsp"%>
+
 <section style="background-color: rgb(254,235,205)">
   <div class="row">
     <div class="d-flex justify-content-center">
         <div class="main_name fw-bold text-danger text-center fs-1 ">Sản Phẩm</div>
     </div>
    </div>
-    <div class="row">
-        <div class="col p-3 text-black">
-            <div class="d-flex justify-content-center">
-                <ul class="nav">
-                    <c:forEach var="category" items="${categoryProductCounts.keySet()}">
-                        <li class="nav-item">
-                            <div class="">
-                                <a class="nav-link fw-bold text-dark pb-0" href="#">${category}</a>
-                                <a class="nav-link fw-medium text-secondary pt-0" href="#">
-                                        ${categoryProductCounts[category]} Sản Phẩm
-                                </a>
-                            </div>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
+   <div class="row">
+    <div class="col p-3 text-black">
+        <div class="d-flex justify-content-center">
+            <ul class="nav">
+                <c:forEach var="category" items="${categoryProductCounts.keySet()}">
+                    <li class="nav-item">
+                        <div class="">
+                            <a class="nav-link fw-bold text-dark pb-0" href="#">${category}</a>
+                            <a class="nav-link fw-medium text-secondary pt-0" href="product_category?idCategory=">
+                                    ${categoryProductCounts[category]} Sản Phẩm
+                            </a>
+                        </div>
+                    </li>
+                </c:forEach>
+            </ul>
         </div>
     </div>
-
-    </div>
+ </div>
 </section>
 <section class="menu">
     <div class="container">
+        <div class="row" >
+            <form action="products" method="GET" class="search-form">
+                <input type="text" name="productName" placeholder="Tìm kiếm sản phẩm..." class="form-control">
+                <button type="submit" class="btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+
         <div class="row">
             <div class="col-3 text-danger fw-bold fs-5 mt-5" style="--bs-text-opacity: .85;">
                 <div class="d-flex ps-1">
@@ -261,39 +361,19 @@
                 </div>
             </div>
             <div class="col-3 mt-5">
-                <div class="d-flex justify-content-center">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
             </div>
             <div class="col-3 mt-5">
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">Lọc sản phẩm:</button>
+                    <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown">Thứ tự theo mức độ phổ biến</button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="?filterType=priceAsc">Thứ tự theo giá: thấp đến cao</a></li>
-                        <li><a class="dropdown-item" href="?filterType=priceDesc">Thứ tự theo giá: cao đến thấp</a></li>
-                        <li><a class="dropdown-item" href="?filterType=newest">Mới nhất</a></li>
-                        <li><a class="dropdown-item" href="?filterType=rating">Thứ tự theo đánh giá</a></li>
-                        <li><a class="dropdown-item" href="?filterType=promotion">Thứ tự theo khuyến mãi</a></li>
+                        <li><a class="dropdown-item" href="products?filterType=priceAsc">Thứ tự theo giá: thấp đến cao</a></li>
+                        <li><a class="dropdown-item" href="products?filterType=priceDesc">Thứ tự theo giá: cao đến thấp</a></li>
+                        <li><a class="dropdown-item" href="products?filterType=newest">Mới nhất</a></li>
+                        <li><a class="dropdown-item" href="products?filterType=rating">Thứ tự theo đánh giá</a></li>
+                        <li><a class="dropdown-item" href="products?filterType=promotion">Thứ tự theo khuyến mãi</a></li>
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -311,48 +391,21 @@
             <div class="col-3">
                 <div class="d-flex ps-1">
                     <div class="vstack gap-3">
-                        <div class="row">
-                            <div class="col">
-                                <ul class="nav pb-0 text-secondary fw-medium">
-                                    <c:forEach var="item" items="${sessionScope.categories.items}" >
-                                        <li class="">${item.name}</li>
-                                    </c:forEach>
+                        <div class="row" >
+                            <c:forEach var="item" items="${sessionScope.categories.items}">
+                                <!-- Tạo một hàng cho mỗi mục -->
 
+                                <ul class="row align-items-center row-item p-2 rounded" style="list-style: none;margin-bottom: 0">
+                                    <!-- Cột bên trái hiển thị tên danh mục -->
+                                    <div class="col text-secondary fw-medium">
+                                        <a href="product_category?idCategory=${item.id}" style="text-decoration: none;color: black"><li style="cursor: pointer" >${item.name}</li></a>
+                                    </div>
+                                    <!-- Cột bên phải hiển thị giá trị tương ứng -->
+                                    <div class="col-4 fs-6">
+                                        <div class="badge border text-bg-light">${item.quantity}</div> <!-- Thay số 4 bằng giá trị thực tế -->
+                                    </div>
                                 </ul>
-
-                                <ul class="nav pb-0 text-secondary fw-medium">
-                                    <li class="">Bột Nấm</li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Chà Bông Nấm</li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Nấm Dược Liệu</li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Nấm Khô</li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Nấm Quà Tặng</li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Nấm Tươi</li>
-                                </ul>
-                                <ul class="nav pt-2 text-secondary fw-medium">
-                                    <li class="">Phôi Nấm</li>
-                                </ul>
-                            </div>
-                            <div class="col-4 fs-6">
-                                <c:forEach var="category" items="${sessionScope.categoryProductCounts}">
-                                    <ul class="nav pt-2 text-secondary fw-medium">
-                                        <li class="ps-5">
-                                            <div class="badge border text-bg-light">
-                                                    ${category.value}
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </c:forEach>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -373,84 +426,36 @@
                     <div class="pt-3">
                         <div class="d-flex ps-1 text-danger fw-bold fs-5">Bán Chạy Nhất</div>
                     </div>
+
                     <div class="">
-                        <ul class="nav mt-2">
-                            <li class="h-80 d-inline-block pt-2" style="height:80px">
-                                <a href=""><img src="img/img19.png" style="width: 80px" class="" alt="..."></a>
-                            </li>
-                            <li class="">
-                                <a class="nav-link fw-medium text-dark pt-1" href="#">Nấm Hương Tươi</a>
-                                <ul class="nav">
-                                    <li class=""><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
-                                <div class="ms-3">22.000đ - 85.000đ</div>
-                            </li>
-                        </ul>
-                        <ul class="nav mt-3">
-                            <li class="h-80 d-inline-bloc pt-2" style="height:80px">
-                                <a href="#"><img src="img/img3.png" style="width: 80px" class="" alt="..."></a>
-                            </li>
-                            <li class="">
-                                <a class="nav-link fw-medium text-dark pt-1" href="#">Nấm Mỡ Tươi</a>
-                                <ul class="nav">
-                                    <li class=""><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
-                                <div class="ms-3">39.000đ - 165.000đ</div>
-                            </li>
-                        </ul>
-
-                        <ul class="nav mt-3">
-                            <!-- Phần hình ảnh -->
-                            <li class="h-80 d-inline-block pt-2" style="height:80px">
-                                <a href="#"><img src="img/img7.png" style="width: 80px" alt="Nấm Mỡ Nâu Tươi"></a>
-                            </li>
-
-                            <!-- Phần nội dung sản phẩm -->
-                            <li>
-                                <a class="nav-link fw-medium text-dark pt-1" href="#">Nấm Mỡ Nâu Tươi</a>
-                                <ul class="nav">
-                                    <li><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li><div><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li><div><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li><div><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li><div><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
-                                <div class="ms-3">58.000đ - 250.000đ</div>
-
-
-                            </li>
-                        </ul>
-                        <ul class="nav mt-3">
-                            <li class="h-80 d-inline-block pt-2" style="height:80px">
-                                <a href=""><img src="img/img11.png" style="width: 80px" class="" alt="..."></a>
-                            </li>
-                            <li class="">
-                                <a class="nav-link fw-medium text-dark pt-1" href="">Nấm Rôm Sấy</a>
-                                <ul class="nav">
-                                    <li class=""><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                    <li class=""><div class=""><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
-                                </ul>
-                                <div class="ms-3">39.000đ - 185.000đ</div>
-                            </li>
-                        </ul>
+                        <c:forEach var="item" items="${sessionScope.topproduct.items}">
+                            <ul class="nav mt-2 product-item id">
+                                <a href="product_detail?id=${item.id}">
+                                    <li class="h-80 d-inline-block pt-2" style="height:80px">
+                                        <img src="img/${item.image}" style="width: 80px" alt="...">
+                                    </li>
+                                    <li class="product-info">
+                                        <a class="nav-link fw-medium text-dark pt-1" href="#">${item.name}</a>
+                                        <ul class="nav">
+                                            <li><div class="ms-3"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
+                                            <li><div><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
+                                            <li><div><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
+                                            <li><div><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
+                                            <li><div><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div></li>
+                                        </ul>
+                                        <div class="ms-3 price-range">
+                                            <fmt:formatNumber value="${item.minPrice}" type="number" groupingUsed="true" /> đ -
+                                            <fmt:formatNumber value="${item.maxPrice}" type="number" groupingUsed="true" /> đ
+                                        </div>
+                                    </li>
+                                </a>
+                            </ul>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
             <div class="col-9" style="">
                 <div class="d-flex ps-5" style="width: 100%;">
-
-
                     <ul class="nav d-flex flex-wrap gap-4" style="width: 100%">
                         <c:forEach var="item" items="${sessionScope.listproduct.items}">
                             <li class="nav-item" style="width: 30%; height: 500px">
@@ -498,7 +503,7 @@
                                             <button data-id="${item.id}" data-weight="1000" class="btn btn-sm btn-outline-secondary rounded-pill weight-btn">1kg</button>
                                         </div>
                                         <div class="product_name text-dark fw-bold mb-2">${item.name}</div>
-                                        <div class="price text-danger fw-bold" style="font-size: 1.2rem;">${item.priceMin}đ - ${item.priceMax}đ</div>
+                                        <div class="price text-danger fw-bold" style="font-size: 1.2rem;"><fmt:formatNumber value="${item.priceMin}" type="number" groupingUsed="true" /> đ - <fmt:formatNumber value="${item.priceMax}" type="number" groupingUsed="true" /> đ</div>
                                     </div>
                                 </div>
                             </li>
