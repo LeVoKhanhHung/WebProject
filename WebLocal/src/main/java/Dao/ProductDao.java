@@ -552,6 +552,21 @@ public class ProductDao {
         return list;
     }
 
+    // hiển thị mô tả theo id từng sản phẩm
+    public String getProductDescriptionById(int productId) throws SQLException {
+        String query = "SELECT pv.productDescription FROM product_variants pv WHERE pv.idProduct = ? LIMIT 1";
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
+            stmt.setInt(1, productId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("productDescription");
+                }
+            }
+        }
+        return "Không có mô tả cho sản phẩm này."; // Trả về thông báo nếu không tìm thấy mô tả
+    }
+
+
     public static void main(String[] args) throws SQLException {
         ProductDao s = new ProductDao();
       //  System.out.println(s.getCategoryProductCounts("Nấm Khô"));
