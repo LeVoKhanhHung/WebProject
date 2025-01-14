@@ -20,17 +20,26 @@ public class ProductDetail extends HttpServlet {
    ServiceProduct serviceProduct = new ServiceProduct();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
- String id  = req.getParameter("id");
+        String id = req.getParameter("id");
         try {
-            pro = serviceProduct.getProductDetail(id);
+            // Lấy thông tin sản phẩm theo ID
+            Products product = serviceProduct.getProductDetail(id);
+
+            // Lấy mô tả sản phẩm theo ID
+            String productDescription = serviceProduct.getProductDescriptionById(Integer.parseInt(id));
+
+            // Gắn thông tin sản phẩm vào session
+            HttpSession session = req.getSession(true);
+            session.setAttribute("product_detail", product);
+
+            // Gắn mô tả sản phẩm vào request
+            req.setAttribute("product_description", productDescription);
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Lỗi khi lấy dữ liệu sản phẩm", e);
         }
-        HttpSession session = req.getSession(true);
-        session.setAttribute("product_detail",pro);
-        req.getRequestDispatcher("product_detail.jsp").forward(req,resp);
 
-
-
+        // Forward đến JSP để hiển thị
+        req.getRequestDispatcher("product_detail.jsp").forward(req, resp);
     }
 }
