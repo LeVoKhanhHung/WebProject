@@ -2,11 +2,12 @@ package Services;
 
 import Dao.ConnDB;
 import Dao.ProductDao;
+import Models.ManageProduct.ListProductManage;
+import Models.ManageProduct.Product;
 import Models.Product.ListProduct;
 import Models.cart.Productt;
 import Models.cart.CartProduct;
 import Models.cart.Cart;
-import Models.inforTransaction.Product;
 import Models.inforTransaction.Transaction;
 import Models.inforTransaction.TransactionHistory;
 import Models.Products.Products;
@@ -34,7 +35,7 @@ public class ServiceProduct {
 
         return productDao.getById(id, weight);
     }
-   public int getProductVariantCountByIdAndWeight(int productId, float weight) {
+    public int getProductVariantCountByIdAndWeight(int productId, float weight) {
         return productDao.getProductVariantCountByIdAndWeight(productId, weight);
     }
 
@@ -60,12 +61,9 @@ public class ServiceProduct {
         return userId;
     }
 
-    public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
 
-        return productDao.getListProductByPage(page,itemsPerPage);
-    }
 
-    public ListProduct getListProduct() throws SQLException {
+public ListProduct getListProduct() throws SQLException {
 
     return productDao.getListProduct();
 
@@ -74,25 +72,35 @@ public class ServiceProduct {
         return productDao.getTotalProducts();
     }
 
+    public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
+
+        return productDao.getListProductByPage(page,itemsPerPage);
+    }
     public Products getProductDetail(String idProduct) throws SQLException {
+
         return productDao.getProductDetail(idProduct);
+    }
+    public ListProduct getFilteredProducts(String filterType, int page, int itemsPerPage) throws SQLException {
+        return productDao.getFilteredProducts(filterType, page, itemsPerPage);
     }
     public int getCategoryProductCounts(String categoryName) throws SQLException {
         return productDao.getCategoryProductCounts(categoryName);
     }
+    public ListProductManage getAllProducts() throws SQLException {
 
-    public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
-        return productDao.getListProductByPage(page,itemsPerPage);
+        return productDao.getAllProducts();
+    }
+    public boolean updateProduct(int idProduct, double price, int quantity, String productDescription, double weight,
+                                 boolean isActive) {
+       return productDao.updateProduct(idProduct, price, quantity, productDescription, weight, isActive);
+    }
+    public void deleteProductVariant(int idProduct, float weight) throws SQLException {
+       productDao.deleteProductVariant(idProduct,weight);
     }
 
-    public ListProduct getFilteredProducts(String filterType, int page, int itemsPerPage) throws SQLException {
-        return productDao.getFilteredProducts(filterType, page, itemsPerPage);
+    public ListProduct searchProductsByName(String productName, int page, int itemsPerPage) throws SQLException {
+        return productDao.searchProductsByName(productName, page, itemsPerPage);
     }
-
-    public ListProduct getTop5BestSellingProducts() throws SQLException {
-        return productDao.getTop5BestSellingProducts();
-    }
-
 
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
@@ -105,6 +113,8 @@ public class ServiceProduct {
 
 //s.getListProduct();
 //s.getProductDetail("44");
+        System.out.println(s.getAllProducts().getItems().size());
+
     }
 }
 
