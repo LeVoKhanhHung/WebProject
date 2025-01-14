@@ -1,5 +1,7 @@
 package Dao;
 
+import Models.ManageProduct.ListProductManage;
+import Models.ManageProduct.Product;
 import Models.Product.ListProduct;
 import Models.Products.Products;
 import Models.cart.CartProduct;
@@ -12,12 +14,7 @@ import java.util.List;
 
 public class ProductDao {
     ConnDB dao = new ConnDB();
-
-    public ProductDao() {
-        this.dao = ConnDB.getInstance(); // Lấy instance duy nhất của ConnDB
-    }
-
-public List<CartProduct> getProductList(double weight) throws SQLException {
+    public List<CartProduct> getProductList(double weight) throws SQLException {
         List<CartProduct> productList = new ArrayList<>(); // Khởi tạo danh sách sản phẩm
 
         // Câu SQL với tham số "?"
@@ -66,7 +63,7 @@ public List<CartProduct> getProductList(double weight) throws SQLException {
             double salePercent = rs.getDouble("salePercent");
 
             // Tạo đối tượng Product và thêm vào danh sách
-            CartProduct product   =   new CartProduct(productID,productName,productPrice,productQuantity,productImage,productWeight,totalPrice,salePercent);
+            CartProduct product   =   new CartProduct(productID,productName,productPrice,1,productImage,productWeight,totalPrice,salePercent);
 
             productList.add(product);
         }
@@ -76,19 +73,21 @@ public List<CartProduct> getProductList(double weight) throws SQLException {
 
         return productList;
     }
-    
-public CartProduct getById(String id, int weight) throws SQLException {
-        List<CartProduct> productList = getProductList(weight);
-        for (CartProduct product : productList) {
-            if (product.getId().equals(id) && product.weight == weight) {
-                return product;
+    public CartProduct getById(String id, int weight) throws SQLException {
+        List<CartProduct> result = getProductList(weight);
+
+        for (CartProduct pro:
+                result) {
+
+            if(pro.getId().equals(id) &&  pro.weight == weight  ){
+
+                return pro;
             }
         }
-        System.out.println("Sản phẩm không tồn tại");
+        System.out.println("San pham khong ton tai");
         return null;
     }
-
-public int getProductVariantCountByIdAndWeight(int productId, float weight) {
+    public int getProductVariantCountByIdAndWeight(int productId, float weight) {
         String query = "SELECT SUM(quantity) FROM product_variants WHERE idProduct = ? AND weight = ?";
         try (PreparedStatement statement = dao.conn.prepareStatement(query)) {
             statement.setInt(1, productId);
@@ -102,22 +101,21 @@ public int getProductVariantCountByIdAndWeight(int productId, float weight) {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return 0; // trả về 0 nếu không tìm thấy bản ghi nào
     }
-
     public int getTotalProducts() throws SQLException {
         String query = "SELECT COUNT(*) AS total FROM products";
 
-        try (PreparedStatement stmt = dao.conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-                return rs.getInt("total");
-            }
+        PreparedStatement stmt = dao.conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("total");
         }
+
         return 0;
     }
-
-public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
+    public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLException {
         ListProduct list = new ListProduct();
         String query = """
                 SELECT
@@ -173,8 +171,7 @@ public ListProduct getListProductByPage(int page, int itemsPerPage) throws SQLEx
         }
         return list;
     }
-
-public Products getProductDetail(String idProduct) throws SQLException {
+    public Products getProductDetail(String idProduct) throws SQLException {
         Products pro = new Products();
         String sql = "SELECT "
                 + "p.productName, "
@@ -222,8 +219,7 @@ public Products getProductDetail(String idProduct) throws SQLException {
         }
         return pro;
     }
-
-public ListProduct getListProduct() throws SQLException {
+    public ListProduct getListProduct() throws SQLException {
         ListProduct list = new ListProduct();
         String query = """
             SELECT
@@ -285,32 +281,7 @@ public ListProduct getListProduct() throws SQLException {
 
     }
 
-    // tính tổng sản phẩm theo loại
-    public int getCategoryProductCounts(String categoryName) throws SQLException {
-        // tính tổng số lượng sản phẩm theo loại
-        String query = """
-        SELECT COUNT(DISTINCT p.id) AS totalQuantity
-                FROM products p
-                JOIN categories c ON p.idCategory = c.id
-                WHERE c.name = ?
-    """;
-
-        try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
-            // tên loại
-            stmt.setString(1, categoryName);
-
-            // Thực thi truy vấn
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("totalQuantity");
-                }
-            }
-        }
-        return 0;
-    }
-
-
- // lọc sản phẩm theo những lọai tiêu chí lọc
+    // lọc sản phẩm theo những lọai tiêu chí lọc
     public ListProduct getFilteredProducts(String filterType, int page, int itemsPerPage) throws SQLException {
         ListProduct list = new ListProduct();
         String query = """
@@ -395,66 +366,197 @@ public ListProduct getListProduct() throws SQLException {
         return list;
     }
 
-// top 5 sản phẩm bán chạy
-	public ListProduct getTop5BestSellingProducts() throws SQLException {
-        ListProduct topProducts = new ListProduct();
+    // tính tổng sản phẩm theo loại
+    public int getCategoryProductCounts(String categoryName) throws SQLException {
+        // tính tổng số lượng sản phẩm theo loại
         String query = """
-        SELECT 
-            od.idProduct AS ProductID,
-            od.nameProduct AS ProductName,
-            SUM(od.quantity) AS TotalSold,
-            MIN(od.price) AS MinPrice,
-            MAX(od.price) AS MaxPrice,
-            img1.imageData AS Image1,
-            img2.imageData AS Image2
-        FROM
-            order_details od
-        JOIN products p ON od.idProduct = p.id
-        LEFT JOIN (
-            SELECT i1.idProduct, i1.imageData
-            FROM Images i1
-            WHERE (
-                SELECT COUNT(*) 
-                FROM Images i2 
-                WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
-            ) = 1
-        ) img1 ON p.id = img1.idProduct
-        LEFT JOIN (
-            SELECT i1.idProduct, i1.imageData
-            FROM Images i1
-            WHERE (
-                SELECT COUNT(*) 
-                FROM Images i2 
-                WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
-            ) = 2
-        ) img2 ON p.id = img2.idProduct
-        GROUP BY 
-            od.idProduct, od.nameProduct, img1.imageData, img2.imageData
-        ORDER BY 
-            TotalSold DESC
-        LIMIT 5;
+        SELECT COUNT(DISTINCT p.id) AS totalQuantity
+                                        FROM products p
+                                        JOIN categories c ON p.idCategory = c.id
+                                        WHERE c.name = ?
     """;
 
-        try (PreparedStatement stmt = dao.conn.prepareStatement(query);
-             ResultSet resultSet = stmt.executeQuery()) {
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
+            // tên loại
+            stmt.setString(1, categoryName);
 
-            while (resultSet.next()) {
-                int productId = resultSet.getInt("ProductID");
-                String productName = resultSet.getString("ProductName");
-                int totalSold = resultSet.getInt("TotalSold");
-                int minPrice = resultSet.getInt("MinPrice");
-                int maxPrice = resultSet.getInt("MaxPrice");
-                String image1 = resultSet.getString("Image1");
-                String image2 = resultSet.getString("Image2");
-
-                topProducts.addProduct(productId, productName, image1, image2, minPrice, maxPrice);
+            // Thực thi truy vấn
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("totalQuantity");
+                }
             }
         }
-
-        return topProducts;
+        return 0;
     }
+    public ListProductManage getAllProducts() throws SQLException {
+        ListProductManage products = new ListProductManage();
+        String query = """
+                SELECT 
+                    p.id AS ID,
+                    p.productName AS 'Tên sản phẩm',
+                    pv.price AS 'Giá',
+                    pv.weight AS 'Quy cách',
+                    pv.quantity AS 'Số lượng',
+                    img.imageData AS 'Link ảnh',
+                    pv.productDescription AS 'Mô tả',
+                    s.supplierName AS 'Nhà cung cấp',
+                    c.name AS 'Phân loại'
+                FROM 
+                    products p
+                LEFT JOIN product_variants pv ON p.id = pv.idProduct
+                LEFT JOIN Images img ON p.id = img.idProduct
+                LEFT JOIN suppliers s ON p.idSupplier = s.id
+                LEFT JOIN categories c ON p.idCategory = c.id
+                WHERE 
+                    p.isActive = 1
+                GROUP BY 
+                    pv.id;
+                """;
+
+
+             PreparedStatement statement = dao.conn.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("ID"));
+                product.setName(resultSet.getString("Tên sản phẩm"));
+                product.setPrice(resultSet.getInt("Giá"));
+                product.setWeight(resultSet.getFloat("Quy cách"));
+                product.setQuantity(resultSet.getInt("Số lượng"));
+                product.setImage(resultSet.getString("Link ảnh"));
+                product.setProductDescription(resultSet.getString("Mô tả"));
+                product.setSupplierName(resultSet.getString("Nhà cung cấp"));
+                product.setCategory(resultSet.getString("Phân loại"));
+
+                products.addProduct(product);
+            }
+
+
+        return products;
+    }
+    public boolean updateProduct(int idProduct, double price, int quantity, String productDescription, double weight,
+                                 boolean isActive) {
+        String sql = "UPDATE product_variants " +
+                "SET price = ?, quantity = ?, productDescription = ?, weight = ?, isActive = ? " +
+                "WHERE idProduct = ? AND weight = ?";
+
+        try (PreparedStatement preparedStatement = dao.conn.prepareStatement(sql)) {
+            // Gán giá trị cho các tham số trong câu truy vấn
+            preparedStatement.setDouble(1, price);
+            preparedStatement.setInt(2, quantity);
+            preparedStatement.setString(3, productDescription);
+            preparedStatement.setDouble(4, weight);
+            preparedStatement.setBoolean(5, isActive);
+            preparedStatement.setInt(6, idProduct);
+            preparedStatement.setDouble(7, weight);
+
+            // Thực thi câu lệnh cập nhật
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Nếu có ít nhất một dòng bị ảnh hưởng, trả về true
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            // Xử lý lỗi nếu có (in ra thông báo lỗi)
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public void deleteProductVariant(int idProduct, float weight) throws SQLException {
+        // Câu truy vấn SQL để xóa bản ghi trong bảng sales liên quan đến product_variant
+        String deleteSalesQuery = "DELETE FROM sales WHERE idVariant IN (SELECT id FROM product_variants WHERE idProduct = ? AND weight = ?)";
+
+        // Câu truy vấn SQL để xóa bản ghi trong bảng product_variants
+        String deleteProductVariantQuery = "DELETE FROM product_variants WHERE idProduct = ? AND weight = ?";
+
+
+             PreparedStatement deleteSalesStmt = dao.conn.prepareStatement(deleteSalesQuery);
+             PreparedStatement deleteProductVariantStmt = dao.conn.prepareStatement(deleteProductVariantQuery);
+
+            // Thiết lập tham số cho câu truy vấn xóa sales
+            deleteSalesStmt.setInt(1, idProduct);
+            deleteSalesStmt.setFloat(2, weight);
+
+            // Thiết lập tham số cho câu truy vấn xóa product_variant
+            deleteProductVariantStmt.setInt(1, idProduct);
+            deleteProductVariantStmt.setFloat(2, weight);
+
+            // Thực thi câu truy vấn xóa trong bảng sales
+            deleteSalesStmt.executeUpdate();
+
+            // Thực thi câu truy vấn xóa trong bảng product_variants
+            deleteProductVariantStmt.executeUpdate();
+
+            System.out.println("Xóa thành công product_variant và các bản ghi liên quan trong sales.");
+    }
+
+
+    // chức năng tìm kiếm sản phẩm
+    public ListProduct searchProductsByName(String proName, int page, int itemsPerPage) throws SQLException {
+        ListProduct list = new ListProduct();
+        String query = """
+        SELECT
+                p.id AS ProductID,
+                p.productName,
+                MIN(pv.price) AS MinPrice,
+                MAX(pv.price) AS MaxPrice,
+                img1.imageData AS Image1,
+                img2.imageData AS Image2
+            FROM
+                products p
+            LEFT JOIN product_variants pv ON p.id = pv.idProduct
+            LEFT JOIN (
+                SELECT i1.idProduct, i1.imageData
+                FROM Images i1
+                WHERE (
+                    SELECT COUNT(*)
+                    FROM Images i2
+                    WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                ) = 1
+            ) img1 ON p.id = img1.idProduct
+            LEFT JOIN (
+                SELECT i1.idProduct, i1.imageData
+                FROM Images i1
+                WHERE (
+                    SELECT COUNT(*)
+                    FROM Images i2
+                    WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+                ) = 2
+            ) img2 ON p.id = img2.idProduct
+            WHERE p.productName LIKE ?
+            GROUP BY
+                p.id, p.productName, img1.imageData, img2.imageData
+            ORDER BY p.productName
+            LIMIT ? OFFSET ?
+    """;
+
+        try (PreparedStatement stmt = dao.conn.prepareStatement(query)){
+            stmt.setString(1, "%"+proName+"%");
+            stmt.setInt(2, itemsPerPage); // Giới hạn số sản phẩm trên mỗi trang
+            stmt.setInt(3, (page - 1) * itemsPerPage); // Tính toán OFFSET dựa trên số trang
+            try(ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    int productId = resultSet.getInt("ProductID");
+                    String productName = resultSet.getString("productName");
+                    int minPrice = resultSet.getInt("MinPrice");
+                    int maxPrice = resultSet.getInt("MaxPrice");
+                    String image1 = resultSet.getString("Image1");
+                    String image2 = resultSet.getString("Image2");
+
+                    list.addProduct(productId, productName, image1, image2, minPrice, maxPrice);
+                }
+            }
+        }
+        return list;
+    }
+
     public static void main(String[] args) throws SQLException {
         ProductDao s = new ProductDao();
-        s.getProductDetail("1");
+      //  System.out.println(s.getCategoryProductCounts("Nấm Khô"));
+      //  System.out.println(s.getAllProducts().getItems());
+       // s.deleteProductVariant(64,200);
+        System.out.println(s.getProductDetail(String.valueOf(46)));
     }
 }
