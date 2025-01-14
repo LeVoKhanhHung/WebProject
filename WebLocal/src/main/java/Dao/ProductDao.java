@@ -494,7 +494,7 @@ public class ProductDao {
 
 
     // chức năng tìm kiếm sản phẩm
-    public ListProduct searchProductsByName(String proName, int page, int itemsPerPage) throws SQLException {
+    public ListProduct searchProductsByName(String proName) throws SQLException {
         ListProduct list = new ListProduct();
         String query = """
         SELECT
@@ -529,13 +529,10 @@ public class ProductDao {
             GROUP BY
                 p.id, p.productName, img1.imageData, img2.imageData
             ORDER BY p.productName
-            LIMIT ? OFFSET ?
     """;
 
         try (PreparedStatement stmt = dao.conn.prepareStatement(query)){
             stmt.setString(1, "%"+proName+"%");
-            stmt.setInt(2, itemsPerPage); // Giới hạn số sản phẩm trên mỗi trang
-            stmt.setInt(3, (page - 1) * itemsPerPage); // Tính toán OFFSET dựa trên số trang
             try(ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
                     int productId = resultSet.getInt("ProductID");
