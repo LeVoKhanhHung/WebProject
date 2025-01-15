@@ -1,5 +1,7 @@
 package com.example.webapp.models;
 
+import java.sql.SQLException;
+
 public class Product {
     private int id;
     private String productName;
@@ -14,6 +16,8 @@ public class Product {
         this.idSupplier = idSupplier;
         this.isActive = isActive;
     }
+
+    public Product(){}
 
     public int getId() {
         return id;
@@ -54,4 +58,5 @@ public class Product {
     public void setActive(boolean active) {
         isActive = active;
     }
+
 }

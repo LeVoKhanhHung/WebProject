@@ -179,14 +179,14 @@ public class UserDAO {
              PreparedStatement stmt = conn.prepareStatement(query)) {
             if (conn == null) {
                 System.out.println("Kết nối cơ sở dữ liệu không thành công!");
-                return null; // Tránh gọi query khi không có kết nối
+                return null;
             }
 
-            stmt.setString(1, email); // Truyền email vào câu lệnh SQL
+            stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String storedPassword = rs.getString("userPassword"); // Lấy mật khẩu lưu trong cơ sở dữ liệu
+                String storedPassword = rs.getString("userPassword");
                 // So sánh mật khẩu người dùng nhập vào với mật khẩu trong cơ sở dữ liệu
                 if (storedPassword.equals(password)) {
                     // Nếu đúng mật khẩu, trả về đối tượng User

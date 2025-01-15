@@ -21,6 +21,8 @@ public class ProductVariant {
         this.importDate = importDate;
     }
 
+    public ProductVariant(){}
+
     public int getId() {
         return id;
     }
@@ -76,4 +78,5 @@ public class ProductVariant {
     public void setImportDate(Date importDate) {
         this.importDate = importDate;
     }
+
 }

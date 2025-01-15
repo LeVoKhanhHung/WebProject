@@ -11,6 +11,8 @@ public class Image {
         this.imageData = imageData;
     }
 
+    public Image(){}
+
     public int getId() {
         return id;
     }
