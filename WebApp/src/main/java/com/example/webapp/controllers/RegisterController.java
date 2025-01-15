@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import com.example.webapp.models.User;
 import com.example.webapp.daos.UserDAO;
 
-@WebServlet(name = "RegisterController", value = "/register")
+@WebServlet(name = "RegisterController", value = "/register-controller")
 public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

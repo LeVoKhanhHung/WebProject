@@ -6,7 +6,7 @@ import com.example.webapp.models.User;
 import java.util.List;
 
 public class UserService {
-    private UserDAO userDAO;
+    private static UserDAO userDAO;
 
     public UserService() {
         this.userDAO = new UserDAO();

@@ -170,4 +170,38 @@ public class UserDAO {
         }
         return false;
     }
+
+    public User checkLogin(String email, String password) {
+        User user = null;
+        String query = "SELECT id, email, userName, idRole, userPassword FROM users WHERE email = ? AND isActive = 1";
+
+        try (Connection conn = (Connection) DBConnection.get();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            if (conn == null) {
+                System.out.println("Kết nối cơ sở dữ liệu không thành công!");
+                return null; // Tránh gọi query khi không có kết nối
+            }
+
+            stmt.setString(1, email); // Truyền email vào câu lệnh SQL
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String storedPassword = rs.getString("userPassword"); // Lấy mật khẩu lưu trong cơ sở dữ liệu
+                // So sánh mật khẩu người dùng nhập vào với mật khẩu trong cơ sở dữ liệu
+                if (storedPassword.equals(password)) {
+                    // Nếu đúng mật khẩu, trả về đối tượng User
+                    user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setEmail(rs.getString("email"));
+                    user.setUserName(rs.getString("userName"));
+                    user.setIdRole(rs.getInt("idRole"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
 }
