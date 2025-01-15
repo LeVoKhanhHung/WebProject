@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 
-.sign-up-form {
+.signin-form {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
@@ -17,21 +17,21 @@ body {
     max-width: 400px;
 }
 
-.sign-up-form h2 {
+.signin-form h2 {
     text-align: center;
     color: #007bff;
     margin-bottom: 1.5rem;
 }
 
-.sign-up-form label {
+.signin-form label {
     display: block;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
 
-.sign-up-form input[type="text"],
-.sign-up-form input[type="email"],
-.sign-up-form input[type="password"] {
+.signin-form input[type="text"],
+.signin-form input[type="email"],
+.signin-form input[type="password"] {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 15px;
@@ -40,7 +40,7 @@ body {
     font-size: 16px;
 }
 
-.sign-up-form button {
+.signin-form button {
     width: 100%;
     padding: 0.75rem;
     background-color: #007bff;
@@ -51,18 +51,18 @@ body {
     cursor: pointer;
 }
 
-.sign-up-form .link {
+.signin-form .link {
     display: block;
     text-align: center;
     margin-top: 1rem;
     font-size: 0.9rem;
 }
 
-.sign-up-form .link a {
+.signin-form .link a {
     color: #007bff;
     text-decoration: none;
 }
 
-.sign-up-form .link a:hover {
+.signin-form .link a:hover {
     text-decoration: underline;
 }

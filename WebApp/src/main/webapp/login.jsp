@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đăng Nhập</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="<%= request.getContextPath() %>/css/login.css"> -->
+  <link rel="stylesheet" href="<c:url value='/css/login.css' />">
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100" style="background-color: antiquewhite;">
 <!-- Form Đăng nhập -->
@@ -30,7 +31,7 @@
 </div>
 
 <!-- Script -->
-<!-- <script src="<%= request.getContextPath() %>/js/login.js"></script> -->
+<%--<script src="<c:url value='/js/login.js' />"></script>--%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
