@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.example.webapp.daos.ProductDAO;
 import com.example.webapp.models.Sale;
 
 @WebServlet(name = "PromotionController", value = "/PromotionController")
