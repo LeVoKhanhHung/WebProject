@@ -20,7 +20,7 @@
                 <h3 class="text-center my-3">Admin Panel</h3>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="<c:url value='/admin/index.jsp' />">Trang chủ</a>
+                        <a class="nav-link active" href="<c:url value='/admin/home' />">Trang chủ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value='/admin/manage-product.jsp' />">Quản lý sản phẩm</a>
@@ -59,7 +59,7 @@
                     <div class="card text-white bg-primary mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Tổng số sản phẩm</h5>
-                            <p class="card-text display-5">150</p>
+                            <p class="card-text display-5">${totalProducts}</p>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                     <div class="card text-white bg-success mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Đơn hàng hôm nay</h5>
-                            <p class="card-text display-5">25</p>
+                            <p class="card-text display-5">${ordersToday}</p>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     <div class="card text-white bg-warning mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Phản hồi mới</h5>
-                            <p class="card-text display-5">8</p>
+                            <p class="card-text display-5">${newFeedbacks}</p>
                         </div>
                     </div>
                 </div>
@@ -100,8 +100,74 @@
     </div>
 </div>
 
-<script src="<c:url value='/js/admin-index.js' />"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script>
+    const revenues = ${revenues}; // Dữ liệu doanh thu từ servlet
+
+    // Biến để lưu trữ doanh thu theo tháng
+    const months = [];
+    const revenueData = [];
+
+    // Lấy dữ liệu doanh thu từ đối tượng `revenues`
+    revenues.forEach(revenue => {
+        months.push(revenue.month); // Tháng
+        revenueData.push(revenue.totalRevenue); // Doanh thu
+    });
+
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: months, // Dữ liệu tháng
+            datasets: [{
+                label: 'Doanh thu',
+                data: revenueData, // Dữ liệu doanh thu
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.4,
+                datalabels: {
+                    display: true,
+                    color: 'rgba(0, 0, 0, 0.7)',
+                    font: {
+                        size: 12,
+                        weight: 'bold'
+                    },
+                    align: 'top',
+                    anchor: 'end'
+                }
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                tooltip: {
+                    enabled: true,
+                },
+                datalabels: {
+                    display: true,
+                    color: '#000',
+                    font: {
+                        size: 12,
+                        weight: 'bold'
+                    },
+                    anchor: 'end',
+                    align: 'top'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: Math.ceil(Math.max(...revenueData) * 1.1)
+                }
+            }
+        },
+        plugins: [ChartDataLabels] // Kích hoạt plugin
+    });
+</script>
 </body>
 </html>

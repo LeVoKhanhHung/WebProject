@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -19,7 +20,7 @@
                 <h3 class="text-center my-3">Admin Panel</h3>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/index.jsp' />">Trang chủ</a>
+                        <a class="nav-link" href="<c:url value='/admin/home' />">Trang chủ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value='/admin/manage-product.jsp' />">Quản lý sản phẩm</a>
@@ -34,7 +35,7 @@
                         <a class="nav-link" href="<c:url value='/admin/manage-order.jsp' />">Quản lý đơn hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link　active" href="<c:url value='/admin/statistics.jsp' />">Thống kê và báo cáo doanh thu</a>
+                        <a class="nav-link active" href="<c:url value='/admin/statistics.jsp' />">Thống kê và báo cáo doanh thu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value='/admin/manage-user.jsp' />">Quản lý người dùng</a>
