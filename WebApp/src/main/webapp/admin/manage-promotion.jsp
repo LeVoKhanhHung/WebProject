@@ -13,37 +13,8 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="position-sticky">
-                <h3 class="text-center my-3">Admin Panel</h3>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/home' />">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-product.jsp' />">Quản lý sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<c:url value='/admin/manage-promotion.jsp' />">Quản lý chương trình khuyến mãi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-review.jsp' />">Quản lý đánh giá sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-order.jsp' />">Quản lý đơn hàng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/statistics.jsp' />">Thống kê và báo cáo doanh thu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-user.jsp' />">Quản lý người dùng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/feedback.jsp' />">Phản hồi khách hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <% request.setAttribute("activePage", "manage-promotion"); %>
+        <jsp:include page="sidebar.jsp" />
 
         <!-- Main content -->
         <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -59,8 +30,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Tên chương trình</th>
-                        <th>Mô tả</th>
+                        <th>ID Biến thể</th>
                         <th>Giảm giá (%)</th>
                         <th>Ngày bắt đầu</th>
                         <th>Ngày kết thúc</th>
@@ -71,13 +41,12 @@
                     <c:forEach var="promotion" items="${promotionList}">
                         <tr>
                             <td>${promotion.id}</td>
-                            <td>${promotion.name}</td>
-                            <td>${promotion.description}</td>
-                            <td>${promotion.discount}%</td>
-                            <td>${promotion.startDate}</td>
-                            <td>${promotion.endDate}</td>
+                            <td>${promotion.idVariant}</td>
+                            <td>${promotion.salePercent}%</td>
+                            <td>${promotion.saleStartDate}</td>
+                            <td>${promotion.saleEndDate}</td>
                             <td>
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPromotionModal" data-id="${promotion.id}">Sửa</button>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPromotionModal" data-id="${promotion.id}" data-idvariant="${promotion.idVariant}" data-salepercent="${promotion.salePercent}" data-startdate="${promotion.saleStartDate}" data-enddate="${promotion.saleEndDate}">Sửa</button>
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePromotionModal" data-id="${promotion.id}">Xóa</button>
                             </td>
                         </tr>
@@ -98,26 +67,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="${pageContext.request.contextPath}/addPromotion" method="post">
+                <form action="${pageContext.request.contextPath}/admin/addPromotion" method="post">
                     <div class="mb-3">
-                        <label for="promotionName" class="form-label">Tên chương trình</label>
-                        <input type="text" class="form-control" id="promotionName" name="promotionName" required>
+                        <label for="idVariant" class="form-label">ID Biến thể</label>
+                        <input type="text" class="form-control" id="idVariant" name="idVariant" required>
                     </div>
                     <div class="mb-3">
-                        <label for="promotionDescription" class="form-label">Mô tả</label>
-                        <input type="text" class="form-control" id="promotionDescription" name="promotionDescription" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="promotionDiscount" class="form-label">Giảm giá (%)</label>
-                        <input type="number" class="form-control" id="promotionDiscount" name="promotionDiscount" required>
+                        <label for="salePercent" class="form-label">Giảm giá (%)</label>
+                        <input type="number" class="form-control" id="salePercent" name="salePercent" required>
                     </div>
                     <div class="mb-3">
                         <label for="startDate" class="form-label">Ngày bắt đầu</label>
-                        <input type="date" class="form-control" id="startDate" name="startDate" required>
+                        <input type="date" class="form-control" id="startDate" name="saleStartDate" required>
                     </div>
                     <div class="mb-3">
                         <label for="endDate" class="form-label">Ngày kết thúc</label>
-                        <input type="date" class="form-control" id="endDate" name="endDate" required>
+                        <input type="date" class="form-control" id="endDate" name="saleEndDate" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Thêm</button>
                 </form>
@@ -135,27 +100,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="${pageContext.request.contextPath}/editPromotion" method="post">
+                <form action="${pageContext.request.contextPath}/admin/editPromotion" method="post">
                     <input type="hidden" id="editPromotionId" name="promotionId">
                     <div class="mb-3">
-                        <label for="editPromotionName" class="form-label">Tên chương trình</label>
-                        <input type="text" class="form-control" id="editPromotionName" name="promotionName" required>
+                        <label for="editIdVariant" class="form-label">ID Biến thể</label>
+                        <input type="text" class="form-control" id="editIdVariant" name="idVariant" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editPromotionDescription" class="form-label">Mô tả</label>
-                        <textarea class="form-control" id="editPromotionDescription" name="promotionDescription" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editPromotionDiscount" class="form-label">Giảm giá (%)</label>
-                        <input type="number" class="form-control" id="editPromotionDiscount" name="promotionDiscount" required>
+                        <label for="editSalePercent" class="form-label">Giảm giá (%)</label>
+                        <input type="number" class="form-control" id="editSalePercent" name="salePercent" required>
                     </div>
                     <div class="mb-3">
                         <label for="editStartDate" class="form-label">Ngày bắt đầu</label>
-                        <input type="date" class="form-control" id="editStartDate" name="startDate" required>
+                        <input type="date" class="form-control" id="editStartDate" name="saleStartDate" required>
                     </div>
                     <div class="mb-3">
                         <label for="editEndDate" class="form-label">Ngày kết thúc</label>
-                        <input type="date" class="form-control" id="editEndDate" name="endDate" required>
+                        <input type="date" class="form-control" id="editEndDate" name="saleEndDate" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Cập nhật chương trình</button>
                 </form>
@@ -173,17 +134,38 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Bạn có chắc chắn muốn xóa chương trình khuyến mãi này không? Hành động này sẽ không thể phục hồi.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-danger" data-id="${promotion.id}">Xóa</button>
+                <form action="${pageContext.request.contextPath}/admin/deletePromotion" method="post">
+                    <input type="hidden" id="deletePromotionId" name="promotionId">
+                    <p>Bạn có chắc chắn muốn xóa chương trình khuyến mãi này?</p>
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<script src="<c:url value='/js/manage-promotion.js' />"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // JavaScript xử lý truyền dữ liệu cho các modal thêm, sửa và xóa
+    document.querySelector('#addPromotionModal').addEventListener('show.bs.modal', function (event) {
+        // Reset các giá trị trong modal khi mở
+        document.getElementById('addPromotionForm').reset();
+    });
+
+    document.querySelector('#editPromotionModal').addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        document.getElementById('editPromotionId').value = button.getAttribute('data-id');
+        document.getElementById('editIdVariant').value = button.getAttribute('data-idvariant');
+        document.getElementById('editSalePercent').value = button.getAttribute('data-salepercent');
+        document.getElementById('editStartDate').value = button.getAttribute('data-startdate');
+        document.getElementById('editEndDate').value = button.getAttribute('data-enddate');
+    });
+
+    document.querySelector('#deletePromotionModal').addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        document.getElementById('deletePromotionId').value = button.getAttribute('data-id');
+    });
+</script>
+
 </body>
 </html>

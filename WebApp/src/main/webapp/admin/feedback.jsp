@@ -13,37 +13,8 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="position-sticky">
-                <h3 class="text-center my-3">Admin Panel</h3>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/home' />">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-product.jsp' />">Quản lý sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-promotion.jsp' />">Quản lý chương trình khuyến mãi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-review.jsp' />">Quản lý đánh giá sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-order.jsp' />">Quản lý đơn hàng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/statistics.jsp' />">Thống kê và báo cáo doanh thu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-user.jsp' />">Quản lý người dùng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<c:url value='/admin/feedback.jsp' />">Phản hồi khách hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <% request.setAttribute("activePage", "feedback"); %>
+        <jsp:include page="sidebar.jsp" />
 
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -61,42 +32,33 @@
                         <th>Tên khách hàng</th>
                         <th>Email</th>
                         <th>Tin nhắn</th>
+                        <th>Ngày gửi</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- Mẫu dữ liệu tin nhắn -->
-                    <tr>
-                        <td>1</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>a@example.com</td>
-                        <td>Chào cửa hàng, tôi muốn biết thêm về sản phẩm Lingzhi.</td>
-                        <td>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#responseModal"
-                                    onclick="loadResponse('Nguyễn Văn A', 'a@example.com', 'Chào cửa hàng, tôi muốn biết thêm về sản phẩm Lingzhi.')">
-                                Phản hồi
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Trần Thị B</td>
-                        <td>b@example.com</td>
-                        <td>Sản phẩm Cordyceps của bạn có giá bao nhiêu?</td>
-                        <td>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#responseModal"
-                                    onclick="loadResponse('Trần Thị B', 'b@example.com', 'Sản phẩm Cordyceps của bạn có giá bao nhiêu?')">
-                                Phản hồi
-                            </button>
-                        </td>
-                    </tr>
+                    <c:forEach var="feedback" items="${feedbacks}">
+                        <tr>
+                            <td>${feedback.id}</td>
+                            <td>${feedback.customerName}</td>
+                            <td>${feedback.customerEmail}</td>
+                            <td>${feedback.comment}</td>
+                            <td>${feedback.createDate}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#responseModal"
+                                        data-id="${feedback.id}" data-name="${feedback.customerName}"
+                                        data-email="${feedback.customerEmail}" data-message="${feedback.comment}">
+                                    Phản hồi
+                                </button>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
 
             <!-- Modal phản hồi -->
-            <div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel"
-                 aria-hidden="true">
+            <div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -104,14 +66,29 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="responseMessage" class="form-label">Tin nhắn phản hồi</label>
-                                <textarea class="form-control" id="responseMessage" rows="4"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary" onclick="sendResponse()">Gửi phản hồi</button>
+                            <form id="responseForm" action="<c:url value='/admin/feedback/respond'/>" method="post">
+                                <input type="hidden" id="feedbackId" name="feedbackId">
+                                <div class="mb-3">
+                                    <label for="customerName" class="form-label">Tên khách hàng</label>
+                                    <input type="text" id="customerName" class="form-control" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customerEmail" class="form-label">Email khách hàng</label>
+                                    <input type="email" id="customerEmail" class="form-control" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customerMessage" class="form-label">Tin nhắn của khách hàng</label>
+                                    <textarea id="customerMessage" class="form-control" rows="4" readonly></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="responseMessage" class="form-label">Tin nhắn phản hồi</label>
+                                    <textarea id="responseMessage" name="responseMessage" class="form-control" rows="4" required></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Gửi phản hồi</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -121,7 +98,23 @@
 </div>
 
 <script src="<c:url value='/js/feedback.js'/>"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Xử lý dữ liệu động cho modal
+    const responseModal = document.getElementById('responseModal');
+    responseModal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget;
+        const feedbackId = button.getAttribute('data-id');
+        const customerName = button.getAttribute('data-name');
+        const customerEmail = button.getAttribute('data-email');
+        const customerMessage = button.getAttribute('data-message');
+
+        // Gán dữ liệu vào modal
+        document.getElementById('feedbackId').value = feedbackId;
+        document.getElementById('customerName').value = customerName;
+        document.getElementById('customerEmail').value = customerEmail;
+        document.getElementById('customerMessage').value = customerMessage;
+    });
+</script>
 </body>
 </html>
-
