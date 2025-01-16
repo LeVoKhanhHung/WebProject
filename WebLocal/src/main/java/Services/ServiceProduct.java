@@ -5,6 +5,7 @@ import Dao.ProductDao;
 import Models.ManageProduct.ListProductManage;
 import Models.ManageProduct.Product;
 import Models.Product.ListProduct;
+import Models.TopProductBuy.TopProduct;
 import Models.cart.Productt;
 import Models.cart.CartProduct;
 import Models.cart.Cart;
@@ -12,10 +13,7 @@ import Models.inforTransaction.Transaction;
 import Models.inforTransaction.TransactionHistory;
 import Models.Products.Products;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -61,10 +59,7 @@ public class ServiceProduct {
         return userId;
     }
 
-
-
-public ListProduct getListProduct() throws SQLException {
-
+    public ListProduct getListProduct() throws SQLException {
     return productDao.getListProduct();
 
     }
@@ -97,27 +92,27 @@ public ListProduct getListProduct() throws SQLException {
     public void deleteProductVariant(int idProduct, float weight) throws SQLException {
        productDao.deleteProductVariant(idProduct,weight);
     }
-
-    public ListProduct searchProductsByName(String productName, int page, int itemsPerPage) throws SQLException {
-        return productDao.searchProductsByName(productName, page, itemsPerPage);
+    public ListProduct searchProductsByName(String productName) throws SQLException {
+        return productDao.searchProductsByName(productName);
     }
 
-    public String getProductDescriptionById(int productId) throws SQLException {
-        return productDao.getProductDescriptionById(productId);
+    public ListProduct getProductsByPriceRange(double minPrice, double maxPrice) throws SQLException {
+        return productDao.getProductsByPriceRange(minPrice, maxPrice);
     }
 
-
+    public TopProduct getLatestProducts() {
+        return productDao.getLatestProducts();
+    }
     public static void main(String[] args) throws Exception {
         ServiceProduct s = new ServiceProduct();
         Transaction tr = new Transaction();
-      //  System.out.println(s.getProductVariantCountByIdAndWeight(1,200));
+        //System.out.println(s.getProductVariantCountByIdAndWeight(1,200));
         //System.out.println(s.getProductList(22));
-       // System.out.println(s.getById("1",200));
-      //  System.out.println(s.getUserIdByPhoneNumber("0912345678"));
-      // System.out.println(s.insertPayment(Integer.parseInt("2"),Integer.parseInt("17"),"COD"));
-
-//s.getListProduct();
-//s.getProductDetail("44");
+        //System.out.println(s.getById("1",200));
+        //System.out.println(s.getUserIdByPhoneNumber("0912345678"));
+        //System.out.println(s.insertPayment(Integer.parseInt("2"),Integer.parseInt("17"),"COD"));
+        //s.getListProduct();
+        //s.getProductDetail("44");
         System.out.println(s.getAllProducts().getItems().size());
 
     }
