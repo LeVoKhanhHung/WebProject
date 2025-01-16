@@ -14,37 +14,8 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
-            <div class="position-sticky">
-                <h3 class="text-center my-3">Admin Panel</h3>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/home' />">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-product.jsp' />">Quản lý sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-promotion.jsp' />">Quản lý chương trình khuyến mãi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-review.jsp' />">Quản lý đánh giá sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/manage-order.jsp' />">Quản lý đơn hàng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/statistics.jsp' />">Thống kê và báo cáo doanh thu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<c:url value='/admin/manage-user.jsp' />">Quản lý người dùng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/admin/feedback.jsp' />">Phản hồi khách hàng</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <% request.setAttribute("activePage", "manage-user"); %>
+        <jsp:include page="sidebar.jsp" />
 
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -55,6 +26,11 @@
             <!-- Danh sách người dùng -->
             <div class="overview">
                 <h2>Danh Sách Người Dùng</h2>
+
+                <c:if test="${empty userList}">
+                    <p>Không có người dùng nào.</p>
+                </c:if>
+
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -69,14 +45,18 @@
                     <c:forEach var="user" items="${userList}">
                         <tr>
                             <td>${user.id}</td>
-                            <td>${user.name}</td>
+                            <td>${user.userName}</td>
                             <td>${user.email}</td>
-                            <td>${user.status}</td>
+                            <td>${user.isActive}</td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editUserModal" onclick="editUser(${user.id})">Chỉnh sửa
-                                </button>
-                                <button class="btn btn-danger btn-sm" onclick="toggleStatus(${user.id})">Khóa</button>
+                                <!-- Form để thay đổi trạng thái người dùng -->
+                                <form action="/admin/manage-user" method="post" style="display: inline;">
+                                    <input type="hidden" name="userId" value="${user.id}">
+                                    <input type="hidden" name="action" value="${user.isActive ? 'deactivate' : 'activate'}">
+                                    <button class="btn ${user.isActive ? 'btn-warning' : 'btn-success'} btn-sm" type="submit">
+                                            ${user.isActive ? 'Khóa' : 'Kích hoạt'}
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -84,43 +64,6 @@
                 </table>
             </div>
         </main>
-    </div>
-</div>
-
-<!-- Modal chỉnh sửa thông tin -->
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">Chỉnh sửa thông tin người dùng</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editUserForm">
-                    <div class="mb-3">
-                        <label for="editUserName" class="form-label">Tên</label>
-                        <input type="text" class="form-control" id="editUserName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editUserEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="editUserEmail" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editUserStatus" class="form-label">Trạng thái</label>
-                        <select class="form-select" id="editUserStatus">
-                            <option value="Đang hoạt động">Đang hoạt động</option>
-                            <option value="Bị khóa">Bị khóa</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary" id="saveEditButton" onclick="saveUserChanges()">Lưu thay
-                    đổi
-                </button>
-            </div>
-        </div>
     </div>
 </div>
 
