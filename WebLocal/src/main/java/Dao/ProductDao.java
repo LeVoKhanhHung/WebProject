@@ -4,8 +4,10 @@ import Models.ManageProduct.ListProductManage;
 import Models.ManageProduct.Product;
 import Models.Product.ListProduct;
 import Models.Products.Products;
+import Models.TopProductBuy.TopProduct;
 import Models.cart.CartProduct;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -175,6 +177,8 @@ public class ProductDao {
         Products pro = new Products();
         String sql = "SELECT "
                 + "p.productName, "
+                + "p.idCategory, "
+
                 + "MIN(pv.price) AS minPrice, "
                 + "MAX(pv.price) AS maxPrice, "
                 + "pv.productDescription, "
@@ -196,6 +200,7 @@ public class ProductDao {
         while (resultSet.next()) {
 
             String productName = resultSet.getString("productName");
+            int idCate = resultSet.getInt("idCategory");
             double minPrice = resultSet.getDouble("minPrice");
             double maxPrice = resultSet.getDouble("maxPrice");
             String productDescription = resultSet.getString("productDescription");
@@ -206,6 +211,7 @@ public class ProductDao {
             System.out.println(idProduct);
             // In kết quả ra console (hoặc có thể xử lý theo nhu cầu)
             System.out.println("Product Name: " + productName);
+            System.out.println("Cate " + idCate);
             System.out.println("Min Price: " + minPrice);
             System.out.println("Max Price: " + maxPrice);
             System.out.println("Description: " + productDescription);
@@ -214,7 +220,7 @@ public class ProductDao {
             System.out.println("Image 3: " + image3);
             System.out.println("Image 4: " + image4);
             System.out.println("-----------------------------");
-            pro.addProduct(Integer.parseInt(idProduct),productName,minPrice,maxPrice,image1,image2,image3,image4,productDescription);
+            pro.addProduct(Integer.parseInt(idProduct),idCate,productName,minPrice,maxPrice,image1,image2,image3,image4,productDescription);
 
         }
         return pro;
@@ -280,8 +286,6 @@ public class ProductDao {
         return list;
 
     }
-
-    // lọc sản phẩm theo những lọai tiêu chí lọc
     public ListProduct getFilteredProducts(String filterType, int page, int itemsPerPage) throws SQLException {
         ListProduct list = new ListProduct();
         String query = """
@@ -365,8 +369,6 @@ public class ProductDao {
         }
         return list;
     }
-
-    // tính tổng sản phẩm theo loại
     public int getCategoryProductCounts(String categoryName) throws SQLException {
         // tính tổng số lượng sản phẩm theo loại
         String query = """
@@ -490,10 +492,7 @@ public class ProductDao {
             deleteProductVariantStmt.executeUpdate();
 
             System.out.println("Xóa thành công product_variant và các bản ghi liên quan trong sales.");
-    }
-
-
-    // chức năng tìm kiếm sản phẩm
+        }
     public ListProduct searchProductsByName(String proName) throws SQLException {
         ListProduct list = new ListProduct();
         String query = """
@@ -548,19 +547,112 @@ public class ProductDao {
         }
         return list;
     }
+    public TopProduct getLatestProducts() {
+        TopProduct items = new TopProduct();
+        ConnDB dao = new ConnDB();
+        String query = """
+                SELECT 
+                    p.id AS productId,
+                    p.productName,
+                    COALESCE(MIN(pv.price), 0) AS minPrice,
+                    COALESCE(MAX(pv.price), 0) AS maxPrice,
+                    (SELECT i.imageData 
+                     FROM Images i 
+                     WHERE i.idProduct = p.id 
+                     LIMIT 1) AS image
+                FROM 
+                    products p
+                LEFT JOIN 
+                    product_variants pv ON p.id = pv.idProduct
+                WHERE 
+                    p.isActive = 1
+                GROUP BY 
+                    p.id, p.productName
+                ORDER BY 
+                    MAX(pv.importDate) DESC, p.id
+                LIMIT 5;
+                """;
 
-    // hiển thị mô tả theo id từng sản phẩm
-    public String getProductDescriptionById(int productId) throws SQLException {
-        String query = "SELECT pv.productDescription FROM product_variants pv WHERE pv.idProduct = ? LIMIT 1";
+        try (Connection conn = dao.getConn();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int productId = rs.getInt("productId");
+                String name = rs.getString("productName");
+                double minPrice = rs.getDouble("minPrice");
+                double maxPrice = rs.getDouble("maxPrice");
+                String image = rs.getString("image");
+                items.addProduct(new Models.TopProductBuy.Product(productId,name, (int) minPrice, (int) maxPrice,image));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return items;
+    }
+
+    //lọc sản phẩm theo khoảng giấ
+    public ListProduct getProductsByPriceRange(double minPrice, double maxPrice) throws SQLException {
+        ListProduct list = new ListProduct();
+
+        String query = """
+        SELECT 
+            p.id AS ProductID, 
+            p.productName, 
+            MIN(pv.price) AS MinPrice, 
+            MAX(pv.price) AS MaxPrice, 
+            img1.imageData AS Image1, 
+            img2.imageData AS Image2 
+        FROM 
+            products p 
+        JOIN 
+            product_variants pv ON p.id = pv.idProduct 
+        LEFT JOIN (
+            SELECT i1.idProduct, i1.imageData
+            FROM Images i1
+            WHERE (
+                SELECT COUNT(*) 
+                FROM Images i2 
+                WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+            ) = 1
+        ) img1 ON p.id = img1.idProduct
+        LEFT JOIN (
+            SELECT i1.idProduct, i1.imageData
+            FROM Images i1
+            WHERE (
+                SELECT COUNT(*) 
+                FROM Images i2 
+                WHERE i2.idProduct = i1.idProduct AND i2.id <= i1.id
+            ) = 2
+        ) img2 ON p.id = img2.idProduct
+        WHERE 
+            pv.price BETWEEN ? AND ? 
+        GROUP BY 
+            p.id, p.productName, img1.imageData, img2.imageData;
+    """;
+
         try (PreparedStatement stmt = dao.conn.prepareStatement(query)) {
-            stmt.setInt(1, productId);
+            stmt.setDouble(1, minPrice); // Tham số giá thấp nhất
+            stmt.setDouble(2, maxPrice); // Tham số giá cao nhất
+
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("productDescription");
+                while (rs.next()) {
+                    int productId = rs.getInt("ProductID");
+                    String productName = rs.getString("productName");
+                    int minProductPrice = rs.getInt("MinPrice");
+                    int maxProductPrice = rs.getInt("MaxPrice");
+                    String image1 = rs.getString("Image1");
+                    String image2 = rs.getString("Image2");
+
+                    // Thêm sản phẩm vào danh sách
+                    list.addProduct(productId, productName, image1, image2, minProductPrice, maxProductPrice);
                 }
             }
         }
-        return "Không có mô tả cho sản phẩm này."; // Trả về thông báo nếu không tìm thấy mô tả
+
+        return list;
     }
 
 
@@ -569,6 +661,6 @@ public class ProductDao {
       //  System.out.println(s.getCategoryProductCounts("Nấm Khô"));
       //  System.out.println(s.getAllProducts().getItems());
        // s.deleteProductVariant(64,200);
-        System.out.println(s.getProductDetail(String.valueOf(46)));
+        System.out.println(s.getProductDetail(String.valueOf(60)));
     }
 }
