@@ -27,6 +27,9 @@ public class list_product extends HttpServlet {
         int page = 1; // Mặc định là trang 1
         int itemsPerPage = 9; // Số sản phẩm hiển thị mỗi trang
         String productName = req.getParameter("productName"); // Tham số tìm kiếm tên sản phẩm
+        String minPriceParam = req.getParameter("minPrice"); // Tham số giá tiền tối thiểu
+        String maxPriceParam = req.getParameter("maxPrice"); // Tham số giá tiềnn   tối đa
+
 
         // Kiểm tra tham số `page` từ request
         if (req.getParameter("page") != null) {
@@ -55,27 +58,35 @@ public class list_product extends HttpServlet {
             // Tổng số trang
             int totalPages = (int) Math.ceil((double) totalProducts / itemsPerPage);
             if(productName != null && !productName.trim().isEmpty()){
-                productList = serviceProduct.searchProductsByName(productName, page, itemsPerPage);
+                productList = serviceProduct.searchProductsByName(productName);
                 totalPages = (int) Math.ceil((double)  totalProducts/ itemsPerPage);
-            }else{
+            } else if (minPriceParam != null && maxPriceParam != null){
+                try {
+                    double minPrice = Double.parseDouble(minPriceParam);
+                    double maxPrice = Double.parseDouble(maxPriceParam);
+                    productList = serviceProduct.getProductsByPriceRange(minPrice, maxPrice);
+                    totalPages = (int) Math.ceil((double) productList.getItems().size() / itemsPerPage);
+                } catch (NumberFormatException e) {
+                    throw new RuntimeException("Giá trị minPrice hoặc maxPrice không hợp lệ", e);
+                }
+            }
+            else{
                 // Kiểm tra tham số lọc từ request
                 String filterType = req.getParameter("filterType");
                 if (filterType == null || filterType.isEmpty()) {
                     filterType = "default"; // Lọc mặc định nếu không có tham số
                 }
                 // Lấy danh sách sản phẩm của trang hiện tại
-//            ListProduct item = serviceProduct.getListProductByPage(page, itemsPerPage);
                 productList = serviceProduct.getFilteredProducts(filterType, page, itemsPerPage);
             }
 
             // Lưu thông tin vào session
-//            session.setAttribute("listproduct", item);
             session.setAttribute("listproduct", productList);
             session.setAttribute("totalPages", totalPages);
             session.setAttribute("categoryProductCounts", categoryProductCounts);
 
             // Chuyển tiếp tới JSP
-           resp.sendRedirect("getTopBuy");
+            resp.sendRedirect("getTopBuy");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -84,5 +95,4 @@ public class list_product extends HttpServlet {
     }
 
 
-    }
-
+}
