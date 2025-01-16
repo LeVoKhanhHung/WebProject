@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-import com.example.webapp.models.User;
+import com.example.webapp.models.user.User;
 import com.example.webapp.services.UserService;
 
 @WebServlet(name = "ManageUserController", value = "/manage-user")

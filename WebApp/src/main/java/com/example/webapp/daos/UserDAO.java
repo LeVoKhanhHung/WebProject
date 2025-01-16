@@ -1,7 +1,9 @@
 package com.example.webapp.daos;
 
-import com.example.webapp.models.User;
+import com.example.webapp.models.user.User;
 import com.example.webapp.db.DBConnection;
+import com.example.webapp.models.user.UserAdmin;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,31 @@ public class UserDAO {
             e.printStackTrace();
         }
         return users;
+    }
+
+    // Lấy thông tin người dùng cho trang Admin
+    public List<UserAdmin> getAllUsersAdmin() {
+        List<UserAdmin> userAdminList = new ArrayList<>();
+        String query = "SELECT id, userName, email, isActive FROM users";
+
+        try (Connection connection = DBConnection.get();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                UserAdmin userAdmin = new UserAdmin();
+                userAdmin.setId(resultSet.getInt("id"));
+                userAdmin.setUserName(resultSet.getString("userName"));
+                userAdmin.setEmail(resultSet.getString("email"));
+                userAdmin.setActive(resultSet.getInt("isActive"));
+                userAdminList.add(userAdmin);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userAdminList;
     }
 
     // Lấy thông tin người dùng theo ID
@@ -158,6 +185,24 @@ public class UserDAO {
         return false;
     }
 
+    // Cập nhật trạng thái người dùng
+    public boolean updateUserStatus(int userId, boolean isActive) {
+        String query = "UPDATE users SET isActive = ? WHERE id = ?";
+
+        try (Connection connection = DBConnection.get();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setBoolean(1, isActive);
+            statement.setInt(2, userId);
+            return statement.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     // Xóa người dùng
     public boolean deleteUser(int id) {
         String query = "DELETE FROM users WHERE id = ?";
@@ -204,4 +249,6 @@ public class UserDAO {
         return user;
     }
 
+    public void updateUserInfo(int userId, String userName, String userEmail, String userStatus) {
+    }
 }

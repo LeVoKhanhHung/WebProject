@@ -1,7 +1,7 @@
 package com.example.webapp.services;
 
 import com.example.webapp.daos.UserDAO;
-import com.example.webapp.models.User;
+import com.example.webapp.models.user.User;
 
 import java.util.List;
 

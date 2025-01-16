@@ -1,21 +1,23 @@
 package com.example.webapp.models;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Sale {
     private int id;
     private int idVariant;
     private int salePercent;
-    private Date saleStartDate;
-    private Date saleEndDate;
+    private Timestamp saleStartDate;
+    private Timestamp saleEndDate;
 
-    public Sale(int id, int idVariant, int salePercent, Date saleStartDate, Date saleEndDate) {
+    public Sale(int id, int idVariant, int salePercent, Timestamp saleStartDate, Timestamp saleEndDate) {
         this.id = id;
         this.idVariant = idVariant;
         this.salePercent = salePercent;
         this.saleStartDate = saleStartDate;
         this.saleEndDate = saleEndDate;
     }
+
+    public Sale(){ }
 
     public int getId() {
         return id;
@@ -41,19 +43,19 @@ public class Sale {
         this.salePercent = salePercent;
     }
 
-    public Date getSaleStartDate() {
+    public Timestamp getSaleStartDate() {
         return saleStartDate;
     }
 
-    public void setSaleStartDate(Date saleStartDate) {
+    public void setSaleStartDate(Timestamp saleStartDate) {
         this.saleStartDate = saleStartDate;
     }
 
-    public Date getSaleEndDate() {
+    public Timestamp getSaleEndDate() {
         return saleEndDate;
     }
 
-    public void setSaleEndDate(Date saleEndDate) {
+    public void setSaleEndDate(Timestamp saleEndDate) {
         this.saleEndDate = saleEndDate;
     }
 }
